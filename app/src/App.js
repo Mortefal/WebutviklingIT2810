@@ -1,28 +1,20 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import SimpleCard from "./Components/SimpleCard";
+
 
 class App extends Component {
-  render() {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+        <div>
+            <SimpleCard title="Dette kan settes med props" description="Det kan det her også" pris="OG prisen!"/>
+        </div>
     );
   }
-}
+};
 
 export default App;
