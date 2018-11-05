@@ -11,7 +11,7 @@ class App extends Component {
     render() {
     return (
         <div>
-            <SimpleCard title="Dette kan settes med props" description="Det kan det her også" pris="OG prisen!"/>
+            <SimpleCard title="Dette kan settes med props" description="Det kan det her også" pris="OG prisen!" varenummer="10121514425"/>
         </div>
     );
   }

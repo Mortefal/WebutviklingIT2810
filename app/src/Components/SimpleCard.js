@@ -16,6 +16,7 @@ const styles = theme => ({
     image: {
         width: 128,
         height: 128,
+        /* Tror det skal være mulig å hente inn bilde ved å ta response.images[2].url hvor formatet er thumbnail */
     },
     img: {
         margin: 'auto',
@@ -26,7 +27,7 @@ const styles = theme => ({
 });
 
 function SimpleCard(props) {
-    const { classes, title, description, pris } = props;
+    const { classes, title, description, pris, varenummer } = props;
     return (
         <Paper className={classes.root}>
             <Grid container spacing={16}>
@@ -42,7 +43,7 @@ function SimpleCard(props) {
                                 {title}
                             </Typography>
                             <Typography gutterBottom>{description}</Typography>
-                            <Typography color="textSecondary">Varenummer: 10303401</Typography>
+                            <Typography color="textSecondary">Varenummer: {varenummer}</Typography>
                         </Grid>
                         <Grid item>
                             <Typography style={{ cursor: 'pointer' }}>Legg til i handleliste</Typography>
