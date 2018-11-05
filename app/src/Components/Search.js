@@ -11,7 +11,7 @@ class Search extends Component {
         //now logikk for å hente ut ting fra databasen, FETCH API greier, vetikke finne ut av senere
         //    .then(({ data }) => {
                 this.setState({
-                    results: data.data
+                    results: 'hei'//data.data
                 })
         //    })
     };

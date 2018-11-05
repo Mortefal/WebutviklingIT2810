@@ -23,6 +23,7 @@ export default class inputBar extends Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
+                Search:
                 <label>
                     <input type="text" value={this.state.value} onChange={this.handleChange} />
                 </label>
