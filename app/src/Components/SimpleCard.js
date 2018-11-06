@@ -6,6 +6,10 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import BottleWine from 'mdi-material-ui/BottleWine';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import border_heart from '../Icons/border_heart.svg';
+import heart from '../Icons/favorite.svg';
+
 
 const styles = theme => ({
     root: {
@@ -24,6 +28,13 @@ const styles = theme => ({
         maxWidth: '100%',
         maxHeight: '100%',
     },
+    descriptionContent:{
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        display: '-webkit-box',
+        WebkitLineClamp: 2,
+        WebkitBoxOrient: 'vertical',
+    }
 });
 
 function SimpleCard(props) {
@@ -42,15 +53,15 @@ function SimpleCard(props) {
                             <Typography gutterBottom variant="subtitle1">
                                 {title}
                             </Typography>
-                            <Typography gutterBottom>{description}</Typography>
+                            <Typography gutterBottom className={classes.descriptionContent}>{description}</Typography>
                             <Typography color="textSecondary">Varenummer: {varenummer}</Typography>
                         </Grid>
-                        <Grid item>
-                            <Typography style={{ cursor: 'pointer' }}>Legg til i handleliste</Typography>
+                        <Grid item container alignItems={"flex-end"} direction={"column"}>
+                            <Typography variant="subtitle1">{pris}</Typography>
                         </Grid>
                     </Grid>
                     <Grid item>
-                        <Typography variant="subtitle1">{pris}</Typography>
+                        <FavoriteIcon/>
                     </Grid>
                 </Grid>
             </Grid>
