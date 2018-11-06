@@ -1,0 +1,34 @@
+.container {
+}
+
+.form {
+    display: flex;
+    align-items: center;
+
+}
+
+.headText{
+    margin-left: 10px;
+}
+
+.submit{
+    border-width: 2px;
+    border-color: cadetblue;
+    margin-left: 5px;
+    padding: 3px;
+    border-radius: 5px;
+    background-color: cadetblue;
+    color: white;
+}
+
+.label{
+    margin-left: 10px;
+}
+
+.input{
+    width:200px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+}
