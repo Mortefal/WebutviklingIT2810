@@ -1,0 +1,13 @@
+.filterDiv {
+    position: relative;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+}
+
+.filterButton {
+    padding: 5px;
+}
