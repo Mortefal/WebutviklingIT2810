@@ -57,7 +57,7 @@ export default class InputBar extends Component{
         return (
             <div className="container">
             <form onSubmit={this.handleSubmit} className="form">
-                <h3 className="headText">Search: </h3>
+                {/*<h3 className="headText">Search: </h3>*/}
                 <label className="label">
                     <input type="text" placeholder="Søk etter varer her..." value={this.state.query} onChange={this.handleChange} className="input"/>
                 </label>
