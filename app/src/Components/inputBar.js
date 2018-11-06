@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import '../CSS/inputStyle.css'
 
 export default class InputBar extends Component{
     constructor(props) {
@@ -31,10 +32,12 @@ export default class InputBar extends Component{
         let queries = [...this.state.previousQueries];   //creating the copy
         let id = this.state.queryId + 1;
         //adding new data
-        queries.push({
-            id: id,
-            query: this.state.query
-        });
+        if(this.state.query){
+            queries.push({
+                id: id,
+                query: this.state.query
+            });
+        }
 
         //updating the state value
         this.setState({previousQueries: queries, queryId: id});
@@ -52,13 +55,13 @@ export default class InputBar extends Component{
     }
     render() {
         return (
-            <div>
-            <form onSubmit={this.handleSubmit} style={{display: 'block'}}>
-                <h3>Search</h3>
-                <label>
-                    <input type="text" value={this.state.query} onChange={this.handleChange} />
+            <div className="container">
+            <form onSubmit={this.handleSubmit} className="form">
+                <h3 className="headText">Search: </h3>
+                <label className="label">
+                    <input type="text" placeholder="Søk etter varer her..." value={this.state.query} onChange={this.handleChange} className="input"/>
                 </label>
-                <input type="submit" value="Submit" />
+                <input type="submit" value="Submit" className="submit"/>
             </form>
             </div>
         );
