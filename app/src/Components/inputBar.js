@@ -61,7 +61,7 @@ export default class InputBar extends Component{
                 <label className="label">
                     <input type="text" placeholder="Søk etter varer her..." value={this.state.query} onChange={this.handleChange} className="input"/>
                 </label>
-                <input type="submit" value="Submit" className="submit"/>
+                <input type="submit" value="Søk" className="submit"/>
             </form>
             </div>
         );
