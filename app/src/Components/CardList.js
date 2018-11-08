@@ -6,6 +6,8 @@ import GridListTile from '@material-ui/core/GridListTile';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import SimpleCard from "./SimpleCard";
+import {getProducts, Facet} from 'vinmonopolet';
+import Typography from "@material-ui/core/Typography/Typography";
 
 
 const styles = theme => ({
@@ -20,27 +22,42 @@ const styles = theme => ({
         height: 200,
     }
 })
-/*
-function mapToComponent() {
-    const card = dataLoaded.map(id, product =>
-        <SimpleCard key={id} title={product.title} description={product.description} pris={product.pris} img={product.image} varenummer={product.varenummer}/>
-    );
-    return card;
-}
-*/
-function CardList(props) {
-    const {classes, searchQuery, data} = props;
+class CardList extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            cards: []
+        }
+    }
 
-    return(
-        <div className={classes.root}>
-            <Typography>Searchresults for: {searchQuery}</Typography>
-                <Grid container spacing={24} style={{padding: 24}}>
-                    {data.map(product => (
-                    <SimpleCard title={product.title}
-                                description={product.desc}
-                                pris={product.pris}
-                                varenummer={product.varenummer}/>))}
-                </Grid>
-        </div>
-    )
+
+    componentDidMount() {
+
+        fetch('this.url')
+            .then(results => {
+                return results.json();
+            }).then(data => {
+            let products = data.results.map((product) => {
+                return (
+                    <div key={product.results}>
+                        <SimpleCard title={product.name} description={product.aroma} pris={product.price}
+                                    varenummer={product.code}/>
+                    </div>
+                )
+            })
+            this.setState({cards: products})
+            console.log("state: " + this.state.cards)
+        })
+    }
+
+    render(){
+        return(
+            <div >
+                <div>
+                    {this.state.cards}
+                </div>
+            </div>
+        )
+    }
 }
+export default CardList;
