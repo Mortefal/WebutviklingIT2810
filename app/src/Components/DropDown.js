@@ -3,15 +3,18 @@ import '../CSS/DropDownStyle.css'
 
 export default class DropDown extends Component {
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
 
         this.state = {
             showFilter: false,
+            isChecked: false
         };
 
         this.showFilter = this.showFilter.bind(this);
         this.hideFilter = this.hideFilter.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+
     }
 
     showFilter(event){
@@ -30,6 +33,11 @@ export default class DropDown extends Component {
         }
     }
 
+    handleInputChange() {
+        this.setState({checked:!this.state.checked});
+        console.log("checkboxen er " + !this.state.checked)
+    }
+
     render() {
         return (
             <div className="FilterDiv">
@@ -39,18 +47,22 @@ export default class DropDown extends Component {
 
                 {
                     this.state.showFilter
-                    ?(
+                        ?(
                             <div className="menu" ref={(element) =>{
                                 this.dropdownMenu = element
                             }}>
-                                <button> vin </button>
-                                <button> øl </button>
-                                <button> sprit </button>
+                                {/*legge til logikk her slik at vi kan kun hente ut typer fra databasen og gjøre disse til checkboxes?*/}
+                                <input value="Øl" type="checkbox" defaultChecked={this.state.isChecked} onChange={this.handleInputChange}/>
+                                Øl
+                                <input name="Vin" type="checkbox" defaultChecked={this.state.isChecked} onChange={this.handleInputChange}/>
+                                Vin
+                                <input name="Sprit" type="checkbox" defaultChecked={this.state.isChecked} onChange={this.handleInputChange}/>
+                                Sprit
                             </div>
-                    )
-                    : (
-                        null
-                    )
+                        )
+                        : (
+                            null
+                        )
                 }
 
             </div>
