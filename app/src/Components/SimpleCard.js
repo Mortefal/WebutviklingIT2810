@@ -107,7 +107,6 @@ class SimpleCard extends React.Component{
                             </Grid>
                             <Grid>
                                 <div>
-                                    <Button onClick={this.handleOpen}>Mer Info</Button>
                                     <Modal
                                         aria-labelledby="simple-modal-title"
                                         aria-describedby="simple-modal-description"
@@ -126,8 +125,13 @@ class SimpleCard extends React.Component{
                                     </Modal>
                                 </div>
                             </Grid>
-                            <Grid item container alignItems={"flex-end"} justify={"flex-end"}>
+                            <Grid item container alignItems={"flex-start"}>
+                                <Grid item xs={10}>
+                                <Button className="modalButton" onClick={this.handleOpen}>Mer Info</Button>
+                                </Grid>
+                                <Grid item>
                                 <Typography variant="subtitle1">{pris} Kr</Typography>
+                                </Grid>
                             </Grid>
                         </Grid>
                         <Grid item onClick={this.handleAddClick}>
