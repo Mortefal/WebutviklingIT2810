@@ -10,9 +10,13 @@ const retriever = new beverageRetriever.beverageRetriever();
 //    res.json({"wine": "Lots of wine"});
 //});
 //
-router.get('/allWine', function(req, res, next) {
+
+router.get('/all', function(req, res, next) {
     //Are you reeally sure you wanna do this?
     retriever.getAllFromDB((doc) => res.json(doc));
+});
+router.get('/search', function(req, res) {
+    retriever.getFromQuery((doc) => res.json(doc), req.query)
 });
 
 
