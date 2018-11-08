@@ -7,8 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import BottleWine from 'mdi-material-ui/BottleWine';
 import BorderHeart from './FavoriteHeart';
-import Button from '@material-ui/core/Button';
-import Modal from '@material-ui/core/Modal';
+import DetailsPage from './DetailsPage.js'
 
 
 const styles = theme => ({
@@ -36,15 +35,6 @@ const styles = theme => ({
         WebkitLineClamp: 2,
         WebkitBoxOrient: 'vertical',
     },
-    paper: {
-        position: 'relative',
-        width: theme.spacing.unit * 50,
-        backgroundColor: theme.palette.background.paper,
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing.unit * 4,
-        top: 200,
-        left:200
-    },
 });
 class SimpleCard extends React.Component{
     constructor(props) {
@@ -56,7 +46,6 @@ class SimpleCard extends React.Component{
             varenummer: this.props.varenummer,
             isFav: false,
             results: [],
-            openModal: false,
         };
         this.handleAddClick = this.handleAddClick.bind(this);
     };
@@ -67,18 +56,6 @@ class SimpleCard extends React.Component{
         /*Add to favorites in db*/
         /*this.setState({results: this.state.results.push(...[this.state.title, this.state.description, this.state.pris, this.state.varenummer])});
         console.log(this.state.results)*/
-    };
-
-    handleOpen = () =>{
-        this.setState({
-            openModal: true
-        })
-    };
-
-    handleClose= () =>{
-        this.setState({
-            openModal: false
-        })
     };
 
     render(){
@@ -105,29 +82,9 @@ class SimpleCard extends React.Component{
                                 <Typography color="textSecondary">Varenummer: {varenummer}</Typography>
 
                             </Grid>
-                            <Grid>
-                                <div>
-                                    <Modal
-                                        aria-labelledby="simple-modal-title"
-                                        aria-describedby="simple-modal-description"
-                                        open={this.state.openModal}
-                                        onClose={this.handleClose}
-                                    >
-                                        <div className={classes.paper}>
-                                            <Grid>
-                                                <ButtonBase className={classes.image}>
-                                                    <BottleWine style={{fontSize: 128}}/>
-                                                </ButtonBase>
-                                                <Typography gutterBottom variant="column">{title}</Typography>
-                                                <Typography gutterBottom >{description}</Typography>
-                                            </Grid>
-                                        </div>
-                                    </Modal>
-                                </div>
-                            </Grid>
                             <Grid item container alignItems={"flex-start"}>
                                 <Grid item xs={10}>
-                                <Button className="modalButton" onClick={this.handleOpen}>Mer Info</Button>
+                                    <DetailsPage title={title} description={description}/>
                                 </Grid>
                                 <Grid item>
                                 <Typography variant="subtitle1">{pris} Kr</Typography>
