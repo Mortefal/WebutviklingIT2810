@@ -7,6 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import BottleWine from 'mdi-material-ui/BottleWine';
 import BorderHeart from './FavoriteHeart';
+import Button from '@material-ui/core/Button';
+import Modal from '@material-ui/core/Modal';
 
 
 const styles = theme => ({
@@ -33,7 +35,16 @@ const styles = theme => ({
         display: '-webkit-box',
         WebkitLineClamp: 2,
         WebkitBoxOrient: 'vertical',
-    }
+    },
+    paper: {
+        position: 'relative',
+        width: theme.spacing.unit * 50,
+        backgroundColor: theme.palette.background.paper,
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing.unit * 4,
+        top: 200,
+        left:200
+    },
 });
 class SimpleCard extends React.Component{
     constructor(props) {
@@ -44,7 +55,8 @@ class SimpleCard extends React.Component{
             pris: this.props.pris,
             varenummer: this.props.varenummer,
             isFav: false,
-            results: []
+            results: [],
+            openModal: false,
         };
         this.handleAddClick = this.handleAddClick.bind(this);
     };
@@ -55,6 +67,18 @@ class SimpleCard extends React.Component{
         /*Add to favorites in db*/
         /*this.setState({results: this.state.results.push(...[this.state.title, this.state.description, this.state.pris, this.state.varenummer])});
         console.log(this.state.results)*/
+    };
+
+    handleOpen = () =>{
+        this.setState({
+            openModal: true
+        })
+    };
+
+    handleClose= () =>{
+        this.setState({
+            openModal: false
+        })
     };
 
     render(){
@@ -80,6 +104,27 @@ class SimpleCard extends React.Component{
                             <Grid item container alignItems={"flex-start"} direction={"column"}>
                                 <Typography color="textSecondary">Varenummer: {varenummer}</Typography>
 
+                            </Grid>
+                            <Grid>
+                                <div>
+                                    <Button onClick={this.handleOpen}>Mer Info</Button>
+                                    <Modal
+                                        aria-labelledby="simple-modal-title"
+                                        aria-describedby="simple-modal-description"
+                                        open={this.state.openModal}
+                                        onClose={this.handleClose}
+                                    >
+                                        <div className={classes.paper}>
+                                            <Grid>
+                                                <ButtonBase className={classes.image}>
+                                                    <BottleWine style={{fontSize: 128}}/>
+                                                </ButtonBase>
+                                                <Typography gutterBottom variant="column">{title}</Typography>
+                                                <Typography gutterBottom >{description}</Typography>
+                                            </Grid>
+                                        </div>
+                                    </Modal>
+                                </div>
                             </Grid>
                             <Grid item container alignItems={"flex-end"} justify={"flex-end"}>
                                 <Typography variant="subtitle1">{pris} Kr</Typography>
