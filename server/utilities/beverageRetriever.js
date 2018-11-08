@@ -38,7 +38,7 @@ const url = 'mongodb://it2810-15.idi.ntnu.no:27017/';
           }
       )
   }
- unsafeWriteAllToDB();
+//  unsafeWriteAllToDB();
 
 
 class beverageRetriever{
