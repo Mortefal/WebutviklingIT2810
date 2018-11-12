@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import BottleWine from 'mdi-material-ui/BottleWine';
 import BorderHeart from './FavoriteHeart';
+import DetailsPage from './DetailsPage.js'
 
 
 const styles = theme => ({
@@ -33,7 +34,7 @@ const styles = theme => ({
         display: '-webkit-box',
         WebkitLineClamp: 2,
         WebkitBoxOrient: 'vertical',
-    }
+    },
 });
 class SimpleCard extends React.Component{
     constructor(props) {
@@ -44,7 +45,7 @@ class SimpleCard extends React.Component{
             pris: this.props.pris,
             varenummer: this.props.varenummer,
             isFav: false,
-            results: []
+            results: [],
         };
         this.handleAddClick = this.handleAddClick.bind(this);
     };
@@ -81,8 +82,13 @@ class SimpleCard extends React.Component{
                                 <Typography color="textSecondary">Varenummer: {varenummer}</Typography>
 
                             </Grid>
-                            <Grid item container alignItems={"flex-end"} justify={"flex-end"}>
+                            <Grid item container alignItems={"flex-start"}>
+                                <Grid item xs={10}>
+                                    <DetailsPage title={title} description={description}/>
+                                </Grid>
+                                <Grid item>
                                 <Typography variant="subtitle1">{pris} Kr</Typography>
+                                </Grid>
                             </Grid>
                         </Grid>
                         <Grid item onClick={this.handleAddClick}>

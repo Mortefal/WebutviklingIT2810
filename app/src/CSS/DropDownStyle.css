@@ -1,0 +1,22 @@
+.filterDiv {
+    position: relative;
+}
+
+.menu {
+    display: flex;
+    margin-left: 5px;
+    flex-direction: row;
+    width: 100px;
+    background-color:darkgrey;
+    padding: 5px 50px 5px 5px;
+    margin-bottom: 5px;
+}
+
+.filterButton {
+    padding: 5px;
+    margin-left: 5px;
+}
+
+input {
+
+}
