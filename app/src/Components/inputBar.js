@@ -21,14 +21,14 @@ export default class InputBar extends Component{
         this.setState({query: event.target.value});
     }
 
-    getInfo(){
+    /*getInfo(){
         //now logikk for å hente ut ting fra databasen, FETCH API greier, vetikke finne ut av senere
         //    .then(({ data }) => {
         this.setState({
             results: ['hei'] //data.data?
         });
         console.log("results: " + this.state.results);
-    }
+    }*/
 
     saveQuery(){
         let queries = [...this.state.previousQueries];   //creating the copy

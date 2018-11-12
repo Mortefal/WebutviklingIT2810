@@ -21,14 +21,11 @@ const styles = theme => ({
         width: 500,
         height: 200,
     }
-})
+});
 class CardList extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            cards: []
-        }
-    }
+
+
+
 
 /*
     componentDidMount() {
@@ -54,7 +51,11 @@ class CardList extends React.Component {
         return(
             <div >
                 <div>
-                    {this.state.cards}
+                    {/* TODO: Map this.props.data to HTML */}
+                    {this.props.data}
+
+                    {/*(this.props.data).map(title =>
+                        <li key={title} onClick={(e) => this.useCallback({title})}><a>{title}</a></li>)*/}
                 </div>
             </div>
         )
