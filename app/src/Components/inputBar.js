@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import '../CSS/inputStyle.css';
-import {} from 'vinmonopolet';
 import CardList from './CardList';
 import SimpleCard from "./SimpleCard";
 
