@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 
-import SimpleCard from "./Components/SimpleCard";
+//import SimpleCard from "./Components/SimpleCard";
 import TabBar from "./Components/TabBar";
 import InputBar from './Components/inputBar.js';
-import DropDown from './Components/DropDown.js';
+//import DropDown from './Components/DropDown.js'
+import FilterChips from "./Components/FilterChips";
 import CardList from './Components/CardList.js';
 import FetchFromJson from './utils/fetchFromJson.js';
 
@@ -19,28 +20,19 @@ class App extends Component {
             data: [{"_id:":'', "productType":'', "title":'', "description":'', "pris":'', "varenummer": ''}]
             // ha med name og mer senere ?? title blir name ?
         };
-        //this.onStateChange = onstatechange
         this.setInputUrlParams = this.setInputUrlParams.bind(this);
         this.setDropDownUrlParams = this.setDropDownUrlParams.bind(this);
     }
 
     render() {
-        return (
-            <div>
-                <TabBar/>
-                <InputBar callback={(e) => this.setInputUrlParams(e)}/>
-                <DropDown callback={(e) => this.setDropDownUrlParams(e)}/>
-                {/* TODO: Add CardList add  data=[{_id=goin5e7h5, name=..., ....}] to Cardlist*/}
-                <CardList data={this.state.params}/>
-                <SimpleCard title="Dette kan settes med props" description="Det kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her også" pris="OG prisen!" varenummer="10121514425"/>
-                <SimpleCard title="Dette kan settes med props" description="Det kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her også" pris="267" varenummer="10121514425"/>
-                <SimpleCard title="Dette kan settes med props" description="Det kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her også" pris="267" varenummer="10121514425"/>
-                <SimpleCard title="Dette kan settes med props" description="Det kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her også" pris="267" varenummer="10121514425"/>
-                <SimpleCard title="Dette kan settes med props" description="Det kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her også" pris="267" varenummer="10121514425"/>
-                <SimpleCard title="Dette kan settes med props" description="Det kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her også" pris="267" varenummer="10121514425"/>
-                <SimpleCard title="Dette kan settes med props" description="Det kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her også" pris="267" varenummer="10121514425"/>
-            </div>
-
+    return (
+        <div>
+            <TabBar/>
+            <InputBar callback={(e) => this.setInputUrlParams(e)}/>
+            {/*<DropDown/>*/}
+            <FilterChips/>
+            <CardList/>
+        </div>
         );
     }
 
@@ -78,15 +70,10 @@ class App extends Component {
       }*/
     }
 
-
-
-
-
     componentWillUpdate(){
         this.recieveData()
 
     }
-
 
     recieveData(stringArgs){
         //stringArgs ~= "_id=igouhreso87ey4"
@@ -102,10 +89,7 @@ class App extends Component {
             ...this.state,
             //data = de nye greine
         })
-
-
     }
-
 }
 
 export default App;
