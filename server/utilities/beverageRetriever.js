@@ -43,30 +43,27 @@ const url = configData.databseUrl;
 
 
 class beverageRetriever{
-    setUpConnection(){
-        this.connection = mongoose.createConnection(url + 'vinmonopolet');
-        this.Beverage = connection.model('Beverage', beverageSchema, 'sortiment');
-    }
-    closeConnection(){
-        this.connection.close();
+    constructor(){
+        this.connection = mongoose.connect(url + 'vinmonopolet');
+        this.Beverage = mongoose.model('Beverage', beverageSchema, 'sortiment');
     }
 
     getAllFromDB(callback){
-        this.setUpConnection();
         this.Beverage.find( {} ,
         function (err, beverages) {
             callback(beverages)
         });
-        this.closeConnection();
     }
 
     getFromQuery(callback, query){
-        this.setUpConnection();
         this.Beverage.find( query ,
             function (err, bev) {
-                callback(bev);
+                callback(bev.length);
             });
-        this.closeConnection()
+    }
+
+    getTypes(callback){
+        this.Beverage.find({}).distinct('productType', (e, a) => callback(a));
     }
 }
 // Available sorting modes: `price`, `name`, `relevance`
