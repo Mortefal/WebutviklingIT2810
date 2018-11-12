@@ -1,26 +1,26 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
 
+import SimpleCard from "./Components/SimpleCard";
+import TabBar from "./Components/TabBar";
+import InputBar from './Components/inputBar.js';
+import DropDown from './Components/DropDown.js'
 class App extends Component {
-  render() {
+
+    render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+        <div>
+            <TabBar/>
+            <InputBar/>
+            <DropDown/>
+            <SimpleCard title="Dette kan settes med props" description="Det kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her også" pris="OG prisen!" varenummer="10121514425"/>
+            <SimpleCard  title="Dette kan settes med props" description="Det kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her også" pris="267" varenummer="10121514425"/>
+            <SimpleCard  title="Dette kan settes med props" description="Det kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her også" pris="267" varenummer="10121514425"/>
+            <SimpleCard  title="Dette kan settes med props" description="Det kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her også" pris="267" varenummer="10121514425"/>
+            <SimpleCard  title="Dette kan settes med props" description="Det kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her også" pris="267" varenummer="10121514425"/>
+            <SimpleCard  title="Dette kan settes med props" description="Det kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her også" pris="267" varenummer="10121514425"/>
+            <SimpleCard  title="Dette kan settes med props" description="Det kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her ogsåDet kan det her også" pris="267" varenummer="10121514425"/>
+        </div>
+
     );
   }
 }
