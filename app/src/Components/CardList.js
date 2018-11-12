@@ -30,7 +30,7 @@ class CardList extends React.Component {
         }
     }
 
-
+/*
     componentDidMount() {
 
         fetch('this.url')
@@ -49,7 +49,7 @@ class CardList extends React.Component {
             console.log("state: " + this.state.cards)
         })
     }
-
+*/
     render(){
         return(
             <div >
