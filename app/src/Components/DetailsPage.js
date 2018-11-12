@@ -7,6 +7,7 @@ import BottleWine from "@material-ui/core/SvgIcon/SvgIcon";
 import Typography from "@material-ui/core/Typography/Typography";
 import {withStyles} from "@material-ui/core";
 import PropTypes from 'prop-types';
+import FavoriteHeart from "./FavoriteHeart";
 
 const styles = theme => ({
     paper: {
@@ -46,7 +47,7 @@ class DetailsPage extends React.Component{
     };
 
     render() {
-        const{classes, title, description} = this.props;
+        const{classes, title, description, isFav} = this.props;
         return (
             <div>
                 <Button className="modalButton" onClick={this.handleOpen}>Mer Info</Button>
@@ -60,9 +61,17 @@ class DetailsPage extends React.Component{
                         >
                             <div className={classes.paper}>
                                 <Grid>
-                                    <ButtonBase className={classes.image}>
-                                        <BottleWine style={{fontSize: 128}}/>
-                                    </ButtonBase>
+                                    <Grid container spacing={16}>
+                                        <Grid xs={10}>
+                                        <ButtonBase className={classes.image}>
+                                            <BottleWine style={{fontSize: 128}}/>
+                                        </ButtonBase>
+                                        </Grid>
+
+                                        <Grid>
+                                            <FavoriteHeart isFav={isFav}/>
+                                        </Grid>
+                                    </Grid>
                                     <Typography gutterBottom variant="column">{title}</Typography>
                                     <Typography gutterBottom >{description}</Typography>
                                 </Grid>

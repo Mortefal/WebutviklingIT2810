@@ -32,7 +32,7 @@ const styles = theme => ({
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         display: '-webkit-box',
-        WebkitLineClamp: 2,
+        WebkitLineClamp: 1,
         WebkitBoxOrient: 'vertical',
     },
 });
@@ -84,7 +84,7 @@ class SimpleCard extends React.Component{
                             </Grid>
                             <Grid item container alignItems={"flex-start"}>
                                 <Grid item xs={10}>
-                                    <DetailsPage title={title} description={description}/>
+                                    <DetailsPage title={title} description={description} isFav={this.state.isFav}/>
                                 </Grid>
                                 <Grid item>
                                 <Typography variant="subtitle1">{pris} Kr</Typography>

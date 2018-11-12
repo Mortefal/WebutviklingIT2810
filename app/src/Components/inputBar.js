@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import '../CSS/inputStyle.css'
+import '../CSS/inputStyle.css';
+import CardList from './CardList';
+import SimpleCard from "./SimpleCard";
 
 export default class InputBar extends Component{
     constructor(props) {
@@ -8,7 +10,7 @@ export default class InputBar extends Component{
             queryId: 0,
             query: '',
             previousQueries: [],
-            results:[]
+            results:[],
         };
 
         this.handleChange = this.handleChange.bind(this);
