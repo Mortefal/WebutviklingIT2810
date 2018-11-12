@@ -9,8 +9,9 @@ import Grid from "@material-ui/core/Grid/Grid";
 const styles = theme => ({
     root:{
         display: 'flex',
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
         flexWrap: 'wrap',
+        marginBottom: 10,
     },
     chip: {
         margin: theme.spacing.unit,
@@ -51,7 +52,6 @@ class FilterChips extends React.Component {
         const {classes} = this.props;
 
         let alternative = this.state.filterQuery.map(data => {
-            let icon = null;
             return (
                 <Chip
                     key={data.key}

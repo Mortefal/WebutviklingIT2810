@@ -16,6 +16,7 @@ const styles = theme => ({
         maxWidth: 600,
         maxHeight: 200,
         padding: theme.spacing.unit * 2,
+        marginBottom: 5,
     },
     image: {
         width: 128,
@@ -66,7 +67,7 @@ class SimpleCard extends React.Component{
                 <Grid container spacing={16}>
                     <Grid item>
                         <ButtonBase className={classes.image}>
-                            <img src={this.props.imgUrl}/>
+                            <BottleWine style={{fontSize: 128}}/>
                         </ButtonBase>
                     </Grid>
                     <Grid item xs={12} sm container>

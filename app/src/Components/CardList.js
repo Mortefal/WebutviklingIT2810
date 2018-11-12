@@ -1,12 +1,11 @@
 import React from 'react';
-//import Grid from '@material-ui/core/Grid';
+import Grid from '@material-ui/core/Grid';
 //import ListSubHeader from '@material-ui/core/ListSubheader';
 //import GridListTile from '@material-ui/core/GridListTile';
 
-//import PropTypes from 'prop-types';
-//import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import SimpleCard from "./SimpleCard";
-//import {getProducts, Facet} from 'vinmonopolet';
 //import Typography from "@material-ui/core/Typography/Typography";
 
 
@@ -18,46 +17,31 @@ const styles = theme => ({
         overflow: 'hidden',
     },
     gridList: {
-        width: 500,
-        height: 200,
     }
 });
 class CardList extends React.Component {
 
-/*
-    componentDidMount() {
-
-        fetch('this.url')
-            .then(results => {
-                return results.json();
-            }).then(data => {
-            let products = data.results.map((product) => {
-                return (
-                    <div key={product.results}>
-                        <SimpleCard title={product.name} description={product.aroma} pris={product.price}
-                                    varenummer={product.code}/>
-                    </div>
-                )
-            })
-            this.setState({cards: products})
-            console.log("state: " + this.state.cards)
-        })
-    }
-*/
     render(){
+        const {classes} = this.props;
+        let cards =  Object.keys(this.props.data).map((uni, key) => {
+            return (
+            <SimpleCard key={uni} title={this.props.data[key].name} description={this.props.data[key].aroma}
+                        pris={this.props.data[key].price} varenummer={this.props.data[key].id}/>)})
         return(
-            <div>
-                <div>
+            <Grid className={classes.root} container spacing={16} item xs={12} >
+                <Grid className={classes.gridList} item xs={6}>
                     {/* TODO: Map this.props.data to HTML */}
-
+                    {cards}
+                    {cards}
                     {/*Noe mer enn dette, en vet ikke helt hvordan jeg skal mappe det korrekt fra app*/}
-                    {Object.keys(this.props.data).map((key) =>
-                        <SimpleCard title={this.props.data[key].name} description={this.props.data[key].aroma}
-                                    pris={this.props.data[key].price} varenummer={this.props.data[key].id}
-                                    imgUrl={this.props.data[key].}/>)}
-                </div>
-            </div>
+
+                </Grid>
+            </Grid>
         )
     }
-}
-export default CardList;
+};
+CardList.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(CardList);
