@@ -66,7 +66,7 @@ class SimpleCard extends React.Component{
                 <Grid container spacing={16}>
                     <Grid item>
                         <ButtonBase className={classes.image}>
-                            <BottleWine style={{fontSize: 128}}/>
+                            <img src={this.props.imgUrl}/>
                         </ButtonBase>
                     </Grid>
                     <Grid item xs={12} sm container>

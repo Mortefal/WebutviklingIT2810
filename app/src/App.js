@@ -31,7 +31,7 @@ class App extends Component {
             <InputBar callback={(e) => this.setInputUrlParams(e)}/>
             {/*<DropDown/>*/}
             <FilterChips/>
-            <CardList/>
+            <CardList data={this.state.data}/>
         </div>
         );
     }
@@ -71,8 +71,11 @@ class App extends Component {
     }
 
     componentWillUpdate(){
-        this.recieveData()
+       //  this.recieveData()
 
+    }
+    componentDidMount(){
+        this.recieveData('Hallo');
     }
 
     recieveData(stringArgs){
@@ -80,15 +83,15 @@ class App extends Component {
 
         //TODO: Use fetch util to get JSON data
         let fetcher = new FetchFromJson('http://localhost:3000/beverages/search');
-        fetcher.fetchFromString("_id=5be43eceb899cc72e3b0975f", ((data) => {console.log(data[0])}));
+        fetcher.fetchFromString("productType=Rødvin", ((data) => {
+            console.log(data[0]);
+            this.setState({
+                ...this.state,
+                data: data
+            })
+        }));
         //JSON Data ~= [{_id=goin5e7h5, name=..., ....}, {...}, ...]
         //JSON data[0] = {_id=gliren74, ...}
-
-        //TODO: this.setState({data = new data})
-        this.setState({
-            ...this.state,
-            //data = de nye greine
-        })
     }
 }
 

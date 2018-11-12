@@ -7,14 +7,11 @@ class FetchFromJson {
 
     fetchFromString(stringParams, callback){
         // let stringParams = JSON.stringify(stringParamas);
-        stringParams = stringParams.replace(':', '=');
-        stringParams = stringParams.replace(/\s*({)*(})* /g,'');
-        stringParams = stringParams.replace('{','');
-        stringParams = stringParams.replace('}','');
         fetch(this.url + '?' + stringParams)
             .then(results => {
                 return results.json();
             }).then(data => {
+                console.log(data);
             callback(data);
         }).catch(err => console.log(err))
     }

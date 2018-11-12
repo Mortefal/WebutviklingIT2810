@@ -49,11 +49,12 @@ class CardList extends React.Component {
             <div>
                 <div>
                     {/* TODO: Map this.props.data to HTML */}
-                    {this.props.data}
 
                     {/*Noe mer enn dette, en vet ikke helt hvordan jeg skal mappe det korrekt fra app*/}
-                    {Object.keys(this.props.data).map(title, description, pris, varenummer =>
-                        <SimpleCard title={this.props.data.title} description={this.props.data.description} pris={this.props.data.pris} varenummer={this.props.data.varenummer} />)} {/*onClick={(e) => this.useCallback({title})}/>)*/}
+                    {Object.keys(this.props.data).map((key) =>
+                        <SimpleCard title={this.props.data[key].name} description={this.props.data[key].aroma}
+                                    pris={this.props.data[key].price} varenummer={this.props.data[key].id}
+                                    imgUrl={this.props.data[key].}/>)}
                 </div>
             </div>
         )
