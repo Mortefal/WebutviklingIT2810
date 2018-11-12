@@ -3,9 +3,10 @@ const assert = require('assert');
 const mongoose = require('mongoose');
 const beverageSchema = require('../models/beverageModel');
 const vinmonopolet = require('vinmonopolet');
+const configData = require('../routeConfig.json');
 
 // Connection URL
-const url = 'mongodb://it2810-15.idi.ntnu.no:27017/';
+const url = configData.databseUrl;
 
 
 // Use connect method to connect to the Server
@@ -42,23 +43,30 @@ const url = 'mongodb://it2810-15.idi.ntnu.no:27017/';
 
 
 class beverageRetriever{
-    constructor(){
-        let connection = mongoose.createConnection(url + 'vinmonopolet_TEST');
-        this.Beverage = connection.model('Beverage', beverageSchema, 'sortiment_TEST');
+    setUpConnection(){
+        this.connection = mongoose.createConnection(url + 'vinmonopolet');
+        this.Beverage = connection.model('Beverage', beverageSchema, 'sortiment');
+    }
+    closeConnection(){
+        this.connection.close();
     }
 
     getAllFromDB(callback){
+        this.setUpConnection();
         this.Beverage.find( {} ,
         function (err, beverages) {
             callback(beverages)
         });
+        this.closeConnection();
     }
 
     getFromQuery(callback, query){
+        this.setUpConnection();
         this.Beverage.find( query ,
             function (err, bev) {
                 callback(bev);
             });
+        this.closeConnection()
     }
 }
 // Available sorting modes: `price`, `name`, `relevance`
