@@ -32,7 +32,6 @@ class CardList extends React.Component {
                 <Grid className={classes.gridList} item xs={6}>
                     {/* TODO: Map this.props.data to HTML */}
                     {cards}
-                    {cards}
                     {/*Noe mer enn dette, en vet ikke helt hvordan jeg skal mappe det korrekt fra app*/}
 
                 </Grid>
