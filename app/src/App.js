@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import SimpleCard from "./Components/SimpleCard";
+import SimpleCard from "./Components/Cards/SimpleCard";
 import TabBar from "./Components/TabBar";
 import InputBar from './Components/inputBar.js';
 import DropDown from './Components/DropDown.js'

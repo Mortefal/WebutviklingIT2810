@@ -1,0 +1,178 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test of SimpleCard renders correctly 1`] = `
+<div
+  className="MuiPaper-root-5 MuiPaper-elevation2-9 MuiPaper-rounded-6 SimpleCard-root-1"
+>
+  <div
+    className="MuiGrid-container-32 MuiGrid-spacing-xs-16-55"
+  >
+    <div
+      className="MuiGrid-item-33"
+    >
+      <button
+        className="MuiButtonBase-root-129 SimpleCard-image-2"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex="0"
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          className="MuiSvgIcon-root-132"
+          focusable="false"
+          role="presentation"
+          style={
+            Object {
+              "fontSize": 128,
+            }
+          }
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M10,22C9.45,22 9,21.55 9,21V11C9,9 10,7.25 11,7V2.5C11,2.22 11.22,2 11.5,2H12.5C12.78,2 13,2.22 13,2.5V7C14,7.25 15,9 15,11V21C15,21.55 14.55,22 14,22H10Z"
+          />
+        </svg>
+        <span
+          className="MuiTouchRipple-root-213"
+        />
+      </button>
+    </div>
+    <div
+      className="MuiGrid-container-32 MuiGrid-item-33 MuiGrid-grid-xs-12-72 MuiGrid-grid-sm-true-74"
+    >
+      <div
+        className="MuiGrid-container-32 MuiGrid-item-33 MuiGrid-spacing-xs-16-55 MuiGrid-direction-xs-column-35 MuiGrid-grid-xs-true-60"
+      >
+        <div
+          className="MuiGrid-item-33 MuiGrid-grid-xs-true-60"
+        >
+          <h6
+            className="MuiTypography-root-141 MuiTypography-subtitle1-159 MuiTypography-gutterBottom-168"
+          >
+            Test
+          </h6>
+          <p
+            className="MuiTypography-root-141 MuiTypography-body1-150 MuiTypography-gutterBottom-168 SimpleCard-descriptionContent-4"
+          >
+            test test
+          </p>
+        </div>
+        <div
+          className="MuiGrid-container-32 MuiGrid-item-33 MuiGrid-direction-xs-column-35 MuiGrid-align-items-xs-flex-start-41"
+        >
+          <p
+            className="MuiTypography-root-141 MuiTypography-body1-150 MuiTypography-colorTextSecondary-174"
+          >
+            Varenummer: 
+            123456
+          </p>
+        </div>
+        <div
+          className="MuiGrid-container-32 MuiGrid-item-33 MuiGrid-align-items-xs-flex-start-41"
+        >
+          <div
+            className="MuiGrid-item-33 MuiGrid-grid-xs-10-70"
+          >
+            <div>
+              <button
+                className="MuiButtonBase-root-129 MuiButton-root-178 MuiButton-text-180 MuiButton-flat-183 modalButton"
+                disabled={false}
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                tabIndex="0"
+                type="button"
+              >
+                <span
+                  className="MuiButton-label-179"
+                >
+                  Mer Info
+                </span>
+                <span
+                  className="MuiTouchRipple-root-213"
+                />
+              </button>
+              <div
+                className=""
+              >
+                <div />
+              </div>
+            </div>
+          </div>
+          <div
+            className="MuiGrid-item-33"
+          >
+            <h6
+              className="MuiTypography-root-141 MuiTypography-subtitle1-159"
+            >
+              123
+               Kr
+            </h6>
+          </div>
+        </div>
+      </div>
+      <div
+        className="MuiGrid-item-33"
+        onClick={[Function]}
+      >
+        <button
+          className="MuiButtonBase-root-129 MuiIconButton-root-207 FavoriteHeart-root-206"
+          disabled={false}
+          onBlur={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex="0"
+          type="button"
+        >
+          <span
+            className="MuiIconButton-label-212"
+          >
+            <svg
+              aria-hidden="true"
+              className="MuiSvgIcon-root-132"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"
+              />
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root-213"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
