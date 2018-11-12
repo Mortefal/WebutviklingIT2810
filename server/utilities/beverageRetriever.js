@@ -43,8 +43,8 @@ const url = 'mongodb://it2810-15.idi.ntnu.no:27017/';
 
 class beverageRetriever{
     constructor(){
-        let connection = mongoose.createConnection(url + 'vinmonopolet_TEST');
-        this.Beverage = connection.model('Beverage', beverageSchema, 'sortiment_TEST');
+        let connection = mongoose.createConnection(url + 'vinmonopolet');
+        this.Beverage = connection.model('Beverage', beverageSchema, 'sortiment');
     }
 
     getAllFromDB(callback){
