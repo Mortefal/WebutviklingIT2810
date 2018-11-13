@@ -10,7 +10,7 @@ const styles = theme => ({
     root: {
         color: "primary",
     }
-})
+});
 
 class FavoriteHeart extends React.Component {
     render() {

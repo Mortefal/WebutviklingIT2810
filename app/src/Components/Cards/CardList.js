@@ -38,7 +38,8 @@ class CardList extends React.Component {
             </Grid>
         )
     }
-};
+}
+
 CardList.propTypes = {
     classes: PropTypes.object.isRequired,
 };

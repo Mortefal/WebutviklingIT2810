@@ -1,0 +1,275 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test of DetailsPage renders correctly 1`] = `
+<div
+  className="MuiPaper-root-2 MuiPaper-elevation2-6 TabBar-root-1"
+>
+  <div
+    className="MuiTabs-root-29"
+  >
+    <div
+      className="MuiTabs-flexContainer-30"
+    >
+      <div
+        className="MuiTabs-scroller-32 MuiTabs-fixed-33"
+        onScroll={[Function]}
+        role="tablist"
+        style={
+          Object {
+            "marginBottom": 0,
+          }
+        }
+      >
+        <div
+          className="MuiTabs-flexContainer-30"
+        >
+          <button
+            aria-selected={true}
+            className="MuiButtonBase-root-50 MuiTab-root-38 MuiTab-textColorPrimary-41 MuiTab-selected-43 MuiTab-labelIcon-39 MuiTab-fullWidth-45"
+            disabled={false}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            role="tab"
+            tabIndex="0"
+            type="button"
+          >
+            <span
+              className="MuiTab-wrapper-46"
+            >
+              <svg
+                aria-hidden="true"
+                className="MuiSvgIcon-root-53"
+                focusable="false"
+                role="presentation"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M9.5,3C13.09,3 16,5.91 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16C5.91,16 3,13.09 3,9.5C3,5.91 5.91,3 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"
+                />
+              </svg>
+              <span
+                className="MuiTab-labelContainer-47"
+              >
+                <span
+                  className="MuiTab-label-48"
+                >
+                  Browse the goods
+                </span>
+              </span>
+            </span>
+            <span
+              className="MuiTouchRipple-root-65"
+            />
+          </button>
+          <button
+            aria-selected={false}
+            className="MuiButtonBase-root-50 MuiTab-root-38 MuiTab-textColorPrimary-41 MuiTab-labelIcon-39 MuiTab-fullWidth-45"
+            disabled={false}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            role="tab"
+            tabIndex="0"
+            type="button"
+          >
+            <span
+              className="MuiTab-wrapper-46"
+            >
+              <svg
+                aria-hidden="true"
+                className="MuiSvgIcon-root-53"
+                focusable="false"
+                role="presentation"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                  fill="none"
+                />
+                <path
+                  d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                />
+              </svg>
+              <span
+                className="MuiTab-labelContainer-47"
+              >
+                <span
+                  className="MuiTab-label-48"
+                >
+                  Favorites
+                </span>
+              </span>
+            </span>
+            <span
+              className="MuiTouchRipple-root-65"
+            />
+          </button>
+        </div>
+        <span
+          className="MuiPrivateTabIndicator-root-62 MuiPrivateTabIndicator-colorPrimary-63 MuiTabs-indicator-37"
+          style={
+            Object {
+              "left": 0,
+              "width": 0,
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test of TabBar renders correctly 1`] = `
+<div
+  className="MuiPaper-root-2 MuiPaper-elevation2-6 TabBar-root-1"
+>
+  <div
+    className="MuiTabs-root-29"
+  >
+    <div
+      className="MuiTabs-flexContainer-30"
+    >
+      <div
+        className="MuiTabs-scroller-32 MuiTabs-fixed-33"
+        onScroll={[Function]}
+        role="tablist"
+        style={
+          Object {
+            "marginBottom": 0,
+          }
+        }
+      >
+        <div
+          className="MuiTabs-flexContainer-30"
+        >
+          <button
+            aria-selected={true}
+            className="MuiButtonBase-root-50 MuiTab-root-38 MuiTab-textColorPrimary-41 MuiTab-selected-43 MuiTab-labelIcon-39 MuiTab-fullWidth-45"
+            disabled={false}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            role="tab"
+            tabIndex="0"
+            type="button"
+          >
+            <span
+              className="MuiTab-wrapper-46"
+            >
+              <svg
+                aria-hidden="true"
+                className="MuiSvgIcon-root-53"
+                focusable="false"
+                role="presentation"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M9.5,3C13.09,3 16,5.91 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16C5.91,16 3,13.09 3,9.5C3,5.91 5.91,3 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"
+                />
+              </svg>
+              <span
+                className="MuiTab-labelContainer-47"
+              >
+                <span
+                  className="MuiTab-label-48"
+                >
+                  Browse the goods
+                </span>
+              </span>
+            </span>
+            <span
+              className="MuiTouchRipple-root-65"
+            />
+          </button>
+          <button
+            aria-selected={false}
+            className="MuiButtonBase-root-50 MuiTab-root-38 MuiTab-textColorPrimary-41 MuiTab-labelIcon-39 MuiTab-fullWidth-45"
+            disabled={false}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            role="tab"
+            tabIndex="0"
+            type="button"
+          >
+            <span
+              className="MuiTab-wrapper-46"
+            >
+              <svg
+                aria-hidden="true"
+                className="MuiSvgIcon-root-53"
+                focusable="false"
+                role="presentation"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                  fill="none"
+                />
+                <path
+                  d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                />
+              </svg>
+              <span
+                className="MuiTab-labelContainer-47"
+              >
+                <span
+                  className="MuiTab-label-48"
+                >
+                  Favorites
+                </span>
+              </span>
+            </span>
+            <span
+              className="MuiTouchRipple-root-65"
+            />
+          </button>
+        </div>
+        <span
+          className="MuiPrivateTabIndicator-root-62 MuiPrivateTabIndicator-colorPrimary-63 MuiTabs-indicator-37"
+          style={
+            Object {
+              "left": 0,
+              "width": 0,
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

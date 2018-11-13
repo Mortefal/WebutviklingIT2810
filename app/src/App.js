@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-//import SimpleCard from "./Components/SimpleCard";
+//import SimpleCard from "./Components/Cards/SimpleCard";
 import TabBar from "./Components/TabBar";
 import InputBar from './Components/inputBar.js';
 //import DropDown from './Components/DropDown.js'
 import FilterChips from "./Components/FilterChips";
-import CardList from './Components/CardList.js';
+import CardList from './Components/Cards/CardList.js';
 import FetchFromJson from './utils/fetchFromJson.js';
 
 class App extends Component {
