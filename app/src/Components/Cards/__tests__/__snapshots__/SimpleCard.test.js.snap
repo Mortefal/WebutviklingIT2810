@@ -42,7 +42,7 @@ exports[`Snapshot test of SimpleCard renders correctly 1`] = `
           />
         </svg>
         <span
-          className="MuiTouchRipple-root-213"
+          className="MuiTouchRipple-root-216"
         />
       </button>
     </div>
@@ -62,9 +62,7 @@ exports[`Snapshot test of SimpleCard renders correctly 1`] = `
           </h6>
           <p
             className="MuiTypography-root-141 MuiTypography-body1-150 MuiTypography-gutterBottom-168 SimpleCard-descriptionContent-4"
-          >
-            test test
-          </p>
+          />
         </div>
         <div
           className="MuiGrid-container-32 MuiGrid-item-33 MuiGrid-direction-xs-column-35 MuiGrid-align-items-xs-flex-start-41"
@@ -84,7 +82,7 @@ exports[`Snapshot test of SimpleCard renders correctly 1`] = `
           >
             <div>
               <button
-                className="MuiButtonBase-root-129 MuiButton-root-178 MuiButton-text-180 MuiButton-flat-183 modalButton"
+                className="MuiButtonBase-root-129 MuiButton-root-181 MuiButton-text-183 MuiButton-flat-186 modalButton"
                 disabled={false}
                 onBlur={[Function]}
                 onClick={[Function]}
@@ -101,12 +99,12 @@ exports[`Snapshot test of SimpleCard renders correctly 1`] = `
                 type="button"
               >
                 <span
-                  className="MuiButton-label-179"
+                  className="MuiButton-label-182"
                 >
                   Mer Info
                 </span>
                 <span
-                  className="MuiTouchRipple-root-213"
+                  className="MuiTouchRipple-root-216"
                 />
               </button>
               <div
@@ -133,7 +131,7 @@ exports[`Snapshot test of SimpleCard renders correctly 1`] = `
         onClick={[Function]}
       >
         <button
-          className="MuiButtonBase-root-129 MuiIconButton-root-207 FavoriteHeart-root-206"
+          className="MuiButtonBase-root-129 MuiIconButton-root-210 FavoriteHeart-root-209"
           disabled={false}
           onBlur={[Function]}
           onFocus={[Function]}
@@ -149,7 +147,7 @@ exports[`Snapshot test of SimpleCard renders correctly 1`] = `
           type="button"
         >
           <span
-            className="MuiIconButton-label-212"
+            className="MuiIconButton-label-215"
           >
             <svg
               aria-hidden="true"
@@ -168,7 +166,7 @@ exports[`Snapshot test of SimpleCard renders correctly 1`] = `
             </svg>
           </span>
           <span
-            className="MuiTouchRipple-root-213"
+            className="MuiTouchRipple-root-216"
           />
         </button>
       </div>

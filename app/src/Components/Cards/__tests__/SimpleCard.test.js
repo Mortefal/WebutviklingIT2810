@@ -14,7 +14,7 @@ describe('Snapshot test of SimpleCard', ()=> {
     it('renders correctly', () => {
         const tree = renderer
             .create(<SimpleCard title="Test" description="test test" pris={123} varenummer={123456}/>)
-            .toJSON()
+            .toJSON();
         expect(tree).toMatchSnapshot()
     })
-})
+});
