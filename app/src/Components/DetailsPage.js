@@ -62,18 +62,18 @@ class DetailsPage extends React.Component{
                             <div className={classes.paper}>
                                 <Grid>
                                     <Grid container spacing={16}>
-                                        <Grid xs={10}>
+                                        <Grid item xs={10}>
                                         <ButtonBase className={classes.image}>
-                                            <BottleWine style={{fontSize: 128}}/>
+                                            <BottleWine children={"this is children"} style={{fontSize: 128}}/>
                                         </ButtonBase>
                                         </Grid>
 
-                                        <Grid>
+                                        <Grid item>
                                             <FavoriteHeart isFav={isFav}/>
                                         </Grid>
                                     </Grid>
-                                    <Typography gutterBottom variant="column">{title}</Typography>
-                                    <Typography gutterBottom >{description}</Typography>
+                                    <Typography gutterBottom variant="h5">{title}</Typography>
+                                    <Typography gutterBottom variant="body1">{description}</Typography>
                                 </Grid>
                             </div>
                         </Modal>
