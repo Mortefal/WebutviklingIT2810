@@ -1,8 +1,10 @@
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
 const beverageSchema = require('../models/beverageModel');
 const vinmonopolet = require('vinmonopolet');
+
 
 // Connection URL
 const url = 'mongodb://it2810-15.idi.ntnu.no:27017/';
@@ -43,8 +45,15 @@ const url = 'mongodb://it2810-15.idi.ntnu.no:27017/';
 
 class beverageRetriever{
     constructor(){
+        mongoose.plugin(mongoosePaginate);
         let connection = mongoose.createConnection(url + 'vinmonopolet');
         this.Beverage = connection.model('Beverage', beverageSchema, 'sortiment');
+
+        mongoosePaginate.paginate.options = {
+            lean:  true,
+            limit: 20
+        };
+
     }
 
     getAllFromDB(callback){
@@ -55,7 +64,7 @@ class beverageRetriever{
     }
 
     getFromQuery(callback, query){
-        this.Beverage.find( query ,
+        this.Beverage.find( query , {} , { limit: 20 } ,
             function (err, bev) {
                 callback(bev);
             });
