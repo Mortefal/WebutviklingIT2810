@@ -1,0 +1,4 @@
+{
+"databseUrl": "mongodb://it2810-15.idi.ntnu.no:27017/",
+"restApiUrl": "http://localhost:3000/"
+}

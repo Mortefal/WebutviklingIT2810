@@ -4,10 +4,9 @@ const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
 const beverageSchema = require('../models/beverageModel');
 const vinmonopolet = require('vinmonopolet');
-
-
+const configData = require('../routeConfig.json');
 // Connection URL
-const url = 'mongodb://it2810-15.idi.ntnu.no:27017/';
+const url = configData.databseUrl;
 
 
 // Use connect method to connect to the Server
@@ -45,15 +44,10 @@ const url = 'mongodb://it2810-15.idi.ntnu.no:27017/';
 
 class beverageRetriever{
     constructor(){
-        mongoose.plugin(mongoosePaginate);
-        let connection = mongoose.createConnection(url + 'vinmonopolet');
-        this.Beverage = connection.model('Beverage', beverageSchema, 'sortiment');
-
-        mongoosePaginate.paginate.options = {
-            lean:  true,
-            limit: 20
-        };
-
+        this.connection = mongoose.connect(url + 'vinmonopolet');
+        let bevSchema = new mongoose.Schema(beverageSchema);
+        bevSchema.plugin(mongoosePaginate);
+        this.Beverage = mongoose.model('Beverage', bevSchema, 'sortiment');
     }
 
     getAllFromDB(callback){
@@ -63,11 +57,63 @@ class beverageRetriever{
         });
     }
 
-    getFromQuery(callback, query){
-        this.Beverage.find( query , {} , { limit: 20 } ,
-            function (err, bev) {
-                callback(bev);
-            });
+    /* Used in /beverages/search?... */
+    getFromQuery(callback, urlArgs){
+        //TODO: Get optional pagination, pagenumber and sort-order from urlArgs.
+        let sortParam = {};
+
+        let pageNumber = 0;
+        let paginationSize = 20;
+
+
+
+        // Check if sort is in keys:
+        if (Object.keys(urlArgs).indexOf('sort') >= 0 ){
+
+            let urlSortParam = urlArgs['sort'];
+            if(urlSortParam.indexOf('_') >= 0){
+                let sortList = urlSortParam.split('_');
+                sortParam[sortList[0]] = parseInt(sortList[1], 10);
+            }
+            else{
+                sortParam[urlSortParam] = -1;
+            }
+            delete urlArgs['sort'];
+        }
+        else{
+            sortParam = {name: -1};
+        }
+
+        if (Object.keys(urlArgs).indexOf('page') >= 0 ){
+            pageNumber = parseInt(urlArgs['page'], 10);
+            delete urlArgs['page'];
+        }
+        if (Object.keys(urlArgs).indexOf('pagesize') >= 0 ){
+            paginationSize = parseInt(urlArgs['pagesize'], 10);
+            delete urlArgs['pagesize'];
+        }
+
+        let options = {
+            sort: sortParam,
+            lean: true,
+            page: pageNumber,
+            limit: paginationSize
+        };
+        console.log(options);
+
+        //sort=price-desc
+        this.Beverage.paginate(urlArgs, options).then((err, result) => {
+            callback(result.docs);
+        });
+
+        // this.Beverage.find( urlArgs ,
+        //     function (err, bev) {
+        //         callback(bev.length);
+        //     });
+    }
+
+    getTypes(callback){
+        this.Beverage.find({}).distinct('productType', (e, a) => callback(a));
     }
 }
 // Available sorting modes: `price`, `name`, `relevance`
