@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+const mongoosePagination = require('mongoose-paginate');
 
 const Schema = mongoose.Schema;
 
-module.exports.beverageModel = new Schema({
+module.exports.beverageModel = {
     // Product code (ID)
     code: String,
     // Product name, usually with manufacturer name
@@ -145,5 +146,4 @@ module.exports.beverageModel = new Schema({
     purchasable: Boolean,
     newProduct: Boolean,
     numberOfReviews: Number
-}
-);
+};
