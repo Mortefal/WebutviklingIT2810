@@ -3,8 +3,10 @@ const assert = require('assert');
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
 const beverageSchema = require('../models/beverageModel');
+const categorySchema = require('../models/categorySchema');
 const vinmonopolet = require('vinmonopolet');
 const configData = require('../routeConfig.json');
+const cats = require('./categories');
 // Connection URL
 const url = configData.databseUrl;
 
@@ -18,36 +20,37 @@ const url = configData.databseUrl;
               let db = client.db("vinmonopolet");
               let i = 0;
 
-              setInterval(() => {
-                  console.log("Inserted " + i.toString() + " items until now.")
-              }, 1000);
+              let categories = [];
+              for (category in cats){
+                  tempObject = {
+                      "mainCategory": category,
+                      "subCategories": cats[category]
+                  }
+                  categories.push(tempObject);
+              }
 
-              vinmonopolet
-                  .stream.getProducts()
-                  .on('data', function(product) {
-                      if(1 === 1) {
-                          i ++;
-                          db.collection("sortiment").insertOne(product, function(err, res) {
-                              if (err) throw err;
-                          });
-                      }
-                  })
-                  .on('end', function() {
-                      console.log("Insterted " + i.toString() + " items.");
-                      client.close();
-                  });
+              db.collection('kategorier').insertMany(categories);
+
+              client.close();
           }
       )
   }
-//  unsafeWriteAllToDB();
+// unsafeWriteAllToDB();
 
 
 class beverageRetriever{
     constructor(){
         this.connection = mongoose.connect(url + 'vinmonopolet');
+
         let bevSchema = new mongoose.Schema(beverageSchema);
         bevSchema.plugin(mongoosePaginate);
         this.Beverage = mongoose.model('Beverage', bevSchema, 'sortiment');
+
+        let catSchema = new mongoose.Schema({
+            mainCategory: String,
+            subCategories: []
+        });
+        this.Category = mongoose.model('Category', catSchema, 'kategorier');
     }
 
     getAllFromDB(callback){
@@ -113,8 +116,9 @@ class beverageRetriever{
     }
 
     getTypes(callback){
-        this.Beverage.find({}).distinct('productType', (e, a) => callback(a));
+        this.Category.find({}).exec((err, result) => callback(result));
     }
+
 }
 // Available sorting modes: `price`, `name`, `relevance`
 module.exports.beverageRetriever = beverageRetriever;
