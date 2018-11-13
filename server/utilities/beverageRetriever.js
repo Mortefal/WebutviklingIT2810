@@ -62,7 +62,7 @@ class beverageRetriever{
         //TODO: Get optional pagination, pagenumber and sort-order from urlArgs.
         let sortParam = {};
 
-        let pageNumber = 0;
+        let pageNumber = 1;
         let paginationSize = 20;
 
 
@@ -102,9 +102,9 @@ class beverageRetriever{
         console.log(options);
 
         //sort=price-desc
-        this.Beverage.paginate(urlArgs, options).then((err, result) => {
+        this.Beverage.paginate(urlArgs, options).then((result) => {
             callback(result.docs);
-        });
+        }).catch((err) => callback({}));
 
         // this.Beverage.find( urlArgs ,
         //     function (err, bev) {
