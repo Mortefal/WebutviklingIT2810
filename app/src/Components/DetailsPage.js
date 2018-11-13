@@ -29,9 +29,13 @@ const styles = theme => ({
         borderBottomColor: '#ddd',
         borderBottomWidth: 2,
     },
+    sideBox3: {
+        height: 40,
+        width:80,
+    },
     sideBox1: {
         height: 100,
-        width: 60,
+        width: 80,
     },
     sideBox2: {
         height: 40,
@@ -60,7 +64,7 @@ class DetailsPage extends React.Component{
     };
 
     render() {
-        const{classes, title, description, isFav, aroma, country} = this.props;
+        const{classes, title, isFav, aroma, country, taste, abv} = this.props;
         return (
             <div>
                 <Button className="modalButton" onClick={this.handleOpen}>Mer Info</Button>
@@ -85,20 +89,20 @@ class DetailsPage extends React.Component{
 
                                         <Grid item xs={6}>
 
-                                            <Grid direction={"column"} justify={"space-evenly"} container item xs={12} alignItems={"center"}>
-                                                <Grid item xs={4} className={classes.sideBox1} >
-                                                    Opprinnelsesland: {country} England
+                                            <Grid direction={"column"} justify={"center"} container item xs={12} alignItems={"center"}>
+                                                <Grid item xs={4} className={classes.sideBox3} >
+                                                    Opprinnelsesland: {country}
                                                 </Grid>
-                                                <Grid item xs={4} className={classes.sideBox1} >
-                                                    Taste: {aroma} Røyksmak
+                                                <Grid className={classes.sideBox3} item xs={4}>
+                                                    {abv}%
                                                 </Grid>
                                             </Grid>
                                         </Grid>
                                     </Grid>
                                 </Grid>
                                 <Grid>
-                                    <Typography gutterBottom variant="h5">{title}placeholder Title</Typography>
-                                    <Typography gutterBottom variant="body1">{description} placeholder description</Typography>
+                                    <Typography gutterBottom variant="h5">{title}</Typography>
+                                    <Typography gutterBottom variant="body1">{aroma}{taste}</Typography>
                                 </Grid>
                             </div>
                         </Modal>
