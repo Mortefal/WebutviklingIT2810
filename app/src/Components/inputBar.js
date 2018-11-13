@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import '../CSS/inputStyle.css';
 import CardList from './Cards/CardList';
 import SimpleCard from "./Cards/SimpleCard";
+//import CardList from './CardList';
+//import SimpleCard from "./SimpleCard";
 
 export default class InputBar extends Component{
     constructor(props) {
@@ -21,14 +23,14 @@ export default class InputBar extends Component{
         this.setState({query: event.target.value});
     }
 
-    getInfo(){
+    /*getInfo(){
         //now logikk for å hente ut ting fra databasen, FETCH API greier, vetikke finne ut av senere
         //    .then(({ data }) => {
         this.setState({
             results: ['hei'] //data.data?
         });
         console.log("results: " + this.state.results);
-    }
+    }*/
 
     saveQuery(){
         let queries = [...this.state.previousQueries];   //creating the copy
@@ -51,10 +53,10 @@ export default class InputBar extends Component{
         event.preventDefault();
         this.saveQuery();
         console.log(this.state.previousQueries);
-        this.getInfo();
+        //this.getInfo();
         this.setState({query: ''});
-
     }
+
     render() {
         return (
             <div className="container">
