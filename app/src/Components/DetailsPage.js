@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 import Grid from "@material-ui/core/Grid/Grid";
 import ButtonBase from "@material-ui/core/ButtonBase/ButtonBase";
-import BottleWine from "@material-ui/core/SvgIcon/SvgIcon";
+import BottleWine from 'mdi-material-ui/BottleWine';
 import Typography from "@material-ui/core/Typography/Typography";
 import {withStyles} from "@material-ui/core";
 import PropTypes from 'prop-types';
@@ -11,18 +11,35 @@ import FavoriteHeart from "./FavoriteHeart";
 
 const styles = theme => ({
     paper: {
-        position: 'relative',
+        position: 'absolute',
         width: theme.spacing.unit * 50,
         backgroundColor: theme.palette.background.paper,
         boxShadow: theme.shadows[5],
         padding: theme.spacing.unit * 4,
-        top: 200,
-        left:200
+        top: 100,
+        left: 500,
+        right: 0,
+        margin: 0,
     },
     image: {
-        width: 128,
-        height: 128,
-        /* Tror det skal være mulig å hente inn bilde ved å ta response.images[2].url hvor formatet er thumbnail */
+        width: 256,
+        height: 256,
+        justify: "flex-start",
+        alignItems: "flex-start",
+        borderBottomColor: '#ddd',
+        borderBottomWidth: 2,
+    },
+    sideBox3: {
+        height: 40,
+        width:80,
+    },
+    sideBox1: {
+        height: 100,
+        width: 80,
+    },
+    sideBox2: {
+        height: 40,
+        width: 40,
     },
 });
 
@@ -47,7 +64,7 @@ class DetailsPage extends React.Component{
     };
 
     render() {
-        const{classes, title, description, isFav} = this.props;
+        const{classes, title, isFav, aroma, country, taste, abv} = this.props;
         return (
             <div>
                 <Button className="modalButton" onClick={this.handleOpen}>Mer Info</Button>
@@ -58,22 +75,34 @@ class DetailsPage extends React.Component{
                             aria-describedby="simple-modal-description"
                             open={this.state.openModal}
                             onClose={this.handleClose}
+                            style={{alignItems: 'center', justifyContent: 'center'}}
                         >
                             <div className={classes.paper}>
                                 <Grid>
-                                    <Grid container spacing={16}>
-                                        <Grid item xs={10}>
-                                        <ButtonBase className={classes.image}>
-                                            <BottleWine children={"this is children"} style={{fontSize: 128}}/>
-                                        </ButtonBase>
+                                    <Grid item container direction={"row-reverse"}><FavoriteHeart isFav={isFav}/></Grid>
+                                    <Grid container spacing={16} alignItems={"center"} alignContent={"center"}>
+                                        <Grid item xs={6}>
+                                            <ButtonBase className={classes.image}>
+                                                <BottleWine style={{fontSize: 256}}/>
+                                            </ButtonBase>
                                         </Grid>
 
-                                        <Grid item>
-                                            <FavoriteHeart isFav={isFav}/>
+                                        <Grid item xs={6}>
+
+                                            <Grid direction={"column"} justify={"center"} container item xs={12} alignItems={"center"}>
+                                                <Grid item xs={4} className={classes.sideBox3} >
+                                                    Opprinnelsesland: {country}
+                                                </Grid>
+                                                <Grid className={classes.sideBox3} item xs={4}>
+                                                    {abv}%
+                                                </Grid>
+                                            </Grid>
                                         </Grid>
                                     </Grid>
+                                </Grid>
+                                <Grid>
                                     <Typography gutterBottom variant="h5">{title}</Typography>
-                                    <Typography gutterBottom variant="body1">{description}</Typography>
+                                    <Typography gutterBottom variant="body1">{aroma}{taste}</Typography>
                                 </Grid>
                             </div>
                         </Modal>
