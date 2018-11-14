@@ -109,17 +109,15 @@ const mapStateToProps = state => {
     const {
         filterArray,
         productData,
-        items: posts
-    } = postsBySubreddit[selectedSubreddit] || {
-        isFetching: true,
-        items: []
+    } = products[getAllFilters] || {
+        filterArray: [],
+        productData: []
     }
 
     return {
-        selectedSubreddit,
-        posts,
-        isFetching,
-        lastUpdated
+        getAllFilters,
+        filterArray,
+        productData,
     }
 }
 
