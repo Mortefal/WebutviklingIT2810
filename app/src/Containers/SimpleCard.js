@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import BottleWine from 'mdi-material-ui/BottleWine';
-import BorderHeart from './FavoriteHeart';
+import BorderHeart from '../Components/FavoriteHeart';
 import DetailsPage from './DetailsPage.js'
 
 
@@ -16,6 +16,7 @@ const styles = theme => ({
         maxWidth: 600,
         maxHeight: 200,
         padding: theme.spacing.unit * 2,
+        marginBottom: 5,
     },
     image: {
         width: 128,
@@ -41,9 +42,12 @@ class SimpleCard extends React.Component{
         super(props);
         this.state = {
             title: this.props.title,
-            description: this.props.description,
+            aroma: this.props.description,
+            taste: this.props.taste,
             pris: this.props.pris,
             varenummer: this.props.varenummer,
+            country: this.props.country,
+            abv: this.props.abv,
             isFav: false,
             results: [],
         };
@@ -59,7 +63,7 @@ class SimpleCard extends React.Component{
     };
 
     render(){
-        const { classes, title, description, pris, varenummer } = this.props;
+        const { classes, title, pris, varenummer, taste, aroma, country, abv } = this.props;
         const isFav = this.state.isFav;
         return(
             <Paper className={classes.root}>
@@ -75,7 +79,7 @@ class SimpleCard extends React.Component{
                                 <Typography gutterBottom variant="subtitle1">
                                     {title}
                                 </Typography>
-                                <Typography gutterBottom className={classes.descriptionContent}>{description}</Typography>
+                                <Typography gutterBottom className={classes.descriptionContent}>{taste}</Typography>
 
                             </Grid>
                             <Grid item container alignItems={"flex-start"} direction={"column"}>
@@ -84,7 +88,7 @@ class SimpleCard extends React.Component{
                             </Grid>
                             <Grid item container alignItems={"flex-start"}>
                                 <Grid item xs={10}>
-                                    <DetailsPage title={title} description={description} isFav={this.state.isFav}/>
+                                    <DetailsPage title={title} aroma={aroma} taste={taste} isFav={this.state.isFav} pris={pris} country={country} abv={abv}/>
                                 </Grid>
                                 <Grid item>
                                 <Typography variant="subtitle1">{pris} Kr</Typography>

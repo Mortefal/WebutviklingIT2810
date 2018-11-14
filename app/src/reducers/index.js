@@ -1,8 +1,8 @@
-import { combineReducers } from "redux"
-
-// importe reducers
+import {combineReducers} from 'redux'
 
 
-export default combineReducers({
-    //alle reducerne
+const rootReducer = combineReducers({
+    //Alle reducerne vi lager skal inn her
 })
+
+export default rootReducer;

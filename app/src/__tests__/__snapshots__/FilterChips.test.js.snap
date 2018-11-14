@@ -1,0 +1,225 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test of DetailsPage renders correctly 1`] = `
+<div
+  className="MuiPaper-root-3 MuiPaper-elevation2-7 MuiPaper-rounded-4 FilterChips-root-1"
+>
+  <div
+    className="MuiGrid-container-30 MuiGrid-item-31"
+  >
+    <div
+      className="MuiChip-root-127 MuiChip-clickable-130 FilterChips-chip-2"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      role="button"
+      tabIndex={0}
+    >
+      <span
+        className="MuiChip-label-146"
+      >
+        Øl og sider
+      </span>
+    </div>
+    <div
+      className="MuiChip-root-127 MuiChip-clickable-130 FilterChips-chip-2"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      role="button"
+      tabIndex={0}
+    >
+      <span
+        className="MuiChip-label-146"
+      >
+        Rødvin
+      </span>
+    </div>
+    <div
+      className="MuiChip-root-127 MuiChip-clickable-130 FilterChips-chip-2"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      role="button"
+      tabIndex={0}
+    >
+      <span
+        className="MuiChip-label-146"
+      >
+        Hvitvin
+      </span>
+    </div>
+    <div
+      className="MuiChip-root-127 MuiChip-clickable-130 FilterChips-chip-2"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      role="button"
+      tabIndex={0}
+    >
+      <span
+        className="MuiChip-label-146"
+      >
+        Annen vin
+      </span>
+    </div>
+    <div
+      className="MuiChip-root-127 MuiChip-clickable-130 FilterChips-chip-2"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      role="button"
+      tabIndex={0}
+    >
+      <span
+        className="MuiChip-label-146"
+      >
+        Musserende vin
+      </span>
+    </div>
+    <div
+      className="MuiChip-root-127 MuiChip-clickable-130 FilterChips-chip-2"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      role="button"
+      tabIndex={0}
+    >
+      <span
+        className="MuiChip-label-146"
+      >
+        Sprit
+      </span>
+    </div>
+    <div
+      className="MuiChip-root-127 MuiChip-clickable-130 FilterChips-chip-2"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      role="button"
+      tabIndex={0}
+    >
+      <span
+        className="MuiChip-label-146"
+      >
+        Alkoholfritt
+      </span>
+    </div>
+  </div>
+  <div
+    className="MuiGrid-container-30 MuiGrid-item-31"
+  />
+</div>
+`;
+
+exports[`Snapshot test of FilterChips renders correctly 1`] = `
+<div
+  className="MuiPaper-root-3 MuiPaper-elevation2-7 MuiPaper-rounded-4 FilterChips-root-1"
+>
+  <div
+    className="MuiGrid-container-30 MuiGrid-item-31"
+  >
+    <div
+      className="MuiChip-root-127 MuiChip-clickable-130 FilterChips-chip-2"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      role="button"
+      tabIndex={0}
+    >
+      <span
+        className="MuiChip-label-146"
+      >
+        Øl og sider
+      </span>
+    </div>
+    <div
+      className="MuiChip-root-127 MuiChip-clickable-130 FilterChips-chip-2"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      role="button"
+      tabIndex={0}
+    >
+      <span
+        className="MuiChip-label-146"
+      >
+        Rødvin
+      </span>
+    </div>
+    <div
+      className="MuiChip-root-127 MuiChip-clickable-130 FilterChips-chip-2"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      role="button"
+      tabIndex={0}
+    >
+      <span
+        className="MuiChip-label-146"
+      >
+        Hvitvin
+      </span>
+    </div>
+    <div
+      className="MuiChip-root-127 MuiChip-clickable-130 FilterChips-chip-2"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      role="button"
+      tabIndex={0}
+    >
+      <span
+        className="MuiChip-label-146"
+      >
+        Annen vin
+      </span>
+    </div>
+    <div
+      className="MuiChip-root-127 MuiChip-clickable-130 FilterChips-chip-2"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      role="button"
+      tabIndex={0}
+    >
+      <span
+        className="MuiChip-label-146"
+      >
+        Musserende vin
+      </span>
+    </div>
+    <div
+      className="MuiChip-root-127 MuiChip-clickable-130 FilterChips-chip-2"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      role="button"
+      tabIndex={0}
+    >
+      <span
+        className="MuiChip-label-146"
+      >
+        Sprit
+      </span>
+    </div>
+    <div
+      className="MuiChip-root-127 MuiChip-clickable-130 FilterChips-chip-2"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      role="button"
+      tabIndex={0}
+    >
+      <span
+        className="MuiChip-label-146"
+      >
+        Alkoholfritt
+      </span>
+    </div>
+  </div>
+  <div
+    className="MuiGrid-container-30 MuiGrid-item-31"
+  />
+</div>
+`;

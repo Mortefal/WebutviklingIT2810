@@ -4,18 +4,19 @@ import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import Paper from "@material-ui/core/Paper/Paper";
 import Grid from "@material-ui/core/Grid/Grid";
-import Typography from "@material-ui/core/Typography/Typography";
+//import Typography from "@material-ui/core/Typography/Typography";
 
 const styles = theme => ({
     root:{
         display: 'flex',
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
         flexWrap: 'wrap',
+        marginBottom: 10,
     },
     chip: {
         margin: theme.spacing.unit,
     }
-})
+});
 /*const beer = "productType=Sider&productType=Lys ale&productType=Klosterstil&productType=India pale ale&productType=Brown ale&productType=Pale ale&productType=Spesial&productType=Hveteøl&productType=Surøl"
 */
 class FilterChips extends React.Component {
@@ -30,12 +31,14 @@ class FilterChips extends React.Component {
             {key: 6, label: "Alkoholfritt"},
         ],
         filtrationArray: [],
-    }
+    };
+
     handleClick = data => () => {
         if (!this.state.filtrationArray.includes(data)) {
             this.setState({filtrationArray: [...this.state.filtrationArray, data]});
         }
     };
+
     handleDelete = data => () => {
         if(this.state.filtrationArray.includes(data)){
             const chipData = this.state.filtrationArray;
@@ -49,7 +52,6 @@ class FilterChips extends React.Component {
         const {classes} = this.props;
 
         let alternative = this.state.filterQuery.map(data => {
-            let icon = null;
             return (
                 <Chip
                     key={data.key}
@@ -59,7 +61,8 @@ class FilterChips extends React.Component {
                     clickable={true}
                 />
             )
-        })
+        });
+
         let selected = this.state.filtrationArray.map(data => {
             return (
                 <Chip
@@ -84,9 +87,9 @@ class FilterChips extends React.Component {
         )
     }
 }
+
 FilterChips.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(FilterChips);
-

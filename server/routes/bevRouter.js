@@ -18,6 +18,8 @@ router.get('/all', function(req, res, next) {
 router.get('/search', function(req, res) {
     retriever.getFromQuery((doc) => res.json(doc), req.query)
 });
-
+router.get('/types', function (req, res) {
+    retriever.getTypes((doc) => res.json(doc))
+});
 
 module.exports = router;
