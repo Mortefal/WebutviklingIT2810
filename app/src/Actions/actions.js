@@ -26,7 +26,8 @@ function receiveProducts(beverages, json) {
 }
 function fetchProducts(beverages){
     return dispatch => {
-        dispatch(requestProducts(beverages))
+        dispatch(requestProducts(beverages));
+        //TODO: Change link to relative or server-url
         return fetch(`http://localhost:3000/beverages/search${beverages}`)
             .then(response => response.json())
             .then(json => dispatch(receiveProducts(beverages, json)))
@@ -54,7 +55,20 @@ function fetchAllFilters(filters) {
         //TODO: endre url til å passe server når det er oppe, ikke localhost
         return fetch(`http://localhost:3000/beverages/types`)
             .then(response => response.json())
-            .then(json => dispatch(receiveFilters(filters, json)))
+            .then(json => {
+                let filterList = [];
+                for (var i in json.length){
+                    try {
+                        filterList.push({
+                            'key': i,
+                            'label': json[i].mainCategory
+                        })
+                    } catch (e) {
+                        console.log(e);
+                    }
+                }
+                dispatch(receiveFilters(filters, json))
+            })
 
     }
 }
