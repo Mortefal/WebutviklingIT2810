@@ -10,6 +10,11 @@ import {
 
 function getProducts(state = initialState, action) {
     switch (action.type) {
-        case
+        case REQUEST_PRODUCTS:
+            return
     }
+}
+
+function showInfo(){
+
 }
