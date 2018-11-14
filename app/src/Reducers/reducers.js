@@ -11,21 +11,29 @@ import {
     //flere for show info greine
 } from "../Actions/actions";
 
-
+const initialState = ({
+    filterArray: [],
+    productData: [],
+    isFavorite: false,
+    dispatch: function () {
+        return true;
+    }
+    })
+;
 function getProducts(state = initialState, action) {
     switch (action.type) {
         case REQUEST_PRODUCTS:
             //change this
-            return state;
+            return initialState;
         case RECEIVE_PRODUCTS:
             //change this
             return state;
         default:
-            return state
+            return initialState;
     }
 }
 
-function getFilters(state, action){
+function getFilters(state = initialState, action){
     switch (action.type) {
         case REQUEST_FILTERS:
             //change this
@@ -45,12 +53,17 @@ function getFilters(state, action){
         case GET_SELECTED_FILTER:
             //change this
             return state;
+        default:
+            return initialState;
     }
 
 }
 
-function showInfo(){
-
+function showInfo(state = initialState, action){
+    switch (action.type) {
+        default:
+            return initialState;
+    }
 }
 
 const rootReducer = combineReducers({
