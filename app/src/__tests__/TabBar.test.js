@@ -1,5 +1,5 @@
 import React from 'react';
-import TabBar from '../Components/TabBar';
+import TabBar from '../Containers/TabBar';
 import renderer from 'react-test-renderer'
 
 describe('Snapshot test of TabBar', ()=> {

@@ -15,9 +15,6 @@ const styles = theme => ({
 });
 
 class TabBar extends React.Component{
-    state = {
-        value: 0,
-    }
     handleChange = (event, value) => {
         this.setState({value})
     };
@@ -27,7 +24,7 @@ class TabBar extends React.Component{
         return(
             <Paper square className={classes.root}>
                 <Tabs
-                    value={this.state.value}
+                    value={this.props.value}
                     onChange={this.handleChange}
                     fullWidth
                     indicatorColor="primary"
@@ -41,8 +38,15 @@ class TabBar extends React.Component{
     }
 
 }
+
+
+
 TabBar.propTypes = {
     classes: PropTypes.object.isRequired,
 };
-
+function mapStateToProps(state) {
+    return{
+        value: state.value,
+    };
+}
 export default withStyles(styles)(TabBar);

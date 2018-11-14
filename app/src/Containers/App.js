@@ -1,38 +1,50 @@
 import React, { Component } from 'react';
-
-//import SimpleCard from "./Components/Cards/SimpleCard";
-import TabBar from "./Components/TabBar";
-import InputBar from './Components/inputBar.js';
-//import DropDown from './Components/DropDown.js'
-import FilterChips from "./Components/FilterChips";
-import CardList from './Components/CardList.js';
-import FetchFromJson from './utils/fetchFromJson.js';
+import TabBar from "./TabBar";
+import InputBar from './inputBar.js';
+import FilterChips from "./FilterChips";
+import CardList from '../Components/CardList.js';
+import FetchFromJson from '../utils/fetchFromJson.js';
+import PropTypes from 'prop-types';
+import {connect}from 'react-redux';
 
 class App extends Component {
     //TODO: Constructor w/ state for params like ID etc & callback.bind.this()
     // Dropdown & Inputbar can change params in state. Use callback, see P2
     // Set props in CardList to state.params elns
-    constructor(props){
-        super(props);
-        this.state = {
-            //callback: ((e) => this.props.callback(e))
-            //params: ,
-            data: [{"_id:":'', "productType":'', "title":'', "description":'', "pris":'', "varenummer": ''}]
-            // ha med name og mer senere ?? title blir name ?
-        };
-        this.setInputUrlParams = this.setInputUrlParams.bind(this);
-        this.setDropDownUrlParams = this.setDropDownUrlParams.bind(this);
+        static propTypes = {
+            filterArray: PropTypes.array.isRequired,
+            productData: PropTypes.array.isRequired,
+            isFavorite: PropTypes.boolean.isRequired,
+            dispatch: PropTypes.func.isRequired,
+    };
+
+
+    componentDidMount() {
+        const {dispatch, getAllFilters} = this.props;
+        dispatch()
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.getAllFilters !== this.props.allFilters) {
+            const {dispatch, getAllFilters} = nextProps;
+            dispatch(fetchFilters(getAllFilters))
+        }
+    };
+
+    handleRefreshClick = e => {
+        e.preventDefault()
+    };
+
+
     render() {
-    return (
-        <div>
-            <TabBar/>
-            <InputBar callback={(e) => this.setInputUrlParams(e)}/>
-            {/*<DropDown/>*/}
-            <FilterChips/>
-            <CardList data={this.state.data}/>
-        </div>
+        return (
+            <div>
+                <TabBar/>
+                <InputBar callback={(e) => this.setInputUrlParams(e)}/>
+                {/*<DropDown/>*/}
+                <FilterChips/>
+                <CardList data={this.state.data}/>
+            </div>
         );
     }
 
@@ -74,9 +86,7 @@ class App extends Component {
        //  this.recieveData()
 
     }
-    componentDidMount(){
-        this.recieveData('Hallo');
-    }
+
 
     recieveData(stringArgs){
         //stringArgs ~= "_id=igouhreso87ey4"
@@ -92,6 +102,24 @@ class App extends Component {
         }));
         //JSON Data ~= [{_id=goin5e7h5, name=..., ....}, {...}, ...]
         //JSON data[0] = {_id=gliren74, ...}
+    }
+}
+const mapStateToProps = state => {
+    const { getAllFilters, products } = state
+    const {
+        filterArray,
+        productData,
+        items: posts
+    } = postsBySubreddit[selectedSubreddit] || {
+        isFetching: true,
+        items: []
+    }
+
+    return {
+        selectedSubreddit,
+        posts,
+        isFetching,
+        lastUpdated
     }
 }
 

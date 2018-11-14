@@ -1,5 +1,5 @@
 import React from 'react';
-import FilterChips from '../Components/FilterChips';
+import FilterChips from '../Containers/FilterChips';
 import renderer from 'react-test-renderer'
 
 
