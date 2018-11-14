@@ -21,5 +21,7 @@ router.get('/search', function(req, res) {
 router.get('/types', function (req, res) {
     retriever.getTypes((doc) => res.json(doc))
 });
-
+router.get('/history', (req, res) => {
+    retriever.getSearches((doc) => res.json(doc));
+})
 module.exports = router;
