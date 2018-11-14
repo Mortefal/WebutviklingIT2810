@@ -13,7 +13,7 @@
 
 ### Filtrering og sorterting
 * Mulighet for sortering og filtrering av resultatsettet (merk at sortering og filtrering skal utføres på hele resultatsettet og ikke bare det som tilfeldigvis er laster inn på klienten)
-
+telnet towel.blinkenlights.nlv
 ### Favorisering
 * Noe bruker/bruksgenererte data som skal lagres (persistent på databaseserveren) og  presenteres (enten bruker som legger til informasjon, reviews, ratings etc, historikk om søkene eller annet, handleliste).
 
@@ -27,11 +27,19 @@ Instansiert med create-react-app
 
 ### Redux eller Mobx
 Hva gjorde vi her, hvorfor?
+```
+git fucked -f --hard
+```
 
 ### Database
-hvorfor valgte vi denne databasen
+Databasen vi kjører er MongoDB, og denne drives i rest-apiet av mongoose. MongoDB er en relasjonsfri (NoSQL) database, som var velegnet for datasettet vårt: omlag 19 500 ulike
+drikkevarer fra vinmonopolet. Her er det stort potensiale for å gjøre en rekke interessante og potensielt studentnyttige analyser. En ulempe er selvsagt at uten
+relasjoner ville potensielt vært suboptimalt, men ettersom dette ikke var prioritert falt valget på Mongo.
+
+Ved prosjektets innlevering er databasen tilgjengelig ved å bruke ``` mongo://it2810-15.idi.ntnu.no:2701/ ```
 
 ### Express
-hvordan brukte vi dette?
+Vi brukte express som krevd i oppgaven. Selve express-prosjektet ble opprettet ved å bruke express-generator. Dette gav et ferdig oppsatt skjelett,
+komplett med 404 og 500 -håndtering og mer. Med dette opprettet, var det en smal sak å fylle på med routere med mer.
 
 ### Valg av komponenter og api
