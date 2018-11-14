@@ -47,10 +47,12 @@ function receiveFilters(filters, json) {
         filter: json.data.children.map(child => child.data)
     }
 }
+
 function fetchAllFilters(filters) {
     return dispatch => {
         dispatch(requestFilters(filters));
-        return fetch(`http://localhost:3000/types`)
+        //TODO: endre url til å passe server når det er oppe, ikke localhost
+        return fetch(`http://localhost:3000/beverages/types`)
             .then(response => response.json())
             .then(json => dispatch(receiveFilters(filters, json)))
 

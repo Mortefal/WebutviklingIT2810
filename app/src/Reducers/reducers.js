@@ -56,6 +56,7 @@ function showInfo(){
 const rootReducer = combineReducers({
     getProducts,
     getFilters,
+    showInfo,
 });
 
 export default rootReducer;
