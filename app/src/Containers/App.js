@@ -14,7 +14,7 @@ class App extends Component {
         static propTypes = {
             filterArray: PropTypes.array.isRequired,
             productData: PropTypes.array.isRequired,
-            isFavorite: PropTypes.boolean.isRequired,
+            isFavorite: PropTypes.bool.isRequired,
             dispatch: PropTypes.func.isRequired,
     };
 
@@ -27,7 +27,7 @@ class App extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.getAllFilters !== this.props.allFilters) {
             const {dispatch, getAllFilters} = nextProps;
-            dispatch(fetchFilters(getAllFilters))
+            dispatch((getAllFilters))
         }
     };
 
@@ -43,7 +43,7 @@ class App extends Component {
                 <InputBar callback={(e) => this.setInputUrlParams(e)}/>
                 {/*<DropDown/>*/}
                 <FilterChips/>
-                <CardList data={this.state.data}/>
+                <CardList data={this.props.productData}/>
             </div>
         );
     }

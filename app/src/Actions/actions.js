@@ -8,7 +8,7 @@ export const RECEIVE_FILTERS = 'RECEIVE_FILTERS';
 export const GET_ALL_FILTERS = 'GET_ALL_FILTERS';
 export const ADD_FILTER = 'ADD_FILTER';
 export const REMOVE_FILTER = 'REMOVE_FILTER';
-export const GET_SELECTED_FILTERS = 'GET_SELECTED_FILTERS';
+export const GET_SELECTED_FILTER = 'GET_SELECTED_FILTER';
 
 function requestProducts(beverages) {
     return{
@@ -32,12 +32,14 @@ function fetchProducts(beverages){
             .then(json => dispatch(receiveProducts(beverages, json)))
     }
 }
+
 function requestFilters(filters) {
     return{
         type: REQUEST_FILTERS,
         filters
     }
-};
+}
+
 function receiveFilters(filters, json) {
     return{
         type: RECEIVE_FILTERS,
@@ -46,8 +48,28 @@ function receiveFilters(filters, json) {
     }
 }
 function fetchAllFilters(filters) {
-    return dispatch = {
+    return dispatch => {
         dispatch(requestFilters(filters));
-        return fetch(`http://localhost:3000/types')
+        return fetch(`http://localhost:3000/types`)
+            .then(response => response.json())
+            .then(json => dispatch(receiveFilters(filters, json)))
+
+    }
+}
+function addFilter(filter) {
+    return{
+        type: ADD_FILTER,
+        filter
+    }
+}
+function removeFilter(filter) {
+    return{
+        type: REMOVE_FILTER,
+        filter
+    }
+}
+function getSelectedFilter() {
+    return{
+        type: GET_SELECTED_FILTER,
     }
 }

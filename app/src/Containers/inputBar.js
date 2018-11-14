@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import '../CSS/inputStyle.css';
-import CardList from './CardList';
+import CardList from '../Components/CardList';
 import SimpleCard from "./SimpleCard";
 //import CardList from './CardList';
 //import SimpleCard from "./SimpleCard";
