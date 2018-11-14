@@ -6,8 +6,8 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import BottleWine from 'mdi-material-ui/BottleWine';
-import BorderHeart from '../FavoriteHeart';
-import DetailsPage from '../DetailsPage.js'
+import BorderHeart from './FavoriteHeart';
+import DetailsPage from './DetailsPage.js'
 
 
 const styles = theme => ({
