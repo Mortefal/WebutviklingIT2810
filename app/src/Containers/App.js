@@ -6,22 +6,21 @@ import CardList from '../Components/CardList.js';
 import FetchFromJson from '../utils/fetchFromJson.js';
 import PropTypes from 'prop-types';
 import {connect}from 'react-redux';
+import rootReducer from '../Reducers/reducers';
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     //TODO: Constructor w/ state for params like ID etc & callback.bind.this()
     // Dropdown & Inputbar can change params in state. Use callback, see P2
     // Set props in CardList to state.params elns
-        static propTypes = {
-            filterArray: PropTypes.array.isRequired,
-            productData: PropTypes.array.isRequired,
-            isFavorite: PropTypes.bool.isRequired,
-            dispatch: PropTypes.func.isRequired,
-    };
 
 
     componentDidMount() {
-        const {dispatch, getAllFilters} = this.props;
-        dispatch()
+        const {dispatch, productData, filterArray, isFavorite} = this.props;
+        dispatch(rootReducer.getFilters(productData))
     }
 
     componentWillReceiveProps(nextProps) {

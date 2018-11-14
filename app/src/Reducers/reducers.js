@@ -8,6 +8,7 @@ import {
     ADD_FILTER,
     GET_ALL_FILTERS,
     GET_SELECTED_FILTER,
+    INVALIDATE_PRODUCT,
     //flere for show info greine
 } from "../Actions/actions";
 
@@ -15,21 +16,33 @@ const initialState = ({
     filterArray: [],
     productData: [],
     isFavorite: false,
-    dispatch: function () {
-        return true;
-    }
     })
 ;
-function getProducts(state = initialState, action) {
+function getProducts(state = {
+    isFetching:false,
+    didInvalidate: false,
+    products: []
+}, action) {
     switch (action.type) {
+        case INVALIDATE_PRODUCT:
+            return Object.assign({}, state, {
+                didInvalidate: true
+            })
         case REQUEST_PRODUCTS:
             //change this
-            return initialState;
+            return Object.assign({}, state, {
+                isFetching: true,
+                didInvalidate: false
+            });
         case RECEIVE_PRODUCTS:
             //change this
-            return state;
+            return Object.assign({}, state, {
+                isFetching: false,
+                didInvalidate: false,
+                products: action.products,
+            });
         default:
-            return initialState;
+            return state;
     }
 }
 
