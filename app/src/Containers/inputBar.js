@@ -2,17 +2,21 @@ import React, { Component } from 'react'
 import '../CSS/inputStyle.css';
 import CardList from '../Components/CardList';
 import SimpleCard from "./SimpleCard";
+import {applyMiddleware as dispatch} from "redux";
+import connect from "react-redux/es/connect/connect";
+import {getQuery} from '../Actions/actions';
+import setQuery from "../Actions/actions";
 //import CardList from './CardList';
 //import SimpleCard from "./SimpleCard";
-
-export default class InputBar extends Component{
+/*
+export default class InputBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
             queryId: 0,
             query: '',
             previousQueries: [],
-            results:[],
+            results: [],
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -22,7 +26,7 @@ export default class InputBar extends Component{
     handleChange(event) {
         this.setState({query: event.target.value});
     }
-
+*/
     /*getInfo(){
         //now logikk for å hente ut ting fra databasen, FETCH API greier, vetikke finne ut av senere
         //    .then(({ data }) => {
@@ -31,12 +35,12 @@ export default class InputBar extends Component{
         });
         console.log("results: " + this.state.results);
     }*/
-
-    saveQuery(){
+/*
+    saveQuery() {
         let queries = [...this.state.previousQueries];   //creating the copy
         let id = this.state.queryId + 1;
         //adding new data
-        if(this.state.query){
+        if (this.state.query) {
             queries.push({
                 id: id,
                 query: this.state.query
@@ -47,27 +51,42 @@ export default class InputBar extends Component{
         this.setState({previousQueries: queries, queryId: id});
     }
 
-    handleSubmit(event) {
-        //gjøre noe her med input
-        console.log(this.state.query);
-        event.preventDefault();
-        this.saveQuery();
-        console.log(this.state.previousQueries);
-        //this.getInfo();
-        this.setState({query: ''});
-    }
+    /*
+        handleSubmit(event) {
+            //gjøre noe her med input
+            console.log(this.state.query);
+            event.preventDefault();
+            this.saveQuery();
+            console.log(this.state.previousQueries);
+            //this.getInfo();
+            this.setState({query: ''});
+        }
+    */
 
-    render() {
-        return (
-            <div className="container">
-            <form onSubmit={this.handleSubmit} className="form">
+let AddQuery = ({dispatch}) => {
+    let query
+    return (
+        <div className="container">
+            <form
+                onSubmit={e => {
+                    e.preventDefault();
+                    if (!query.value.trim()) {
+                        return
+                    }
+                    dispatch(getQuery(query.value))
+                    query.value = ''
+                }} className="form">
                 {/*<h3 className="headText">Search: </h3>*/}
                 <label className="label">
-                    <input type="text" placeholder="Søk etter varer her..." value={this.state.query} onChange={this.handleChange} className="input"/>
+                    <input ref={node => query = node} value={query}
+                            className="input"/>
                 </label>
                 <input type="submit" value="Søk" className="submit"/>
             </form>
-            </div>
-        );
-    }
+        </div>
+    );
 }
+
+AddQuery = connect()(AddQuery)
+
+export default AddQuery;

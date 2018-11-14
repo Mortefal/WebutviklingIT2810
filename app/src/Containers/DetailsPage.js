@@ -8,6 +8,8 @@ import Typography from "@material-ui/core/Typography/Typography";
 import {withStyles} from "@material-ui/core";
 import PropTypes from 'prop-types';
 import FavoriteHeart from "../Components/FavoriteHeart";
+import {hideModal, showModal} from "../Actions/actions";
+import connect from "react-redux/es/connect/connect";
 
 const styles = theme => ({
     paper: {
@@ -42,7 +44,7 @@ const styles = theme => ({
         width: 40,
     },
 });
-
+/*
 class DetailsPage extends React.Component{
     constructor(props) {
         super(props);
@@ -65,24 +67,37 @@ class DetailsPage extends React.Component{
 
     render() {
         const{classes, title, isFav, aroma, country, taste, abv} = this.props;
+*/
+let ModalTrigger = ({dispatch}) => {
+    let openModal = false;
         return (
             <div>
-                <Button className="modalButton" onClick={this.handleOpen}>Mer Info</Button>
+                <Button className="modalButton" onClick={e => {
+                    e.preventDefault();
+                    if (openModal = false){
+                        
+                    }else{
+                        dispatch(showModal(true))
+                    }
+                }}>Mer Info</Button>
                 <Grid>
                     <div>
                         <Modal
                             aria-labelledby="simple-modal-title"
                             aria-describedby="simple-modal-description"
-                            open={this.state.openModal}
-                            onClose={this.handleClose}
+                            open={openModal}
+                            onClose={e => {
+                                e.preventDefault();
+                                dispatch(hideModal(false))
+                            }}
                             style={{alignItems: 'center', justifyContent: 'center'}}
                         >
-                            <div className={classes.paper}>
+                            <div>
                                 <Grid>
-                                    <Grid item container direction={"row-reverse"}><FavoriteHeart isFav={isFav}/></Grid>
+                                    <Grid item container direction={"row-reverse"}><FavoriteHeart isFav={false}/></Grid>
                                     <Grid container spacing={16} alignItems={"center"} alignContent={"center"}>
                                         <Grid item xs={6}>
-                                            <ButtonBase className={classes.image}>
+                                            <ButtonBase >
                                                 <BottleWine style={{fontSize: 256}}/>
                                             </ButtonBase>
                                         </Grid>
@@ -90,32 +105,33 @@ class DetailsPage extends React.Component{
                                         <Grid item xs={6}>
 
                                             <Grid direction={"column"} justify={"center"} container item xs={12} alignItems={"center"}>
-                                                <Grid item xs={4} className={classes.sideBox3} >
-                                                    Opprinnelsesland: {country}
+                                                <Grid item xs={4} >
+                                                    Opprinnelsesland: {"Checkoiad"}
                                                 </Grid>
-                                                <Grid className={classes.sideBox3} item xs={4}>
-                                                    {abv}%
+                                                <Grid item xs={4}>
+                                                    14%
                                                 </Grid>
                                             </Grid>
                                         </Grid>
                                     </Grid>
                                 </Grid>
                                 <Grid>
-                                    <Typography gutterBottom variant="h5">{title}</Typography>
-                                    <Typography gutterBottom variant="body1">{aroma}{taste}</Typography>
+                                    <Typography gutterBottom variant="h5">"TITLE"</Typography>
+                                    <Typography gutterBottom variant="body1">"AROMA OG TASTE"</Typography>
                                 </Grid>
                             </div>
                         </Modal>
                     </div>
                 </Grid>
             </div>
-        );
+        )
     }
 
-}
-
+/*
 DetailsPage.propTypes = {
     classes: PropTypes.object.isRequired,
 };
+*/
+ModalTrigger = connect()(ModalTrigger)
 
-export default withStyles(styles)(DetailsPage);
+export default ModalTrigger;

@@ -11,10 +11,10 @@ const middleware = [ thunk ]
 if (process.env.NODE_ENV !== 'production') {
     middleware.push(createLogger())
 }
-
+//applyMiddleware(...middleware),
 const store = createStore(
     reducer,
-    applyMiddleware(...middleware)
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 render(

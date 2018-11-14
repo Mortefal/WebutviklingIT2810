@@ -2,7 +2,7 @@ import fetch from 'cross-fetch'
 
 export const REQUEST_PRODUCTS = 'REQUEST_PRODUCTS';
 export const RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS';
-
+export const GET_QUERY = 'GET_QUERY';
 export const REQUEST_FILTERS = 'REQUEST_FILTERS';
 export const RECEIVE_FILTERS = 'RECEIVE_FILTERS';
 export const GET_ALL_FILTERS = 'GET_ALL_FILTERS';
@@ -10,16 +10,36 @@ export const ADD_FILTER = 'ADD_FILTER';
 export const REMOVE_FILTER = 'REMOVE_FILTER';
 export const GET_SELECTED_FILTER = 'GET_SELECTED_FILTER';
 export const INVALIDATE_PRODUCT = 'INVALIDATE_PRODUCT';
+export const SHOW_MODAL = 'SHOW_MODAL';
+export const HIDE_MODAL = 'HIDE_MODAL';
 
 function requestProducts(beverages) {
     return{
-        type: REQUEST_PRODUCTS,
+        type: 'REQUEST_PRODUCTS',
         beverages
+    }
+}
+export function getQuery(query) {
+    return {
+        type: 'GET_QUERY',
+        text: query
+    }
+}
+export function showModal(click) {
+    return {
+        type: 'SHOW_MODAL',
+        clicked: click
+    }
+}
+export function hideModal(click) {
+    return {
+        type: 'HIDE_MODAL',
+        clickaway: click
     }
 }
 export function invalidateProduct(product) {
     return {
-        type: INVALIDATE_PRODUCT,
+        type: 'INVALIDATE_PRODUCT',
         product
     }
 }
@@ -41,7 +61,7 @@ function fetchProducts(beverages){
 }
     function receiveProducts(beverages, json) {
         return {
-            type: RECEIVE_PRODUCTS,
+            type: 'RECEIVE_PRODUCTS',
             beverages,
             products: json.data.children.map(child => child.data)
         }
@@ -49,14 +69,14 @@ function fetchProducts(beverages){
 
     function requestFilters(filters) {
         return {
-            type: REQUEST_FILTERS,
+            type: 'REQUEST_FILTERS',
             filters
         }
     }
 
     function receiveFilters(filters, json) {
         return {
-            type: RECEIVE_FILTERS,
+            type: 'RECEIVE_FILTERS',
             filters,
             filter: json.data.children.map(child => child.data)
         }
@@ -88,21 +108,21 @@ function fetchAllFilters(filters) {
 
     function addFilter(filter) {
         return {
-            type: ADD_FILTER,
+            type: 'ADD_FILTER',
             filter
         }
     }
 
     function removeFilter(filter) {
         return {
-            type: REMOVE_FILTER,
+            type: 'REMOVE_FILTER',
             filter
         }
     }
 
     function getSelectedFilter() {
         return {
-            type: GET_SELECTED_FILTER,
+            type: 'GET_SELECTED_FILTER',
         }
     }
 
