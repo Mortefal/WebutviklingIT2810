@@ -19,6 +19,7 @@ class App extends Component {
 
 
     componentDidMount() {
+
         const {dispatch, productData, filterArray, isFavorite} = this.props;
         dispatch(rootReducer.getFilters(productData))
     }
@@ -36,13 +37,20 @@ class App extends Component {
 
 
     render() {
+        let cardList;
+        if (this.props.productData){
+            cardList = <CardList data={this.props.productData}/>
+        }
+        else {
+            cardList = <p>Data not yet available </p>
+        }
         return (
             <div>
                 <TabBar/>
                 <InputBar callback={(e) => this.setInputUrlParams(e)}/>
                 {/*<DropDown/>*/}
                 <FilterChips/>
-                <CardList data={this.props.productData}/>
+                {cardList}
             </div>
         );
     }
