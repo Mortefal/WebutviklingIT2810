@@ -37,17 +37,16 @@ export function getQuery(query) {
     }
 
 }
-
-export function showModal(click) {
-    return {
+export function showInfo(bools){
+    return{
         type: 'SHOW_MODAL',
-        clicked: click,
+        bools
     }
 }
-export function hideModal(click) {
-    return {
+export function hideInfo(bools){
+    return{
         type: 'HIDE_MODAL',
-        clickaway: click
+        bools
     }
 }
 export function fetchAllFiltersIfNeeded(filters) {
@@ -113,17 +112,17 @@ function fetchAllFilters(filters) {
         }
     }
 
-    function addFilter(filter) {
+    export function addFilter(key, filterName) {
         return {
             type: 'ADD_FILTER',
-            filter
+            key: key,
+            filter: filterName
         }
     }
-
-    function removeFilter(filter) {
+    export function removeFilter(filter) {
         return {
             type: 'REMOVE_FILTER',
-            filter
+            filter: filter
         }
     }
 

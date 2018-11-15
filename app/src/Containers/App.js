@@ -25,8 +25,9 @@ class App extends Component {
     // Set props in CardList to state.params elns
 
     componentDidMount() {
-        const {productData, filterArray, isFavorite} = this.props;
         //store.dispatch(fetchAllFiltersIfNeeded(productData))
+        const {productData, filterArray, isFavorite, query} = this.props;
+        dispatch(fetchAllFiltersIfNeeded(productData))
     }
 
     componentWillReceiveProps(nextProps) {
@@ -134,7 +135,8 @@ const mapStateToProps = state => {
         getAllFilters,
         filterArray,
         productData,
-    }
+        query: state.getQuery().query
+}
 };
 const mapDispatchToProps = dispatch => {
     return{
