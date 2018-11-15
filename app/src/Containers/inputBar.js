@@ -79,7 +79,8 @@ let AddQuery = ({dispatch}) => {
                         return
                     }
                     store.dispatch(getQuery(query.value))
-                    console.log(store.getState())
+                    let data = store.getState()
+                    console.log(data.getQuery)
                     query.value = ''
                 }} className="form">
                 {/*<h3 className="headText">Search: </h3>*/}

@@ -44,6 +44,8 @@ class App extends Component {
 
     render() {
         let cardList;
+        let data = store.getState()
+        console.log(data.getQuery)
         if (this.props.productData){
             cardList = <CardList data={this.props.productData}/>
         }
@@ -58,7 +60,7 @@ class App extends Component {
                 {/*<DropDown/>*/}
                 <FilterChips/>
                 {cardList}
-                <SimpleCard title={store.getQuery} pris={123} varenummer={1234567} taste="Bæsj" aroma="Promp" country="Tjekkoslovakia" abv={96.6}/>
+                <SimpleCard title="hei" pris={123} varenummer={1234567} taste="kake" aroma="vanilje" country="Tjekkoslovakia" abv={96.6}/>
             </div>
         );
     }
