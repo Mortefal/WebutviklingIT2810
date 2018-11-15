@@ -7,6 +7,9 @@ import FetchFromJson from '../utils/fetchFromJson.js';
 import PropTypes from 'prop-types';
 import {connect}from 'react-redux';
 import rootReducer from '../Reducers/reducers';
+import {fetchAllFiltersIfNeeded} from "../Actions/actions";
+import {applyMiddleware as dispatch} from "redux";
+import SimpleCard from "./SimpleCard";
 
 class App extends Component {
     constructor(props) {
@@ -20,8 +23,8 @@ class App extends Component {
 
     componentDidMount() {
 
-        const {dispatch, productData, filterArray, isFavorite} = this.props;
-        dispatch(rootReducer.getFilters(productData))
+        const {productData, filterArray, isFavorite} = this.props;
+        dispatch(fetchAllFiltersIfNeeded(productData))
     }
 
     componentWillReceiveProps(nextProps) {
@@ -51,6 +54,7 @@ class App extends Component {
                 {/*<DropDown/>*/}
                 <FilterChips/>
                 {cardList}
+                <SimpleCard title="Test" pris={123} varenummer={1234567} taste="Bæsj" aroma="Promp" country="Tjekkoslovakia" abv={96.6}/>
             </div>
         );
     }
@@ -119,13 +123,20 @@ const mapStateToProps = state => {
     } = products[getAllFilters] || {
         filterArray: [],
         productData: []
-    }
+    };
 
     return {
         getAllFilters,
         filterArray,
         productData,
     }
+};
+const mapDispatchToProps = dispatch => {
+    return{
+
+    }
 }
+
+
 
 export default App;

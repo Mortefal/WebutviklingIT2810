@@ -1,40 +1,31 @@
 import {combineReducers} from "redux";
-import {
-    REQUEST_PRODUCTS,
-    RECEIVE_PRODUCTS,
-    REQUEST_FILTERS,
-    RECEIVE_FILTERS,
-    REMOVE_FILTER,
-    ADD_FILTER,
-    GET_ALL_FILTERS,
-    GET_SELECTED_FILTER,
-    INVALIDATE_PRODUCT,
-    //flere for show info greine
-} from "../Actions/actions";
+import * as types from "../Actions/actions";
 
 const initialState = ({
     filterArray: [],
     productData: [],
     isFavorite: false,
+    query: ''
     })
 ;
 function getProducts(state = {
     isFetching:false,
     didInvalidate: false,
-    products: []
+    products: [],
+    query: ''
 }, action) {
     switch (action.type) {
-        case INVALIDATE_PRODUCT:
+        case types.INVALIDATE_PRODUCT:
             return Object.assign({}, state, {
                 didInvalidate: true
             })
-        case REQUEST_PRODUCTS:
+        case types.REQUEST_PRODUCTS:
             //change this
             return Object.assign({}, state, {
                 isFetching: true,
                 didInvalidate: false
             });
-        case RECEIVE_PRODUCTS:
+        case types.RECEIVE_PRODUCTS:
             //change this
             return Object.assign({}, state, {
                 isFetching: false,
@@ -45,25 +36,36 @@ function getProducts(state = {
             return state;
     }
 }
-
+function getQuery(state = {
+    query: ''
+}, action) {
+    switch (action.type) {
+        case types.GET_QUERY:
+            return Object.assign({}, state, {
+                query: action.text
+            })
+        default:
+            return state;
+    }
+}
 function getFilters(state = initialState, action){
     switch (action.type) {
-        case REQUEST_FILTERS:
+        case types.REQUEST_FILTERS:
             //change this
             return state;
-        case RECEIVE_FILTERS:
+        case types.RECEIVE_FILTERS:
             //change this
             return state;
-        case REMOVE_FILTER:
+        case types.REMOVE_FILTER:
             //change this
             return state;
-        case ADD_FILTER:
+        case types.ADD_FILTER:
             //change this
             return state;
-        case GET_ALL_FILTERS:
+        case types.GET_ALL_FILTERS:
             //change this
             return state;
-        case GET_SELECTED_FILTER:
+        case types.GET_SELECTED_FILTER:
             //change this
             return state;
         default:
@@ -72,8 +74,18 @@ function getFilters(state = initialState, action){
 
 }
 
-function showInfo(state = initialState, action){
+function showInfo(state = {
+    openModal: false
+}, action){
     switch (action.type) {
+        case types.SHOW_MODAL:
+            return Object.assign({}, state, {
+            openModal: true
+        })
+        case types.HIDE_MODAL:
+            return Object.assign({}, state, {
+                openModal: false
+            })
         default:
             return initialState;
     }
@@ -83,6 +95,7 @@ const rootReducer = combineReducers({
     getProducts,
     getFilters,
     showInfo,
+    getQuery,
 });
 
 export default rootReducer;
