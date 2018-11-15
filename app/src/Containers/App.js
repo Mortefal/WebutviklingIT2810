@@ -10,6 +10,10 @@ import rootReducer from '../Reducers/reducers';
 import {fetchAllFiltersIfNeeded} from "../Actions/actions";
 import {applyMiddleware as dispatch} from "redux";
 import SimpleCard from "./SimpleCard";
+import configureStore from "../Store/configureStore";
+
+let store = configureStore();
+
 
 class App extends Component {
     constructor(props) {
@@ -41,12 +45,15 @@ class App extends Component {
 
     render() {
         let cardList;
+        let data = store.getState()
+        console.log(data.getQuery)
         if (this.props.productData){
             cardList = <CardList data={this.props.productData}/>
         }
         else {
             cardList = <p>Data not yet available </p>
         }
+        console.log(store.getState())
         return (
             <div>
                 <TabBar/>
@@ -54,7 +61,7 @@ class App extends Component {
                 {/*<DropDown/>*/}
                 <FilterChips/>
                 {cardList}
-                <SimpleCard title="Test" pris={123} varenummer={1234567} taste="Bæsj" aroma="Promp" country="Tjekkoslovakia" abv={96.6}/>
+                <SimpleCard title="hei" pris={123} varenummer={1234567} taste="kake" aroma="vanilje" country="Tjekkoslovakia" abv={96.6}/>
             </div>
         );
     }

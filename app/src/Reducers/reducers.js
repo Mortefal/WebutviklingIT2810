@@ -41,12 +41,10 @@ function getProducts(state = {
     }
 }
 
-
-function getQuery(state = {
-    query: 'Test'
-}, action) {
+function getQuery(state = {}, action) {
     switch (action.type) {
         case types.GET_QUERY:
+            console.log(action.text)
             return Object.assign({}, state, {
                 ... state,
                 query: action.text,
@@ -55,13 +53,17 @@ function getQuery(state = {
             return state;
     }
 }
-
+/*
 export function consolelog(){
+<<<<<<< HEAD
     console.log(configureStore().subscribe(() => {
         console.log(configureStore().getState().query)
     }))
     consolelog()
 }
+=======
+    console.log(configureStore().getState())
+}*/
 
 function getFilters(state = initialState, action){
     switch (action.type) {

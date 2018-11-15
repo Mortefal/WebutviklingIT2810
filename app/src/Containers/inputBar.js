@@ -10,6 +10,7 @@ import {consolelog} from '../Reducers/reducers'
 import setQuery from "../Actions/actions";
 import configureStore from "../Store/configureStore";
 
+let store = configureStore();
 //import CardList from './CardList';
 //import SimpleCard from "./SimpleCard";
 /*
@@ -77,10 +78,10 @@ let AddQuery = ({dispatch}) => {
                     if (!query.value.trim()) {
                         return
                     }
-                    dispatch(getQuery(query.value))
+                    store.dispatch(getQuery(query.value))
+                    let data = store.getState()
+                    console.log(data.getQuery)
                     query.value = ''
-
-
                 }} className="form">
                 {/*<h3 className="headText">Search: </h3>*/}
                 <label className="label">
