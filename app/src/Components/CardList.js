@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import SimpleCard from "../Containers/SimpleCard";
 //import Typography from "@material-ui/core/Typography/Typography";
+import configureStore from "../Store/configureStore";
+let store = configureStore();
 
 
 const styles = theme => ({
