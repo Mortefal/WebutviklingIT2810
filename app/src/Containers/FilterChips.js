@@ -4,6 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import Paper from "@material-ui/core/Paper/Paper";
 import Grid from "@material-ui/core/Grid/Grid";
+import {addFilter, removeFilter} from "../Actions/actions";
+import connect from "react-redux/es/connect/connect";
+import mapStateToProps from "react-redux/es/connect/mapStateToProps";
 //import Typography from "@material-ui/core/Typography/Typography";
 
 const styles = theme => ({
@@ -87,6 +90,14 @@ class FilterChips extends React.Component {
         )
     }
 }
+/*
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addFilter: (key, filterName) => dispatch(addFilter()),
+        removeFilter: (filterName) => dispatch(removeFilter(filter))
+    }
+}
+*/
 
 FilterChips.propTypes = {
     classes: PropTypes.object.isRequired,

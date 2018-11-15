@@ -26,7 +26,8 @@ function getProducts(state = {
             //change this
             return Object.assign({}, state, {
                 isFetching: true,
-                didInvalidate: false
+                didInvalidate: false,
+                query: ""
             });
         case types.RECEIVE_PRODUCTS:
             //change this
@@ -42,7 +43,7 @@ function getProducts(state = {
 
 
 function getQuery(state = {
-    query: ''
+    query: 'Test'
 }, action) {
     switch (action.type) {
         case types.GET_QUERY:
@@ -56,7 +57,10 @@ function getQuery(state = {
 }
 
 export function consolelog(){
-    console.log(configureStore().getState())
+    console.log(configureStore().subscribe(() => {
+        console.log(configureStore().getState().query)
+    }))
+    consolelog()
 }
 
 function getFilters(state = initialState, action){
@@ -85,27 +89,29 @@ function getFilters(state = initialState, action){
 
 }
 
-function showInfo(state = {
+function displayInfo(state = {
     openModal: false
 }, action){
     switch (action.type) {
         case types.SHOW_MODAL:
-            return Object.assign({}, state, {
-            openModal: true
-        })
+            return  {
+                ...state,
+                openModal: !state.openModal
+        };
         case types.HIDE_MODAL:
-            return Object.assign({}, state, {
-                openModal: false
-            })
+            return {
+                ...state,
+                openModal: !state.openModal,
+            }
         default:
-            return initialState;
+            return state;
     }
 }
 
 const rootReducer = combineReducers({
     getProducts,
     getFilters,
-    showInfo,
+    displayInfo,
     getQuery,
 });
 

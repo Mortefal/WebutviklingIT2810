@@ -23,7 +23,7 @@ class App extends Component {
 
     componentDidMount() {
 
-        const {productData, filterArray, isFavorite} = this.props;
+        const {productData, filterArray, isFavorite, query} = this.props;
         dispatch(fetchAllFiltersIfNeeded(productData))
     }
 
@@ -129,7 +129,8 @@ const mapStateToProps = state => {
         getAllFilters,
         filterArray,
         productData,
-    }
+        query: state.getQuery().query
+}
 };
 const mapDispatchToProps = dispatch => {
     return{

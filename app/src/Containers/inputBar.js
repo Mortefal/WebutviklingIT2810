@@ -79,8 +79,8 @@ let AddQuery = ({dispatch}) => {
                     }
                     dispatch(getQuery(query.value))
                     query.value = ''
-                    console.log("hei")
-                    consolelog()
+
+
                 }} className="form">
                 {/*<h3 className="headText">Search: </h3>*/}
                 <label className="label">
