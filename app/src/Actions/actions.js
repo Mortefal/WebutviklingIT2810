@@ -1,4 +1,5 @@
 import fetch from 'cross-fetch'
+import store from'../Store/configureStore';
 
 export const REQUEST_PRODUCTS = 'REQUEST_PRODUCTS';
 export const RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS';
@@ -25,10 +26,11 @@ export function getQuery(query) {
         text: query
     }
 }
+
 export function showModal(click) {
     return {
         type: 'SHOW_MODAL',
-        clicked: click
+        clicked: click,
     }
 }
 export function hideModal(click) {

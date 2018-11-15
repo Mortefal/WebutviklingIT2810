@@ -5,7 +5,11 @@ import SimpleCard from "./SimpleCard";
 import {applyMiddleware as dispatch} from "redux";
 import connect from "react-redux/es/connect/connect";
 import {getQuery} from '../Actions/actions';
+import {consolelog} from '../reducers/reducers'
+
 import setQuery from "../Actions/actions";
+import configureStore from "../Store/configureStore";
+
 //import CardList from './CardList';
 //import SimpleCard from "./SimpleCard";
 /*
@@ -75,6 +79,8 @@ let AddQuery = ({dispatch}) => {
                     }
                     dispatch(getQuery(query.value))
                     query.value = ''
+                    console.log("hei")
+                    consolelog()
                 }} className="form">
                 {/*<h3 className="headText">Search: </h3>*/}
                 <label className="label">
@@ -87,6 +93,12 @@ let AddQuery = ({dispatch}) => {
     );
 }
 
-AddQuery = connect()(AddQuery)
+const mapStateToProps = (state) =>{
+    return{
+        query: state.query
+    }
+}
+
+AddQuery = connect(mapStateToProps)(AddQuery)
 
 export default AddQuery;

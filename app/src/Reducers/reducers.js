@@ -1,5 +1,7 @@
 import {combineReducers} from "redux";
 import * as types from "../Actions/actions";
+import configureStore from "../Store/configureStore";
+
 
 const initialState = ({
     filterArray: [],
@@ -8,6 +10,7 @@ const initialState = ({
     query: ''
     })
 ;
+
 function getProducts(state = {
     isFetching:false,
     didInvalidate: false,
@@ -36,23 +39,31 @@ function getProducts(state = {
             return state;
     }
 }
+
+
 function getQuery(state = {
     query: ''
 }, action) {
     switch (action.type) {
         case types.GET_QUERY:
             return Object.assign({}, state, {
-                query: action.text
-            })
+                ... state,
+                query: action.text,
+            });
         default:
             return state;
     }
 }
+
+export function consolelog(){
+    console.log(configureStore().getState())
+}
+
 function getFilters(state = initialState, action){
     switch (action.type) {
         case types.REQUEST_FILTERS:
             //change this
-            return state;
+            return
         case types.RECEIVE_FILTERS:
             //change this
             return state;

@@ -1,5 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
+import { connect } from "react-redux";
 //import ListSubHeader from '@material-ui/core/ListSubheader';
 //import GridListTile from '@material-ui/core/GridListTile';
 
@@ -39,9 +40,14 @@ class CardList extends React.Component {
         )
     }
 }
-
+/*
 CardList.propTypes = {
     classes: PropTypes.object.isRequired,
-};
+};*/
 
-export default withStyles(styles)(CardList);
+const mapStateToProps = state => ({
+    cards: state.cards.data
+});
+
+export default connect(mapStateToProps)(CardList)
+/*export default withStyles(styles)(CardList);*/
