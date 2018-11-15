@@ -5,7 +5,6 @@ import SimpleCard from "./SimpleCard";
 import {applyMiddleware as dispatch} from "redux";
 import connect from "react-redux/es/connect/connect";
 import {getQuery} from '../Actions/actions';
-import {consolelog} from '../Reducers/reducers'
 
 import setQuery from "../Actions/actions";
 import configureStore from "../Store/configureStore";
@@ -69,7 +68,7 @@ export default class InputBar extends Component {
     */
 
 let AddQuery = ({dispatch}) => {
-    let query
+    let query;
     return (
         <div className="container">
             <form
@@ -92,14 +91,20 @@ let AddQuery = ({dispatch}) => {
             </form>
         </div>
     );
-}
+};
 
 const mapStateToProps = (state) =>{
     return{
         query: state.query
-    }
-}
+    };
+};
 
-AddQuery = connect(mapStateToProps)(AddQuery)
+const mapDispatchToProps = dispatch => {
+    return {
+        getQuery: query => dispatch(getQuery(query)),
+    };
+};
+
+AddQuery = connect(mapStateToProps, mapDispatchToProps)(AddQuery)
 
 export default AddQuery;

@@ -12,27 +12,22 @@ const initialState = ({
 ;
 
 function getProducts(state = {
-    isFetching:false,
-    didInvalidate: false,
     products: [],
     query: ''
 }, action) {
+    console.log("Get Products");
+    console.log(action);
     switch (action.type) {
-        case types.INVALIDATE_PRODUCT:
-            return Object.assign({}, state, {
-                didInvalidate: true
-            })
         case types.REQUEST_PRODUCTS:
             //change this
             return Object.assign({}, state, {
                 isFetching: true,
-                didInvalidate: false
             });
         case types.RECEIVE_PRODUCTS:
             //change this
+            console.log("Recieved products");
             return Object.assign({}, state, {
                 isFetching: false,
-                didInvalidate: false,
                 products: action.products,
             });
         default:
@@ -62,7 +57,7 @@ function getFilters(state = initialState, action){
     switch (action.type) {
         case types.REQUEST_FILTERS:
             //change this
-            return
+            return state;
         case types.RECEIVE_FILTERS:
             //change this
             return state;
