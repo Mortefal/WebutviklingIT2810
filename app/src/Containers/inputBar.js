@@ -5,7 +5,7 @@ import SimpleCard from "./SimpleCard";
 import {applyMiddleware as dispatch} from "redux";
 import connect from "react-redux/es/connect/connect";
 import {getQuery} from '../Actions/actions';
-import {consolelog} from '../reducers/reducers'
+import {consolelog} from '../Reducers/reducers'
 
 import setQuery from "../Actions/actions";
 import configureStore from "../Store/configureStore";

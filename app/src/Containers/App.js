@@ -6,7 +6,7 @@ import CardList from '../Components/CardList.js';
 import FetchFromJson from '../utils/fetchFromJson.js';
 import PropTypes from 'prop-types';
 import {connect}from 'react-redux';
-import rootReducer from '../reducers/reducers';
+import rootReducer from '../Reducers/reducers';
 import {fetchAllFiltersIfNeeded} from "../Actions/actions";
 import {applyMiddleware as dispatch} from "redux";
 import SimpleCard from "./SimpleCard";
