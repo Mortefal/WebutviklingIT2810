@@ -35,6 +35,6 @@ class FetchFromJson {
 
 export default FetchFromJson;
 /*
-let fetcher = new FetchFromJson('http://localhost:3000/beverages/search');
+let fetcher = new FetchFromJson('http://it2810-15.idi.ntnu.no:3000/beverages/search');
 fetcher.fetchFromString("_id=5be43eceb899cc72e3b0975f", (data => console.log(data)));
 */

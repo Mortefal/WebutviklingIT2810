@@ -56,7 +56,7 @@ function fetchProducts(beverages){
     return dispatch => {
         dispatch(requestProducts(beverages));
         //TODO: Change link to relative or server-url
-        return fetch(`http://localhost:3000/beverages/search${beverages}`)
+        return fetch(`http://it2810-15.idi.ntnu.no:3000/beverages/search${beverages}`)
             .then(response => response.json())
             .then(json => dispatch(receiveProducts(beverages, json)))
     }
@@ -87,8 +87,7 @@ function fetchProducts(beverages){
 function fetchAllFilters(filters) {
     return dispatch => {
         dispatch(requestFilters(filters));
-        //TODO: endre url til å passe server når det er oppe, ikke localhost
-        return fetch(`http://localhost:3000/beverages/types`)
+        return fetch(`http://it2810-15.idi.ntnu.no:3000/beverages/types`)
             .then(response => response.json())
             .then(json => {
                 let filterList = [];

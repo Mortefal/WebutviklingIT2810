@@ -103,7 +103,7 @@ class App extends Component {
         //stringArgs ~= "_id=igouhreso87ey4"
 
         //TODO: Use fetch util to get JSON data
-        let fetcher = new FetchFromJson('http://localhost:3000/beverages/search');
+        let fetcher = new FetchFromJson('http://it2810-15.idi.ntnu.no:3000/beverages/search');
         fetcher.fetchFromString("productType=Rødvin", ((data) => {
             console.log(data[0]);
             this.setState({
