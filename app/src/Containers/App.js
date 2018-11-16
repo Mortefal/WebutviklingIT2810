@@ -18,6 +18,10 @@ let store = configureStore();
 class App extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            name: null,
+            type: null
+        }
     }
 
     //TODO: Constructor w/ state for params like ID etc & callback.bind.this()
@@ -48,12 +52,11 @@ class App extends Component {
         let data = store.getState()
         console.log(data.getQuery)
         if (this.props.productData){
-            cardList = <CardList data={this.props.productData}/>
+            cardList = <CardList name={this.state.name} data={this.props.productData}/>
         }
         else {
-            cardList = <p>Data not yet available </p>
         }
-        console.log(store.getState())
+        console.log(store.getState());
         return (
             <div>
                 <TabBar/>
@@ -73,7 +76,12 @@ class App extends Component {
     }
 
     setInputUrlParams(params){
-        //this.setState(....)
+        console.log(params);
+
+        this.setState({
+            ...this.state,
+            name: params
+        })
      /* try{
           let newPoemKey = this.state.data[this.state.key].poemUrl[e["title"]];
           console.log(newPoemKey);
