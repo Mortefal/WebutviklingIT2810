@@ -1,0 +1,16 @@
+[{
+  "subCategories": ["Hvitvin", "Musserende vin", "Rødvin", "Rosévin", "Fruktvin", "Portvin", "Perlende vin, hvit", "Perlende vin, rød", "Perlende vin, rosé", "Sterkvin, annen", "Sherry", "Vermut", "Madeira", "Aromatisert vin"],
+  "mainCategory": "Vin"
+}, {
+  "subCategories": ["Champagne, brut", "Musserende vin, rosé", "Champagne, rosé", "Champagne extra brut", "Champagne, annen", "Champagne, sec"],
+  "mainCategory": "Musserende"
+}, {
+  "subCategories": ["Whisky", "Akevitt", "Gin", "Druebrennevin", "Rom", "Bitter", "Fruktbrennevin", "Likør", "Vodka", "Brennevin, annet", "Brennevin, nøytralt<37.5%", "Genever", "Sake"],
+  "mainCategory": "Brennevin"
+}, {
+  "subCategories": ["Sider", "Lys ale", "Klosterstil", "India pale ale", "Brown ale", "Pale ale", "Spesial", "Hveteøl", "Surøl", "Porter & Stout", "Saison farmhouse ale", "Mørk lager", "Barley wine", "Red/amber", "Scotch ale"],
+  "mainCategory": "Øl og sider"
+}, {
+  "subCategories": ["Alkoholfri vin", "Alkoholfri most", "Alkoholfri musserende drikk", "Alkoholfritt øl", "Alkoholfritt, øvrig", "Alkoholfri leskedrikk"],
+  "mainCategory": "Alkoholfritt"
+}]
