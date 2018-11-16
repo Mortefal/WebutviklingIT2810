@@ -8,8 +8,6 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import BottleWine from 'mdi-material-ui/BottleWine';
 import BorderHeart from '../Components/FavoriteHeart';
 import DetailsPage from './DetailsPage.js'
-import {setFavorite, removeFavorite} from "../Actions/actions";
-import connect from "react-redux/es/connect/connect";
 
 
 const styles = theme => ({
@@ -23,6 +21,7 @@ const styles = theme => ({
     image: {
         width: 128,
         height: 128,
+        /* Tror det skal være mulig å hente inn bilde ved å ta response.images[2].url hvor formatet er thumbnail */
     },
     img: {
         margin: 'auto',
@@ -50,21 +49,22 @@ class SimpleCard extends React.Component{
             country: this.props.country,
             abv: this.props.abv,
             isFav: false,
+            results: [],
         };
-        this.addFavorite = this.addFavorite.bind(this);
-        this.removeFavorite = this.removeFavorite.bind(this);
+        this.handleAddClick = this.handleAddClick.bind(this);
     };
 
-    addFavorite(e){
-        this.props.add(e);
-    }
-    removeFavorite(e){
-        this.props.remove(e);
-    }
+
+    handleAddClick(){
+        this.setState({isFav: !this.state.isFav});
+        /*Add to favorites in db*/
+        /*this.setState({results: this.state.results.push(...[this.state.title, this.state.description, this.state.pris, this.state.varenummer])});
+        console.log(this.state.results)*/
+    };
 
     render(){
-        const { classes, key, title, pris, varenummer, taste, aroma, country, abv } = this.props;
-        const isFav = this.props.isFav;
+        const { classes, title, pris, varenummer, taste, aroma, country, abv } = this.props;
+        const isFav = this.state.isFav;
         return(
             <Paper className={classes.root}>
                 <Grid container spacing={16}>
@@ -88,14 +88,14 @@ class SimpleCard extends React.Component{
                             </Grid>
                             <Grid item container alignItems={"flex-start"}>
                                 <Grid item xs={10}>
-                                    <DetailsPage key = {key} title={title} aroma={aroma} taste={taste} isFav={isFav} pris={pris} country={country} abv={abv}/>
+                                    <DetailsPage title={title} aroma={aroma} taste={taste} isFav={this.state.isFav} pris={pris} country={country} abv={abv}/>
                                 </Grid>
                                 <Grid item>
                                     <Typography variant="subtitle1">{pris} Kr</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item onClick={(e) => {this.addFavorite(e)}}>
+                        <Grid item onClick={this.handleAddClick}>
                             <BorderHeart isFav={isFav}/>
                         </Grid>
                     </Grid>
@@ -105,25 +105,8 @@ class SimpleCard extends React.Component{
     }
 
 }
-
-const mapStateToProps = state => {
-    return({
-        isFav: state.displayInfo.favorite
-    })
-
-}
-const mapDispatchToProps = dispatch => {
-    return {
-        add: e => {
-            dispatch(setFavorite(e))
-        }
-    }
-}
-
-
 SimpleCard.propTypes = {
     classes: PropTypes.object.isRequired,
 };
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SimpleCard));
 
-
+export default withStyles(styles)(SimpleCard);
