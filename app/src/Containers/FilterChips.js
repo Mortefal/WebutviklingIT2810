@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import Paper from "@material-ui/core/Paper/Paper";
 import Grid from "@material-ui/core/Grid/Grid";
-//import Typography from "@material-ui/core/Typography/Typography";
 
 const styles = theme => ({
     root:{
@@ -17,26 +16,23 @@ const styles = theme => ({
         margin: theme.spacing.unit,
     }
 });
-/*const beer = "productType=Sider&productType=Lys ale&productType=Klosterstil&productType=India pale ale&productType=Brown ale&productType=Pale ale&productType=Spesial&productType=Hveteøl&productType=Surøl"
-*/
+
 class FilterChips extends React.Component {
     state = {
         filterQuery: [
-            {key: 0, label: "Øl og sider"},
-            {key: 1, label: "Rødvin"},
-            {key: 2, label: "Hvitvin"},
-            {key: 3, label: "Annen vin"},
-            {key: 4, label: "Musserende vin"},
-            {key: 5, label: "Sprit"},
-            {key: 6, label: "Alkoholfritt"},
+            {key: 0, label: "Hvitvin"},{key: 1, label:"Musserende vin"},{key: 2, label:"Rødvin"},{key: 3, label:"Rosévin"},
+            {key: 4, label:"Fruktvin"},{key: 5, label:"Portvin"},{key: 6, label:"Perlende vin, hvit"},{key: 7, label:"Perlende vin, rød"},
+            {key: 8, label:"Perlende vin, rosé"},{key: 9, label:"Sterkvin, annen"},
+            {key: 10, label:"Sherry"},{key: 11, label:"Vermut"},{key: 12, label:"Madeira"},
         ],
         filtrationArray: [],
     };
 
     handleClick = data => () => {
         if (!this.state.filtrationArray.includes(data)) {
-            this.setState({filtrationArray: [...this.state.filtrationArray, data]});
+            this.setState({filtrationArray: [data]});
         }
+        this.props.callback(data.label)
     };
 
     handleDelete = data => () => {
@@ -46,6 +42,7 @@ class FilterChips extends React.Component {
             chipData.splice(chipToDelete, 1);
             this.setState({filtrationArray: [...chipData]});
         }
+        this.props.callback(null)
     };
 
     render() {

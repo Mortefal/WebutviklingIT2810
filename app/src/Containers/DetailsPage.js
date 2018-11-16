@@ -7,7 +7,7 @@ import BottleWine from 'mdi-material-ui/BottleWine';
 import Typography from "@material-ui/core/Typography/Typography";
 import {withStyles} from "@material-ui/core";
 import PropTypes from 'prop-types';
-import FavoriteHeart from "./FavoriteHeart";
+import FavoriteHeart from "../Components/FavoriteHeart";
 
 const styles = theme => ({
     paper: {
@@ -119,3 +119,4 @@ DetailsPage.propTypes = {
 };
 
 export default withStyles(styles)(DetailsPage);
+

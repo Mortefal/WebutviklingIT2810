@@ -1,3 +1,10 @@
+/*
+* Express server created by express-generator. Most of app.js was created there. The difference is the bevRouter, and
+* app.use(cors());
+*
+* The reason we're using /beverages on all calls, is to keep the door open for i.e. user-data later.
+* */
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -25,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/beverages', wineRouter);
+app.use('/beverages', wineRouter); //Wine-router is where all the project-routing is done
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

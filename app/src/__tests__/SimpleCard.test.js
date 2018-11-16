@@ -1,5 +1,5 @@
 import React from 'react';
-import SimpleCard from '../SimpleCard';
+import SimpleCard from '../Containers/SimpleCard';
 import renderer from 'react-test-renderer'
 
 /*

@@ -14,7 +14,7 @@ const styles = theme => ({
 
 class FavoriteHeart extends React.Component {
     render() {
-        const {isFav, classes} = this.props;
+        const {classes, isFav} = this.props;
         return (
             <IconButton className={classes.root}>
                 {isFav ? <FavoriteIcon style={{color: 'red'}}/>: <FavoriteBorder/>}
@@ -22,8 +22,9 @@ class FavoriteHeart extends React.Component {
         )
     }
 }
+
 FavoriteHeart.propTypes = {
     classes: PropTypes.object.isRequired,
 };
-export default withStyles(styles)(FavoriteHeart);
+export default (withStyles(styles)(FavoriteHeart));
 

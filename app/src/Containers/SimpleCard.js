@@ -6,8 +6,8 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import BottleWine from 'mdi-material-ui/BottleWine';
-import BorderHeart from '../FavoriteHeart';
-import DetailsPage from '../DetailsPage.js'
+import BorderHeart from '../Components/FavoriteHeart';
+import DetailsPage from './DetailsPage.js'
 
 
 const styles = theme => ({
@@ -21,7 +21,6 @@ const styles = theme => ({
     image: {
         width: 128,
         height: 128,
-        /* Tror det skal være mulig å hente inn bilde ved å ta response.images[2].url hvor formatet er thumbnail */
     },
     img: {
         margin: 'auto',
@@ -91,7 +90,7 @@ class SimpleCard extends React.Component{
                                     <DetailsPage title={title} aroma={aroma} taste={taste} isFav={this.state.isFav} pris={pris} country={country} abv={abv}/>
                                 </Grid>
                                 <Grid item>
-                                <Typography variant="subtitle1">{pris} Kr</Typography>
+                                    <Typography variant="subtitle1">{pris} Kr</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
