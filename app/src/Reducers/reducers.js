@@ -1,6 +1,14 @@
 import {combineReducers} from "redux";
 import * as types from "../Actions/actions";
 
+
+/*
+*   REDUCERS:
+*   Here the situation is the same as with the actions. Some of this worked, but we weren't able to make it work with the entire application.
+*   On this basis we decided to focus on delivering a working product. We are keeping this code here to that the people who evaluate can at least see
+*   how far we got with this, and that an effort was made and a lot of things learnt even if it didn't make it to goal.
+*/
+
 function searchServer(state = '', action) {
     switch (action.type) {
         case types.SEARCH_SERVER:
@@ -11,8 +19,6 @@ function searchServer(state = '', action) {
 }
 
 function getProducts(state = {isFetching: false, didInvalidate: false, products: []}, action) {
-    console.log("Get Products");
-    console.log(action.searchParam);
     switch (action.type) {
         case types.REQUEST_PRODUCTS:
             return Object.assign({}, state, {
@@ -20,12 +26,11 @@ function getProducts(state = {isFetching: false, didInvalidate: false, products:
                 didInvalidate: false
             });
         case types.RECEIVE_PRODUCTS:
-            console.log("Recieved products");
             return Object.assign({}, state, {
                 isFetching: false,
                 didInvalidate: false,
                 products: action.products,
-            })
+            });
         default:
             return state;
     }
@@ -45,7 +50,6 @@ function productsFromServer(state = {}, action) {
 function getQuery(state = {}, action) {
     switch (action.type) {
         case types.GET_QUERY:
-            console.log(action.text)
             return Object.assign({}, state, {
                 ... state,
                 query: action.text,
@@ -79,12 +83,12 @@ function getFilters(state = {
             return{
                 ...state,
                 filterParam: state
-            }
+            };
         case types.GET_ALL_FILTERS:
             return{
                 ...state,
                 filterArray: state.filterArray
-            }
+            };
         default:
             return state;
     }
@@ -115,6 +119,7 @@ function displayInfo(state = {
             return state;
     }
 }
+
 const rootReducer = combineReducers({
     productsFromServer,
     searchServer,
