@@ -33,6 +33,7 @@ class App extends Component {
             prevButtonDisabled: false
         };
         this.handleChange = this.handleChange.bind(this);
+        this.setInputUrlParams = this.setInputUrlParams.bind(this);
 
     }
     generateStringArgs(page=this.state.page){
@@ -104,6 +105,7 @@ class App extends Component {
                 nextButtonDisabled: this.nextData.length === 0,
             })
         }
+        this.reloadProduct(callack, this.state.page+1)
         // Must be called when page changes
         // TODO: Disable next button if nextData.length === 0
     }
@@ -146,8 +148,9 @@ class App extends Component {
         function firstCallback(data){
             this.reloadProduct((nextData) => {secoundCallback(nextData, data)},  2);
         }
-        this.reloadProduct(firstCallback, 1)
-
+        this.reloadProduct(firstCallback, 1);
+        console.log("onNewQuery");
+        console.log(this.state);
     }
 
         //TODO: Constructor w/ state for params like ID etc & callback.bind.this()
@@ -173,13 +176,13 @@ class App extends Component {
     };
 
     handleChange(e, order) {
-        console.log("order: ")
-        console.log(order)
+        console.log("order: ");
+        console.log(order);
         this.setState({
             ...this.state,
             selectedOption: e.target.value,
             sortOrder: order
-        });
+        }, () => {this.onNewQuery();})
     };
 
 
@@ -216,7 +219,7 @@ class App extends Component {
                         Desc Pris
                     </label>
                 </form>
-                <CardList name={this.state.name} type={this.state.type} sortOrder={this.state.sortOrder}/>
+                <CardList data={this.state.data}/>
                 <div>
                     <button>Prev</button><button>Next</button>
                 </div>
@@ -232,11 +235,10 @@ class App extends Component {
 
     setInputUrlParams(params){
         console.log(params);
-
         this.setState({
             ...this.state,
             name: params
-        })
+        }, () => {this.onNewQuery()});
      /* try{
           let newPoemKey = this.state.data[this.state.key].poemUrl[e["title"]];
           console.log(newPoemKey);

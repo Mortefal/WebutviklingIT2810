@@ -147,7 +147,7 @@ class CardList extends React.Component {
 
     render(){
         const {classes} = this.props;
-        console.log(this.state);
+        // console.log(this.state);
         let cards =  Object.keys(this.props.data).map((key) => {
             return (
             <SimpleCard key={key} title={this.props.data[key].name} aroma={this.props.data[key].aroma}
