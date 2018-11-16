@@ -67,10 +67,24 @@ class beverageRetriever{
         }
     }
 
-    // Finds all the searches and returns them.
-    getSearches(callback){
-        this.Search.find({}).exec((error, result) => callback(result));
+    getSearches(callback) {
+        // this.Search.find({}).exec((error, result) => callback(result));
+        let result = {};
+        let nameStream = this.Search.find().cursor();
+        nameStream.on('data', (doc) => {
+            let name = doc.name.substring(1, doc.name.length-2);
+            if (Object.keys(result).indexOf(name) >= 0){
+                result[name] = result[name] +1;
+            }
+            else{
+                result[name] = 1;
+            }
+        });
+        nameStream.on('close', () => {
+            callback(result);
+        })
     }
+    
     /*
     * Utility to preprocess query to separate option such as page and query-parameters such as name
     * Return an object like {'options': options, 'query': query} where options and query are both objects ready to be
@@ -78,6 +92,7 @@ class beverageRetriever{
     *
     * Here's a lot of if-statements, however that is largely because most options need some special formatting to work.
     */
+    
     prepareQuery(argsObject){
         let query = argsObject;
         let sortParam = {};
