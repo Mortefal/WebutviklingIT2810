@@ -33,15 +33,7 @@ class CardList extends React.Component {
             type: null
         });
     }
-    componentDidMount(){
-        //this.state.fetcher.fetchFromString('productType=Rødvin', (d) => {
-        //    console.log(d);
-        //    this.setState({
-        //        ...this.state,
-        //        data: d
-        //    })
-        //});
-    }
+
     generateStringArgs(){
         let queryString = '';
 
@@ -75,55 +67,6 @@ class CardList extends React.Component {
 
         }
 
-        // if (this.props.name && this.props.type){
-        //     if(this.state.name !== this.props.name || this.state.type !== this.props.type){
-        //        //  console.log(this.state);
-        //        //  console.log(this.props);
-        //         this.setState({
-        //             ...this.state,
-        //             name: this.props.name,
-        //             type: this.props.type
-        //         });
-//
-        //         queryString += 'name=' + this.props.name + '&productType=' + this.props.type;
-        //     }
-        // }
-        // else if (this.props.name !== '' || this.props.name !== undefined) {
-        //     // console.log(this.state);
-        //     // console.log(this.props);
-        //     if (this.state.name !== this.props.name) {
-        //         this.setState({
-        //             ...this.state,
-        //             name: this.props.name
-        //         });
-//
-        //         queryString+= 'name=' + this.props.name;
-        //     }
-        // }
-        // else if (this.props.type){
-        //     console.log(this.state);
-        //     console.log(this.props);
-        //     if(this.state.type !== this.props.type){
-        //         this.setState({
-        //             ...this.state,
-        //             type: this.props.type
-        //         });
-//
-        //         queryString+= 'productType=' + this.props.type;
-        //     }
-        // }
-        // else{
-        //     // console.log(this.state);
-        //     // console.log(this.props);
-        //     queryString+= '';
-        // }
-
-        // if(this.props.sortOrder && queryString.length > 0){
-        //     console.log("sortorder");
-        //     console.log(this.props.sortOrder)
-        //     queryString += '&sort=' +this.props.sortOrder
-        // }
-
         return queryString
     }
 
@@ -147,7 +90,6 @@ class CardList extends React.Component {
 
     render(){
         const {classes} = this.props;
-        // console.log(this.state);
         let cards =  Object.keys(this.props.data).map((key) => {
             return (
             <SimpleCard key={key} title={this.props.data[key].name} aroma={this.props.data[key].aroma}
@@ -155,10 +97,7 @@ class CardList extends React.Component {
         return(
             <Grid className={classes.root} container spacing={16} item xs={12} >
                 <Grid className={classes.gridList} item xs={6}>
-                    {/* TODO: Map this.props.data to HTML */}
                     {cards}
-                    {/*Noe mer enn dette, en vet ikke helt hvordan jeg skal mappe det korrekt fra app*/}
-
                 </Grid>
             </Grid>
         )
@@ -169,15 +108,4 @@ CardList.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-//const mapStateToProps = state => ({
-//    cards: state.cards.data,
-//    name: state.getQuery.query,
-//    filter: state.getFilters.filterArray
-//});
-//const mapDispatchToProps = dispatch => ({
-//    getName: (e) => {dispatch(getQue)}
-//})
-//
-//export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles))(CardList)
 export default withStyles(styles)(CardList);
-// export default CardList;

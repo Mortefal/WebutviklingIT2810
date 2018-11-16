@@ -23,7 +23,6 @@ const styles = theme => ({
     image: {
         width: 128,
         height: 128,
-        /* Tror det skal være mulig å hente inn bilde ved å ta response.images[2].url hvor formatet er thumbnail */
     },
     img: {
         margin: 'auto',
@@ -56,11 +55,6 @@ class SimpleCard extends React.Component{
         this.removeFavorite = this.removeFavorite.bind(this);
     };
 
-    /*
-    handleAddClick(){
-        this.setState({isFav: !this.state.isFav});
-    };
-    */
     addFavorite(e){
         this.props.add(e);
     }
