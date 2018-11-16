@@ -8,9 +8,6 @@ import Typography from "@material-ui/core/Typography/Typography";
 import {withStyles} from "@material-ui/core";
 import PropTypes from 'prop-types';
 import FavoriteHeart from "../Components/FavoriteHeart";
-import {hideInfo, showInfo} from "../Actions/actions";
-import connect from "react-redux/es/connect/connect";
-import rootReducer from "../Reducers/reducers";
 
 const styles = theme => ({
     paper: {
@@ -45,88 +42,81 @@ const styles = theme => ({
         width: 40,
     },
 });
-class DetailsPage extends React.Component {
+
+class DetailsPage extends React.Component{
     constructor(props) {
         super(props);
-        this.show = this.show.bind(this);
-        this.hide = this.hide.bind(this);
+        this.state = ({
+            openModal: false,
+        })
     }
 
-    show(e){
-        this.props.showInfo(e)
-    }
-    hide(e){
-        this.props.hideInfo(e)
-    }
+    handleOpen = () =>{
+        this.setState({
+            openModal: true
+        })
+    };
+
+    handleClose= () =>{
+        this.setState({
+            openModal: false
+        })
+    };
+
     render() {
-        const {classes, title, isFav, aroma, country, taste, abv, openModal} = this.props;
+        const{classes, title, isFav, aroma, country, taste, abv} = this.props;
         return (
-                <div>
-                    <Button className="modalButton" onClick={(e) =>{this.props.show(e)}} >Mer Info</Button>
-                    <Grid>
-                        <div>
-                            <Modal
-                                aria-labelledby="simple-modal-title"
-                                aria-describedby="simple-modal-description"
-                                open={openModal}
-                                onClose={(e) => {this.props.hide(e)}}
-                                style={{alignItems: 'center', justifyContent: 'center'}}
-                            >
-                                <div className={classes.paper}>
-                                    <Grid>
-                                        <Grid item container direction={"row-reverse"}><FavoriteHeart isFav={isFav}/></Grid>
-                                        <Grid container spacing={16} alignItems={"center"} alignContent={"center"}>
-                                            <Grid item xs={6}>
-                                                <ButtonBase className={classes.image}>
-                                                    <BottleWine style={{fontSize: 256}}/>
-                                                </ButtonBase>
-                                            </Grid>
+            <div>
+                <Button className="modalButton" onClick={this.handleOpen}>Mer Info</Button>
+                <Grid>
+                    <div>
+                        <Modal
+                            aria-labelledby="simple-modal-title"
+                            aria-describedby="simple-modal-description"
+                            open={this.state.openModal}
+                            onClose={this.handleClose}
+                            style={{alignItems: 'center', justifyContent: 'center'}}
+                        >
+                            <div className={classes.paper}>
+                                <Grid>
+                                    <Grid item container direction={"row-reverse"}><FavoriteHeart isFav={isFav}/></Grid>
+                                    <Grid container spacing={16} alignItems={"center"} alignContent={"center"}>
+                                        <Grid item xs={6}>
+                                            <ButtonBase className={classes.image}>
+                                                <BottleWine style={{fontSize: 256}}/>
+                                            </ButtonBase>
+                                        </Grid>
 
-                                            <Grid item xs={6}>
+                                        <Grid item xs={6}>
 
-                                                <Grid direction={"column"} justify={"center"} container item xs={12} alignItems={"center"}>
-                                                    <Grid item xs={4} className={classes.sideBox3} >
-                                                        Opprinnelsesland: {country}
-                                                    </Grid>
-                                                    <Grid className={classes.sideBox3} item xs={4}>
-                                                        {abv}%
-                                                    </Grid>
+                                            <Grid direction={"column"} justify={"center"} container item xs={12} alignItems={"center"}>
+                                                <Grid item xs={4} className={classes.sideBox3} >
+                                                    Opprinnelsesland: {country}
+                                                </Grid>
+                                                <Grid className={classes.sideBox3} item xs={4}>
+                                                    {abv}%
                                                 </Grid>
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                    <Grid>
-                                        <Typography gutterBottom variant="h5">{title}</Typography>
-                                        <Typography gutterBottom variant="body1">{aroma}{taste}</Typography>
-                                    </Grid>
-                                </div>
-                            </Modal>
-                        </div>
-                    </Grid>
-                </div>
-            );
-        }
-
-}
-const mapStateToProps = state => {
-    return({
-        openModal: state.displayInfo.openModal,
-    })
-
-}
-const mapDispatchToProps = dispatch => {
-    return {
-        show: e => {
-            dispatch(showInfo(e))
-        },
-        hide: e => {
-            dispatch(hideInfo(e))
-        }
+                                </Grid>
+                                <Grid>
+                                    <Typography gutterBottom variant="h5">{title}</Typography>
+                                    <Typography gutterBottom variant="body1">{aroma}{taste}</Typography>
+                                </Grid>
+                            </div>
+                        </Modal>
+                    </div>
+                </Grid>
+            </div>
+        );
     }
-}
 
+}
 
 DetailsPage.propTypes = {
-classes: PropTypes.object.isRequired,
+    classes: PropTypes.object.isRequired,
 };
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(DetailsPage));
+
+export default withStyles(styles)(DetailsPage);
+

@@ -23,7 +23,6 @@ const styles = theme => ({
     image: {
         width: 128,
         height: 128,
-        /* Tror det skal være mulig å hente inn bilde ved å ta response.images[2].url hvor formatet er thumbnail */
     },
     img: {
         margin: 'auto',
@@ -56,11 +55,6 @@ class SimpleCard extends React.Component{
         this.removeFavorite = this.removeFavorite.bind(this);
     };
 
-    /*
-    handleAddClick(){
-        this.setState({isFav: !this.state.isFav});
-    };
-    */
     addFavorite(e){
         this.props.add(e);
     }
@@ -69,7 +63,7 @@ class SimpleCard extends React.Component{
     }
 
     render(){
-        const { classes, title, pris, varenummer, taste, aroma, country, abv } = this.props;
+        const { classes, key, title, pris, varenummer, taste, aroma, country, abv } = this.props;
         const isFav = this.props.isFav;
         return(
             <Paper className={classes.root}>
@@ -94,7 +88,7 @@ class SimpleCard extends React.Component{
                             </Grid>
                             <Grid item container alignItems={"flex-start"}>
                                 <Grid item xs={10}>
-                                    <DetailsPage title={title} aroma={aroma} taste={taste} isFav={isFav} pris={pris} country={country} abv={abv}/>
+                                    <DetailsPage key = {key} title={title} aroma={aroma} taste={taste} isFav={isFav} pris={pris} country={country} abv={abv}/>
                                 </Grid>
                                 <Grid item>
                                     <Typography variant="subtitle1">{pris} Kr</Typography>
