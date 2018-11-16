@@ -18,6 +18,10 @@ let store = configureStore();
 class App extends Component {
     constructor(props) {
         super(props);
+        this.state= {
+            selectedOption : 'DescName'
+        };
+        this.handleChange = this.handleChange.bind(this);
     }
 
     //TODO: Constructor w/ state for params like ID etc & callback.bind.this()
@@ -42,11 +46,17 @@ class App extends Component {
         e.preventDefault()
     };
 
+    handleChange(e) {
+        this.setState({
+            selectedOption: e.target.value
+        });
+    };
+
 
     render() {
         let cardList;
-        let data = store.getState()
-        console.log(data.getQuery)
+        let data = store.getState();
+        console.log(data.getQuery);
         if (this.props.productData){
             cardList = <CardList data={this.props.productData}/>
         }
@@ -60,6 +70,26 @@ class App extends Component {
                 <InputBar callback={(e) => this.setInputUrlParams(e)}/>
                 {/*<DropDown/>*/}
                 <FilterChips/>
+                <form>
+                    <label>
+                        <input type="radio" value="DescName"
+                               checked={this.state.selectedOption === 'DescName'}
+                               onChange={this.handleChange} />
+                        Desc navn
+                    </label>
+                    <label>
+                        <input type="radio" value="Asc"
+                               checked={this.state.selectedOption === 'Asc'}
+                               onChange={this.handleChange} />
+                        Asc Pris
+                    </label>
+                    <label>
+                        <input type="radio" value="Desc"
+                               checked={this.state.selectedOption === 'Desc'}
+                               onChange={this.handleChange} />
+                        Desc Pris
+                    </label>
+                </form>
                 {cardList}
                 <SimpleCard title="hei" pris={123} varenummer={1234567} taste="kake" aroma="vanilje" country="Tjekkoslovakia" abv={96.6}/>
             </div>
