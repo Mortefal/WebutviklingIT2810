@@ -1,46 +1,13 @@
-const MongoClient = require('mongodb').MongoClient;
-const assert = require('assert');
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
 const beverageSchema = require('../models/beverageModel');
-const categorySchema = require('../models/categorySchema');
-const vinmonopolet = require('vinmonopolet');
 const configData = require('../routeConfig.json');
 // Connection URL
-
-
-// Use connect method to connect to the Server
-
-//  function unsafeWriteAllToDB(){
-//      MongoClient.connect(configData.databseUrl, function(err, client) {
-//
-//              assert.equal(null, err);
-//              let db = client.db("vinmonopolet_TEST");
-//              let i = 0;
-//
-//              let categories = [];
-//              for (category in cats){
-//                  tempObject = {
-//                      "mainCategory": category,
-//                      "subCategories": cats[category]
-//                  }
-//                  categories.push(tempObject);
-//              }
-//
-//              db.collection('kategorier').insertMany(categories);
-//
-//              client.close();
-//          }
-//      )
-//  }
-// unsafeWriteAllToDB();
-
 
 class beverageRetriever{
 
     constructor(collection='vinmonopolet'){
         this.url = configData.databseUrl;
-
 
         this.connection = mongoose.connect(this.url + collection);
 
@@ -100,19 +67,22 @@ class beverageRetriever{
         }
     }
 
+    // Finds all the searches and returns them.
     getSearches(callback){
-        this.Search.find({}).exec((error, result) => callback(result))
-
-        // TODO: This should get all top searches by pagination
+        this.Search.find({}).exec((error, result) => callback(result));
     }
-
+    /*
+    * Utility to preprocess query to separate option such as page and query-parameters such as name
+    * Return an object like {'options': options, 'query': query} where options and query are both objects ready to be
+    * used in Model.find();
+    *
+    * Here's a lot of if-statements, however that is largely because most options need some special formatting to work.
+    */
     prepareQuery(argsObject){
         let query = argsObject;
         let sortParam = {};
         let pageNumber = 1;
         let paginationSize = 20;
-
-        let genericOptionals = ['page', 'pagesize'];
 
         // Check if sort is in keys:
         if (Object.keys(query).indexOf('sort') >= 0 ){
@@ -142,8 +112,6 @@ class beverageRetriever{
             delete query['pagesize'];
         }
 
-        // TODO: Make &or if main-cateogry is present
-        // TODO: Make name regex
         if(queryKeys.indexOf('name') >= 0){
             let regexName = new RegExp(query['name'], 'i');
             query['name'] = regexName;
@@ -158,8 +126,6 @@ class beverageRetriever{
 
         return {'options': options, 'query': query};
     }
-
-
 }
 // Available sorting modes: `price`, `name`, `relevance`
 module.exports.beverageRetriever = beverageRetriever;
