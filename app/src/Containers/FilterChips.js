@@ -45,7 +45,7 @@ class FilterChips extends React.Component {
             this.setState({filtrationArray: [...chipData]});
         }
         //usikker på denne callbacken da den ikke fjerner men sender en 'tom' string
-        this.props.callback('')
+        this.props.callback(null)
     };
 
     render() {

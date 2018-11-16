@@ -68,6 +68,7 @@ class App extends Component {
                 ...this.state,
                 type: this.props.type
             });*/
+            queryString += (queryString.length > 0) ? '&' : '';
             queryString += "productType=" + this.state.type;
         }
         if(this.state.sortOrder && queryString.length > 0){
@@ -82,7 +83,7 @@ class App extends Component {
         return queryString;
     }
 
-    async reloadProduct(page=this.state.page){
+    async reloadProduct(page){
         let stringArgs = this.generateStringArgs(page);
         console.log(stringArgs);
         let fetcher = this.state.fetcher;
@@ -99,14 +100,15 @@ class App extends Component {
 
     async onNextProduct(){
         // TODO: Set data to nextData, call reloadProduct with next page, set nextData to new data
-        let nextData = await this.reloadProduct();
+        let nextData = await this.reloadProduct(this.state.page +1);
+        console.log(nextData);
         this.setState({
             ...this.state,
             data : this.state.nextData,
             nextData : nextData,
-            page: this.page +1,
-            nextButtonDisabled: this.nextData.length === 0,
-        })
+            page: this.state.page +1,
+            nextButtonDisabled: nextData.length === 0,
+        }, () => console.log(this.state))
         // Must be called when page changes
         // TODO: Disable next button if nextData.length === 0
     }
@@ -119,7 +121,7 @@ class App extends Component {
                 ...this.state,
                 nextData: this.state.data,
                 data: prevData,
-                page: this.page -1,
+                page: this.state.page -1,
                 prevButtonDisabled: this.page -1 <= 1
             });
         }
@@ -207,7 +209,7 @@ class App extends Component {
                 </form>
                 <CardList data={this.state.data}/>
                 <div>
-                    <button>Prev</button><button>Next</button>
+                    <button onClick ={(e) => this.onPrevProduct(e)}>Prev</button><button onClick={(e) => this.onNextProduct(e)}>Next</button>
                 </div>
             </div>
         );
