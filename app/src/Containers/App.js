@@ -31,6 +31,8 @@ class App extends Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.setInputUrlParams = this.setInputUrlParams.bind(this);
+        this.onNextProduct = this.onNextProduct.bind(this);
+        this.onPrevProduct = this.onPrevProduct.bind(this);
 
     }
     generateStringArgs(page=this.state.page){
@@ -150,6 +152,29 @@ class App extends Component {
         console.log(this.state);
     }
 
+        //TODO: Constructor w/ state for params like ID etc & callback.bind.this()
+    // Dropdown & Inputbar can change params in state. Use callback, see P2
+    // Set props in CardList to state.params elns
+
+    componentDidMount() {
+        //store.dispatch(fetchAllFiltersIfNeeded(productData))
+        //const {productData, filterArray, isFavorite, query} = this.props;
+        //dispatch(fetchAllFiltersIfNeeded(productData))
+        //store.dispatch(fetchAllFilters())
+    }
+
+    /*
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.getAllFilters !== this.props.allFilters) {
+            const {dispatch, getAllFilters} = nextProps;
+            dispatch((getAllFilters))
+        }
+    };*/
+
+    handleRefreshClick = e => {
+        e.preventDefault()
+    };
+
     handleChange(e, order) {
         console.log("order: ");
         console.log(order);
@@ -190,7 +215,7 @@ class App extends Component {
                 </form>
                 <CardList data={this.state.data}/>
                 <div>
-                    <button>Prev</button><button>Next</button>
+                    <button onClick={this.onPrevProduct()}>Prev</button><button onClick={this.onNextProduct()}>Next</button>
                 </div>
             </div>
         );
@@ -250,7 +275,7 @@ class App extends Component {
         //JSON Data ~= [{_id=goin5e7h5, name=..., ....}, {...}, ...]
         //JSON data[0] = {_id=gliren74, ...}
     }
-}
+
 
 /*const mapStateToProps = state => {
     const { getAllFilters, products } = state;
@@ -268,12 +293,16 @@ class App extends Component {
         productData,
         query: state.getQuery().query
 }
+<<<<<<< HEAD
 };*/
+};
+/*
+>>>>>>> 3d09cfff8332e37af5e439fe5827d78a812e7ce8
 const mapDispatchToProps = dispatch => {
     return{
 
     }
-};
+};*/
 
+export default(App);
 
-export default connect()(App);
