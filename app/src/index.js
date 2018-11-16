@@ -30,8 +30,3 @@ render(
     </Provider>,
     document.getElementById('root')
 );
-
-store.subscribe(() => {
-    render();
-    console.log("not working");
-});

@@ -19,7 +19,6 @@ class FavoriteHeart extends React.Component {
         return (
             <IconButton className={classes.root}>
                 {isFav ? <FavoriteIcon style={{color: 'red'}}/>: <FavoriteBorder/>}
-                {console.log(isFav)}
             </IconButton>
         )
     }

@@ -71,7 +71,6 @@ class SimpleCard extends React.Component{
     render(){
         const { classes, title, pris, varenummer, taste, aroma, country, abv } = this.props;
         const isFav = this.props.isFav;
-        console.log(isFav)
         return(
             <Paper className={classes.root}>
                 <Grid container spacing={16}>
