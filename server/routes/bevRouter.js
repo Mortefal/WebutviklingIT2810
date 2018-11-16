@@ -28,4 +28,8 @@ router.get('/types', function (req, res) {
     retriever.getTypes((doc) => res.json(doc))
 });
 
+// Returns all the searches as a json.
+router.get('/history', (req, res) => {
+    retriever.getSearches((doc) => res.json(doc));
+})
 module.exports = router;
