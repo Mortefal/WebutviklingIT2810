@@ -95,7 +95,7 @@ class App extends Component {
 
     onNextProduct(){
         // TODO: Set data to nextData, call reloadProduct with next page, set nextData to new data
-        function callack(nextData){
+        function callback(nextData){
             this.setState({
                 ...this.state,
                 data : this.state.nextData,
@@ -104,7 +104,7 @@ class App extends Component {
                 nextButtonDisabled: this.nextData.length === 0,
             })
         }
-        this.reloadProduct(callack, this.state.page+1)
+        this.reloadProduct(callback, this.state.page+1)
         // Must be called when page changes
         // TODO: Disable next button if nextData.length === 0
     }
