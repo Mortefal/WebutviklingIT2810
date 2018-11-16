@@ -29,12 +29,13 @@ class App extends Component {
             type: null,
             page: 1,
             hasNextPage: false,
-            nextButtonDisabled: false
+            nextButtonDisabled: false,
+            prevButtonDisabled: false
         };
         this.handleChange = this.handleChange.bind(this);
 
     }
-    generateStringArgs(){
+    generateStringArgs(page=this.state.page){
         let queryString = '';
 
         if(this.props.name !== '' && this.props.name) {
@@ -67,19 +68,17 @@ class App extends Component {
 
         }
         // TODO: Add page
-        let pageString = '&page=' + this.state.page;
+        let pageString = '&page=' + page;
         queryString += queryString.length > 0 ? pageString : '';
 
         return queryString;
     }
 
-    reloadProduct(callback){
+    reloadProduct(callback, page=this.state.page){
         let stringArgs = this.generateStringArgs();
         console.log(stringArgs);
         if (stringArgs.indexOf('name') >= 0 || stringArgs.indexOf('productType') >= 0) {
             // console.log(stringArgs);
-
-
             this.state.fetcher.fetchFromString(stringArgs, (data) => {
                 callback(data);
             });
@@ -101,6 +100,17 @@ class App extends Component {
     }
     onPrevProduct(){
         // TODO: Set nextData to data, call reloadProduct with prev page, set data to new data
+        function callback(prevData) {
+            this.setState({
+                ...this.state,
+                nextData: this.state.data,
+                data: prevData,
+                page: this.page -1,
+                prevButtonDisabled: this.page -1 === 1
+            })
+        }
+
+
         // Must be called when page changes
         // TODO: Disable 'prev' button if page == 1
     }
