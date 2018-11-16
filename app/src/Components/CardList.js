@@ -148,10 +148,10 @@ class CardList extends React.Component {
     render(){
         const {classes} = this.props;
         console.log(this.state);
-        let cards =  Object.keys(this.state.data).map((key) => {
+        let cards =  Object.keys(this.props.data).map((key) => {
             return (
-            <SimpleCard key={key} title={this.state.data[key].name} aroma={this.state.data[key].aroma}
-                        pris={this.state.data[key].price} taste={this.state.data[key].taste} abv={this.state.data[key].abv}/>)})
+            <SimpleCard key={key} title={this.props.data[key].name} aroma={this.props.data[key].aroma}
+                        pris={this.props.data[key].price} taste={this.props.data[key].taste} abv={this.props.data[key].abv} isFav={false}/>)})
         return(
             <Grid className={classes.root} container spacing={16} item xs={12} >
                 <Grid className={classes.gridList} item xs={6}>
