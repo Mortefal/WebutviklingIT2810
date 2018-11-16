@@ -28,7 +28,8 @@ class App extends Component {
             name: null,
             type: null,
             page: 1,
-            hasNextPage: false
+            hasNextPage: false,
+            nextButtonDisabled: false
         };
         this.handleChange = this.handleChange.bind(this);
 
@@ -88,6 +89,13 @@ class App extends Component {
 
     onNextProduct(){
         // TODO: Set data to nextData, call reloadProduct with next page, set nextData to new data
+        function callack(){
+            this.setState({
+                ...this.state,
+                data : this.state.nextData,
+                nextData : '',
+            })
+        }
         // Must be called when page changes
         // TODO: Disable next button if nextData.length === 0
     }
