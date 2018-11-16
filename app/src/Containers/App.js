@@ -15,50 +15,183 @@ let store = configureStore();
 class App extends Component {
     constructor(props) {
         super(props);
+        this.state= {
+            selectedOption : 'DescName',
+            sortOrder: '',
+            data: [{'title': 'N/A', 'pris': 'N/A', 'varenummer':'N/A', 'taste': 'N/A', 'aroma': 'N/A, ',
+                'country': 'N/A', 'abv':'N/A'}],
+            fetcher: new FetchFromJson('http://it2810-15.idi.ntnu.no:3000/beverages/search'),
+            nextData: null,
+            name: null,
+            type: null,
+            page: 1,
+            hasNextPage: false,
+            nextButtonDisabled: false,
+            prevButtonDisabled: false
+        };
         this.handleChange = this.handleChange.bind(this);
+        this.setInputUrlParams = this.setInputUrlParams.bind(this);
 
     }
+    generateStringArgs(page=this.state.page){
+        let queryString = '';
 
+        /*if(this.props.name !== '' && this.props.name) {
+            this.setState({
+                ...this.state,
+                name: this.props.name
+            });
+            queryString += "name=" + this.props.name;
+        }*/
+        if (this.state.name !== '' && this.state.name){
+            /*this.setState({
+                ...this.state,
+                name: this.state.name
+            });*/
+            queryString += "name=" + this.state.name;
+        }
 
+        /*if(this.props.type !== '' && this.props.type) {
+            queryString += (queryString.length > 0) ? '&' : '';
 
+            this.setState({
+                ...this.state,
+                type: this.props.type
+            });
+            queryString += "productType=" + this.props.type;
+        }*/
+        if (this.state.type !== '' &&  this.state.type){
+            /*this.setState({
+                ...this.state,
+                type: this.props.type
+            });*/
+            queryString += "productType=" + this.state.type;
+        }
+        if(this.state.sortOrder && queryString.length > 0){
+            queryString += (queryString.length > 0) ? '&' : '';
+            queryString += '&sort=' +this.state.sortOrder;
 
-    componentDidMount(){
-        const {dispatch, products} = this.props;
-        dispatch(fetchProductsIfNeeded(products));
-        //Ta inn alle filtre
+        }
+        // TODO: Add page
+        let pageString = '&page=' + page;
+        queryString += queryString.length > 0 ? pageString : '';
+
+        return queryString;
     }
-    componentDidUpdate(prevProps){
-        if (this.props.products !== prevProps.products){
-            const {dispatch, products} = this.props;
-            dispatch(fetchProductsIfNeeded(products));
+
+    reloadProduct(callback, page=this.state.page){
+        let stringArgs = this.generateStringArgs();
+        console.log(stringArgs);
+        if (stringArgs.indexOf('name') >= 0 || stringArgs.indexOf('productType') >= 0) {
+            // console.log(stringArgs);
+            this.state.fetcher.fetchFromString(stringArgs, (data) => {
+                callback(data);
+            });
+            stringArgs.replace(/page=\d/, 'page=' + this.state.page + 1);
         }
     }
 
-    handleChange(newProduct){
-        this.props.dispatch(searchServer(newProduct));
-        this.props.dispatch(fetchProductsIfNeeded(newProduct));
+    onNextProduct(){
+        // TODO: Set data to nextData, call reloadProduct with next page, set nextData to new data
+        function callack(nextData){
+            this.setState({
+                ...this.state,
+                data : this.state.nextData,
+                nextData : nextData,
+                page: this.page +1,
+                nextButtonDisabled: this.nextData.length === 0,
+            })
+        }
+        this.reloadProduct(callack, this.state.page+1)
+        // Must be called when page changes
+        // TODO: Disable next button if nextData.length === 0
     }
+
+    onPrevProduct(){
+        // TODO: Set nextData to data, call reloadProduct with prev page, set data to new data
+        function callback(prevData) {
+            this.setState({
+                ...this.state,
+                nextData: this.state.data,
+                data: prevData,
+                page: this.page -1,
+                prevButtonDisabled: this.page -1 <= 1
+            })
+        }
+        if(this.state.page >= 1) {
+            this.reloadProduct(callback, this.state.page - 1);
+        }
+        else{
+            this.onNewQuery();
+        }
+
+        // Must be called when page changes
+        // TODO: Disable 'prev' button if page == 1
+    }
+
+    onNewQuery(){
+        // TODO: Set page to 1, run reloadData with (d) => setState(..., data: d)  and with (nd) => setState(..., nextData: nd)
+        // Must be called when name or type changes.
+        function secoundCallback(nextData, data){
+            this.setState({
+                ...this.state,
+                page: 1,
+                prevButtonDisabled: true,
+                data: data,
+                nextData: nextData,
+
+            })
+        }
+        function firstCallback(data){
+            this.reloadProduct((nextData) => {secoundCallback(nextData, data)},  2);
+        }
+        this.reloadProduct(firstCallback, 1);
+        console.log("onNewQuery");
+        console.log(this.state);
+    }
+
+    handleChange(e, order) {
+        console.log("order: ");
+        console.log(order);
+        this.setState({
+            ...this.state,
+            selectedOption: e.target.value,
+            sortOrder: order
+        }, () => {this.onNewQuery();})
+    };
+
 
     render() {
-        const {initialProductProps, products, isFetching } = this.props;
-        let cardList;
-        let data = store.getState()
-        console.log(data.getQuery)
-        if (this.props.productData){
-            cardList = <CardList data={this.props.productData}/>
-        }
-        else {
-            cardList = <p>Data not yet available </p>
-        }
-        console.log(store.getState())
         return (
             <div>
                 <TabBar/>
                 <InputBar callback={(e) => this.setInputUrlParams(e)}/>
                 {/*<DropDown/>*/}
                 <FilterChips/>
-                {cardList}
-                <SimpleCard title="hei" pris={123} varenummer={1234567} taste="kake" aroma="vanilje" country="Tjekkoslovakia" abv={96.6}/>
+                <form>
+                    <label>
+                        <input type="radio" value="DescName"
+                               checked={this.state.selectedOption === 'DescName'}
+                               onChange={(e) =>this.handleChange(e,'name')} />
+                        Desc navn
+                    </label>
+                    <label>
+                        <input type="radio" value="Asc"
+                               checked={this.state.selectedOption === 'Asc'}
+                               onChange={(e) =>this.handleChange(e, 'price_1')} />
+                        Asc Pris
+                    </label>
+                    <label>
+                        <input type="radio" value="Desc"
+                               checked={this.state.selectedOption === 'Desc'}
+                               onChange={(e) =>this.handleChange(e,'price_-1')} />
+                        Desc Pris
+                    </label>
+                </form>
+                <CardList data={this.state.data}/>
+                <div>
+                    <button>Prev</button><button>Next</button>
+                </div>
             </div>
         );
     }
@@ -70,7 +203,11 @@ class App extends Component {
     }
 
     setInputUrlParams(params){
-        //this.setState(....)
+        console.log(params);
+        this.setState({
+            ...this.state,
+            name: params
+        }, () => {this.onNewQuery()});
      /* try{
           let newPoemKey = this.state.data[this.state.key].poemUrl[e["title"]];
           console.log(newPoemKey);
@@ -115,22 +252,28 @@ class App extends Component {
     }
 }
 
-App.propTypes = {
-    initialProductProps: PropTypes.string.isRequired,
-    products: PropTypes.array.isRequired,
-    isFetching: PropTypes.bool.isRequired,
-    dispatch: PropTypes.func.isRequired
-}
-function mapStateToProps(state) {
-    const { initialProductProps, productsFromServer } = state;
-    const { isFetching, product: products } = productsFromServer[initialProductProps] || {isFetching: true, product: []};
-  return {
-      initialProductProps,
-      products,
-      isFetching,
-  }
-}
+const mapStateToProps = state => {
+    const { getAllFilters, products } = state;
+    const {
+        filterArray,
+        productData,
+    } = products[getAllFilters] || {
+        filterArray: [],
+        productData: []
+    };
 
+    return {
+        getAllFilters,
+        filterArray,
+        productData,
+        query: state.getQuery().query
+}
+};
+const mapDispatchToProps = dispatch => {
+    return{
+
+    }
+};
 
 
 export default connect(mapStateToProps)(App);
