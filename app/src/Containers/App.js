@@ -20,6 +20,8 @@ class App extends Component {
             sortOrder: '',
             data: [],
             fetcher: new FetchFromJson('http://it2810-15.idi.ntnu.no:3000/beverages/search'),
+            historyFetcher: new FetchFromJson('http://it2810-15.idi.ntnu.no:3000/beverages/history'),
+            history: [],
             nextData: null,
             name: null,
             type: null,
@@ -110,11 +112,12 @@ class App extends Component {
             nextData : nextData,
             page: this.state.page +1,
             nextButtonDisabled: nextData.length === 0,
-            prevButtonDisabled: this.state.page >= 2
+            prevButtonDisabled: false
 
         })
         // Must be called when page changes
         // TODO: Disable next button if nextData.length === 0
+        this.updateSearches();
     }
 
     async onPrevProduct(){
@@ -136,6 +139,7 @@ class App extends Component {
             // console.log("Error in prevpage");
             this.onNewQuery();
         }
+        this.updateSearches();
     }
 
     async onNewQuery(){
@@ -150,7 +154,7 @@ class App extends Component {
             prevButtonDisabled: true,
             data: data,
             nextData: nextData,
-
+            nextButtonDisabled: nextData.length === 0
         });
     }
 
@@ -184,7 +188,7 @@ class App extends Component {
             ...this.state,
             selectedOption: e.target.value,
             sortOrder: order
-        })
+        }, () => this.onNewQuery())
     };
 
 
@@ -194,6 +198,18 @@ class App extends Component {
                 <TabBar/>
                 <InputBar callback={(e) => this.setInputUrlParams(e)}/>
                 {/*TODO: hvor kalle denne callbacken ? usikker. */}
+                <p> Previous searches:
+                    <ul>
+                        {this.state.history.map((item, index) => {
+                            console.log(item);
+                            return (<li>
+                                    {item[0]}
+                                </li>);
+                        }
+                            )
+                        }
+                    </ul>
+                </p>
                 <FilterChips callback ={(e) => this.setFilterUrlParams(e)}/>
                 <form>
                     <label>
@@ -229,13 +245,31 @@ class App extends Component {
 
 
     }
+    async updateSearches(){
+        let history = await this.state.historyFetcher.fetchFromString('');
+
+        var items = Object.keys(history).map(function(key) {
+            return [key, history[key]];
+        });
+
+        // Sort the array based on the second element
+        let sortedHistory = items.sort(function(first, second) {
+            return second[1] - first[1];
+        });
+        this.setState({
+            ...this.state,
+            history: sortedHistory.slice(0,5)
+        });
+    }
 
     setInputUrlParams(params){
         // console.log(params);
         this.setState({
             ...this.state,
             name: params
-        }, () => {this.onNewQuery()});
+        }, () => {
+            this.onNewQuery();
+            this.updateSearches()});
      /* try{
           let newPoemKey = this.state.data[this.state.key].poemUrl[e["title"]];
           console.log(newPoemKey);
@@ -253,7 +287,10 @@ class App extends Component {
         this.setState({
             ...this.state,
             type: params
-        }, () => {this.onNewQuery()});
+        }, () => {
+            this.onNewQuery();
+            this.updateSearches()
+        });
         //this.setState(....)
       /*try {
           let newSvgKey = this.state.data[this.state.key].svgUrl[e["title"]];
