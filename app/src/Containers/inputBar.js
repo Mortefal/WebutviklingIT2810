@@ -19,12 +19,12 @@ class InputBar extends Component {
         this.state = {
             queryId: 0,
             query: '',
-            previousQueries: [],
+            //previousQueries: [],
             results: [],
         };
 
-        //this.handleChange = this.handleChange.bind(this);
-        //this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
@@ -54,19 +54,16 @@ class InputBar extends Component {
 
             //updating the state value
             this.setState({previousQueries: queries, queryId: id});
-        }
-
-        /*
-            handleSubmit(event) {
-                //gjøre noe her med input
-                console.log(this.state.query);
-                event.preventDefault();
-                this.saveQuery();
-                console.log(this.state.previousQueries);
-                //this.getInfo();
-                this.setState({query: ''});
-            }
-        */
+        }*/
+    handleSubmit(event) {
+        //gjøre noe her med input
+        console.log("memes")
+        console.log(this.state.query);
+        //event.preventDefault();
+        //console.log(this.state.previousQueries);
+        //this.getInfo();
+        this.setState({query: ''});
+    }
 
     render() {
         let query;
@@ -81,13 +78,16 @@ class InputBar extends Component {
                         store.dispatch(getQuery(query.value));
                         let data = store.getState();
                         console.log(data.getQuery);
-                        query.value = ''
+                        this.handleSubmit();
+                        query.value = '';
 
                     }} className="form">
+                {/*<form onSubmit={this.handleSubmit} className="form">*/}
                     {/*<h3 className="headText">Search: </h3>*/}
                     <label className="label">
-                        <input ref={node => query = node} value={query}
-                               className="input"/>
+                        <input ref={node => query = node} value={this.state.query}
+                               className="input" onChange={this.handleChange}/>
+                        {/*<input type="text" placeholder="Søk etter varer her..." value={this.state.query} onChange={this.handleChange} className="input"/>*/}
                     </label>
                     <input type="submit" value="Søk" className="submit"/>
                 </form>
