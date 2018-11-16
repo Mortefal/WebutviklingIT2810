@@ -34,6 +34,8 @@ class App extends Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.setInputUrlParams = this.setInputUrlParams.bind(this);
+        this.onNextProduct = this.onNextProduct.bind(this);
+        this.onPrevProduct = this.onPrevProduct.bind(this);
 
     }
     generateStringArgs(page=this.state.page){
@@ -164,12 +166,13 @@ class App extends Component {
         store.dispatch(fetchAllFilters())
     }
 
+    /*
     componentWillReceiveProps(nextProps) {
         if (nextProps.getAllFilters !== this.props.allFilters) {
             const {dispatch, getAllFilters} = nextProps;
             dispatch((getAllFilters))
         }
-    };
+    };*/
 
     handleRefreshClick = e => {
         e.preventDefault()
@@ -221,7 +224,7 @@ class App extends Component {
                 </form>
                 <CardList data={this.state.data}/>
                 <div>
-                    <button>Prev</button><button>Next</button>
+                    <button onClick={this.onPrevProduct()}>Prev</button><button onClick={this.onNextProduct()}>Next</button>
                 </div>
             </div>
         );
