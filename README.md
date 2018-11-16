@@ -21,7 +21,6 @@ På hver av produktkortene, vil det være en "Vis mer" knapp, som trigger en Mod
     
 
 ### Filtrering og sorterting
-* Mulighet for sortering og filtrering av resultatsettet (merk at sortering og filtrering skal utføres på hele resultatsettet og ikke bare det som tilfeldigvis er laster inn på klienten)
 Brukeren kan filtrere søkene sine ved å velge en av filtrene. Når et filter velges vises de 20 første drikkene innenfor denne kategorien. Om brukeren ønsker å sortere et søk på en kategori velges først en kategori og deretter søker man, eller søker og velger en kategori.
 Et kjent problem er at når brukeren har søkt vil søket bli med videre til brukeren søker på noe nytt. Dette betyr at brukeren ikke lengre kan trykke på en kategori og få de 20 første resultatene for hele kategorien etter at det første søket er gjort. 
 
