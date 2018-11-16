@@ -98,10 +98,15 @@ class App extends Component {
                 nextData: this.state.data,
                 data: prevData,
                 page: this.page -1,
-                prevButtonDisabled: this.page -1 === 1
+                prevButtonDisabled: this.page -1 <= 1
             })
         }
-
+        if(this.state.page >= 1) {
+            this.reloadProduct(callback, this.state.page - 1);
+        }
+        else{
+            this.onNewQuery();
+        }
 
         // Must be called when page changes
         // TODO: Disable 'prev' button if page == 1
@@ -109,6 +114,21 @@ class App extends Component {
     onNewQuery(){
         // TODO: Set page to 1, run reloadData with (d) => setState(..., data: d)  and with (nd) => setState(..., nextData: nd)
         // Must be called when name or type changes.
+        function secoundCallback(nextData, data){
+            this.setState({
+                ...this.state,
+                page: 1,
+                prevButtonDisabled: true,
+                data: data,
+                nextData: nextData,
+
+            })
+        }
+        function firstCallback(data){
+            this.reloadProduct((nextData) => {secoundCallback(nextData, data)},  2);
+        }
+        this.reloadProduct(firstCallback, 1)
+
     }
 
         //TODO: Constructor w/ state for params like ID etc & callback.bind.this()
