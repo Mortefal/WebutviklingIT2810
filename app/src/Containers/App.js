@@ -29,6 +29,7 @@ class App extends Component {
             type: null,
             page: 1,
             hasNextPage: false,
+            nextButtonDisabled: false,
             prevButtonDisabled: false
         };
         this.handleChange = this.handleChange.bind(this);
@@ -37,18 +38,22 @@ class App extends Component {
     generateStringArgs(page=this.state.page){
         let queryString = '';
 
-        if(this.props.name !== '' && this.props.name) {
+        /*if(this.props.name !== '' && this.props.name) {
             this.setState({
                 ...this.state,
                 name: this.props.name
             });
             queryString += "name=" + this.props.name;
-        }
-        else if (this.state.name !== '' && this.state.name){
+        }*/
+        if (this.state.name !== '' && this.state.name){
+            /*this.setState({
+                ...this.state,
+                name: this.state.name
+            });*/
             queryString += "name=" + this.state.name;
         }
 
-        if(this.props.type !== '' && this.props.type) {
+        /*if(this.props.type !== '' && this.props.type) {
             queryString += (queryString.length > 0) ? '&' : '';
 
             this.setState({
@@ -56,14 +61,17 @@ class App extends Component {
                 type: this.props.type
             });
             queryString += "productType=" + this.props.type;
-        }
-        else if (this.state.type !== '' &&  this.state.type){
+        }*/
+        if (this.state.type !== '' &&  this.state.type){
+            /*this.setState({
+                ...this.state,
+                type: this.props.type
+            });*/
             queryString += "productType=" + this.state.type;
         }
-
-        if(this.props.sortOrder && queryString.length > 0){
+        if(this.state.sortOrder && queryString.length > 0){
             queryString += (queryString.length > 0) ? '&' : '';
-            queryString += '&sort=' +this.props.sortOrder;
+            queryString += '&sort=' +this.state.sortOrder;
 
         }
         // TODO: Add page
@@ -87,9 +95,19 @@ class App extends Component {
 
     onNextProduct(){
         // TODO: Set data to nextData, call reloadProduct with next page, set nextData to new data
+        function callack(nextData){
+            this.setState({
+                ...this.state,
+                data : this.state.nextData,
+                nextData : nextData,
+                page: this.page +1,
+                nextButtonDisabled: this.nextData.length === 0,
+            })
+        }
         // Must be called when page changes
         // TODO: Disable next button if nextData.length === 0
     }
+
     onPrevProduct(){
         // TODO: Set nextData to data, call reloadProduct with prev page, set data to new data
         function callback(prevData) {
@@ -111,6 +129,7 @@ class App extends Component {
         // Must be called when page changes
         // TODO: Disable 'prev' button if page == 1
     }
+
     onNewQuery(){
         // TODO: Set page to 1, run reloadData with (d) => setState(..., data: d)  and with (nd) => setState(..., nextData: nd)
         // Must be called when name or type changes.
