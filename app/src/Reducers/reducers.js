@@ -15,8 +15,8 @@ function getProducts(state = {
     products: [],
     query: ''
 }, action) {
-    console.log("Get Products");
-    console.log(action);
+    //console.log("Get Products");
+    //console.log(action);
     switch (action.type) {
         case types.REQUEST_PRODUCTS:
             //change this
@@ -67,14 +67,20 @@ function getFilters(state = initialState, action){
             //change this
             return state;
         case types.RECEIVE_FILTERS:
-            //change this
-            return state;
+            return Object.assign({}, state, {
+                ... state,
+                filterArray: action.filter,
+            });
         case types.REMOVE_FILTER:
-            //change this
-            return state;
+            return Object.assign({}, state, {
+                ... state,
+                filter: "",
+            });
         case types.ADD_FILTER:
-            //change this
-            return state;
+            return Object.assign({}, state, {
+                ... state,
+                filter: action.filter,
+            });
         case types.GET_ALL_FILTERS:
             //change this
             return state;

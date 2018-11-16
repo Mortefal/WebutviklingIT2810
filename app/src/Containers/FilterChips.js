@@ -4,9 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import Paper from "@material-ui/core/Paper/Paper";
 import Grid from "@material-ui/core/Grid/Grid";
-import {addFilter, removeFilter} from "../Actions/actions";
+import {addFilter, removeFilter, fetchAllFilters} from "../Actions/actions";
 import connect from "react-redux/es/connect/connect";
-import mapStateToProps from "react-redux/es/connect/mapStateToProps";
+import configureStore from "../Store/configureStore";
 //import Typography from "@material-ui/core/Typography/Typography";
 
 const styles = theme => ({
@@ -23,38 +23,52 @@ const styles = theme => ({
 /*const beer = "productType=Sider&productType=Lys ale&productType=Klosterstil&productType=India pale ale&productType=Brown ale&productType=Pale ale&productType=Spesial&productType=Hveteøl&productType=Surøl"
 */
 class FilterChips extends React.Component {
-    state = {
-        filterQuery: [
-            {key: 0, label: "Øl og sider"},
-            {key: 1, label: "Rødvin"},
-            {key: 2, label: "Hvitvin"},
-            {key: 3, label: "Annen vin"},
-            {key: 4, label: "Musserende vin"},
-            {key: 5, label: "Sprit"},
-            {key: 6, label: "Alkoholfritt"},
-        ],
-        filtrationArray: [],
-    };
+    /*filterQuery: [
+        {key: 0, label: "Øl og sider"},
+    ],
+    filtrationArray: []*/
+    constructor(props) {
+        super(props);
+        this.handleDelete = this.handleDelete.bind(this);
+    }
 
+    /*
     handleClick = data => () => {
         if (!this.state.filtrationArray.includes(data)) {
             this.setState({filtrationArray: [...this.state.filtrationArray, data]});
         }
-    };
+    };*/
 
-    handleDelete = data => () => {
+    handleClick(e){
+        this.props.addFilter(e)
+    }
+
+    componentDidMount(){
+        const store = configureStore()
+        //const {filterQuery, filtrationArray} = this.props
+        const filter = store.dispatch(fetchAllFilters());
+        console.log("taper")
+        console.log(filter)
+        console.log("taper") 
+        //this.props.filterArray.append(/*filtere fra over*/)
+    }
+
+    /*handleDelete = data => () => {
         if(this.state.filtrationArray.includes(data)){
             const chipData = this.state.filtrationArray;
             const chipToDelete = chipData.indexOf(data);
             chipData.splice(chipToDelete, 1);
             this.setState({filtrationArray: [...chipData]});
         }
-    };
+    };*/
+    handleDelete(e){
+        this.props.removeFilter(e)
+    }
 
     render() {
-        const {classes} = this.props;
+        const {classes, filterQuery, filterArray} = this.props;
 
-        let alternative = this.state.filterQuery.map(data => {
+        /*let alternative = this.props.filterQuery.map(data => {
             return (
                 <Chip
                     key={data.key}
@@ -64,9 +78,9 @@ class FilterChips extends React.Component {
                     clickable={true}
                 />
             )
-        });
+        });*/
 
-        let selected = this.state.filtrationArray.map(data => {
+        let selected = this.props.filterArray.map(data => {
             return (
                 <Chip
                     key={data.key}
@@ -74,14 +88,14 @@ class FilterChips extends React.Component {
                     className={classes.chip}
                     clickable={false}
                     color={"secondary"}
-                    onDelete={this.handleDelete(data)}
+                    onDelete={(e) => {this.props.removeFilter(e)}}
                 />)
         });
 
         return (
             <Paper className={classes.root}>
                 <Grid item container>
-                    {alternative}
+                    {/*{alternative}*/}
                 </Grid>
                 <Grid item container>
                     {selected}
@@ -90,17 +104,26 @@ class FilterChips extends React.Component {
         )
     }
 }
-/*
+
+const mapStateToProps = (state) =>{
+    return{
+        filterArray: state.getFilters.filterArray,
+        filterQuery: state.getFilters.filterQuery,
+    };
+};
+
 const mapDispatchToProps = (dispatch) => {
     return {
-        addFilter: (key, filterName) => dispatch(addFilter()),
-        removeFilter: (filterName) => dispatch(removeFilter(filter))
+        addFilter: (filterName) => dispatch(addFilter(filterName)),
+        removeFilter: (filterName) => dispatch(removeFilter(filterName))
     }
-}
-*/
+};
+
 
 FilterChips.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(FilterChips);
+FilterChips = connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(FilterChips))
+
+export default (FilterChips);

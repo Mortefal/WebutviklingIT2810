@@ -15,28 +15,6 @@ export const SHOW_MODAL = 'SHOW_MODAL';
 export const HIDE_MODAL = 'HIDE_MODAL';
 
 //const store = configureStore();
-
-
-function requestProducts(beverages) {
-    console.log("2.3")
-    return{
-        type: 'REQUEST_PRODUCTS',
-        beverages
-    }
-}
-
-export function getQuery(query) {
-    console.log("1")
-    console.log(query)
-    return (dispatch) =>{
-        dispatch(fetchProducts(query));
-        return({
-            type: 'GET_QUERY',
-            text: query
-        })
-    }
-
-}
 export function showInfo(bools){
     return{
         type: 'SHOW_MODAL',
@@ -49,12 +27,26 @@ export function hideInfo(bools){
         bools
     }
 }
-export function fetchAllFiltersIfNeeded(filters) {
-    return (dispatch, getState) => {
-        if (shouldFetchFilters(getState(), filters)) {
-            return dispatch(fetchAllFilters(filters));
-        }
+
+function requestProducts(beverages) {
+    console.log("2.3")
+    return{
+        type: 'REQUEST_PRODUCTS',
+        beverages
     }
+}
+
+export function getQuery(query) {
+    console.log("1")
+    console.log(query)
+    /*return (dispatch) =>{
+        //dispatch(fetchProducts(query));*/
+        return({
+            type: 'GET_QUERY',
+            text: query
+        })
+    //}
+
 }
 
 function fetchProducts(beverages){
@@ -63,35 +55,35 @@ function fetchProducts(beverages){
     fetch(`http://it2810-15.idi.ntnu.no:3000/beverages/search?productType=Rødvin`)
         .then(response => response.json())
         .then(json => receiveProducts(beverages, json))
-
 }
-    function receiveProducts(beverages, json) {
+
+function receiveProducts(beverages, json) {
     console.log(json);
-        return {
-            type: 'RECEIVE_PRODUCTS',
-            beverages,
-            products: json
-        }
+    return {
+        type: 'RECEIVE_PRODUCTS',
+        beverages,
+        products: json
     }
+}
 
-    function requestFilters(filters) {
-        return {
-            type: 'REQUEST_FILTERS',
-            filters
-        }
+function requestFilters(filters) {
+    return {
+        type: 'REQUEST_FILTERS',
+        filters
     }
+}
 
-    function receiveFilters(filters, json) {
-        return {
-            type: 'RECEIVE_FILTERS',
-            filters,
-            filter: json.data.children.map(child => child.data)
-        }
+function receiveFilters(filterList,json) {
+    return {
+        type: 'RECEIVE_FILTERS',
+        filter: json,
+        filterList: filterList
     }
+}
 
-function fetchAllFilters(filters) {
+export function fetchAllFilters() {
     return dispatch => {
-        dispatch(requestFilters(filters));
+        dispatch(requestFilters("hei"));
         return fetch(`http://it2810-15.idi.ntnu.no:3000/beverages/types`)
             .then(response => response.json())
             .then(json => {
@@ -106,7 +98,7 @@ function fetchAllFilters(filters) {
                         console.log(e);
                     }
                 }
-                dispatch(receiveFilters(filters, json))
+                dispatch(receiveFilters(filterList, json))
             })
 
         }
@@ -115,7 +107,6 @@ function fetchAllFilters(filters) {
     export function addFilter(key, filterName) {
         return {
             type: 'ADD_FILTER',
-            key: key,
             filter: filterName
         }
     }
@@ -132,13 +123,3 @@ function fetchAllFilters(filters) {
         }
     }
 
-    function shouldFetchFilters(state, filters) {
-        const filter = state.filterArray[filters];
-        if (!filter) {
-            return true
-        } else if (filter.isFetching) {
-            return false
-        } else {
-            return filter.didInvalidate
-        }
-    }
