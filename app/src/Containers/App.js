@@ -50,20 +50,15 @@ class App extends Component {
     render() {
         let cardList;
         let data = store.getState()
-        console.log(data.getQuery)
-        if (this.props.productData){
-            cardList = <CardList name={this.state.name} data={this.props.productData}/>
-        }
-        else {
-        }
-        console.log(store.getState());
+        // console.log(data.getQuery)
+        // console.log(store.getState());
         return (
             <div>
                 <TabBar/>
                 <InputBar callback={(e) => this.setInputUrlParams(e)}/>
                 {/*<DropDown/>*/}
                 <FilterChips/>
-                {cardList}
+                <CardList name={this.state.name} type={this.state.type}/>
                 <SimpleCard title="hei" pris={123} varenummer={1234567} taste="kake" aroma="vanilje" country="Tjekkoslovakia" abv={96.6}/>
             </div>
         );
