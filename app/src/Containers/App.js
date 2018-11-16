@@ -21,14 +21,87 @@ class App extends Component {
         this.state= {
             selectedOption : 'DescName',
             sortOrder: '',
+            data: [{'title': 'N/A', 'pris': 'N/A', 'varenummer':'N/A', 'taste': 'N/A', 'aroma': 'N/A, ',
+                'country': 'N/A', 'abv':'N/A'}],
+            fetcher: new FetchFromJson('http://it2810-15.idi.ntnu.no:3000/beverages/search'),
+            nextData: null,
             name: null,
-            type: null
+            type: null,
+            page: 1,
+            hasNextPage: false
         };
         this.handleChange = this.handleChange.bind(this);
 
     }
+    generateStringArgs(){
+        let queryString = '';
 
-    //TODO: Constructor w/ state for params like ID etc & callback.bind.this()
+        if(this.props.name !== '' && this.props.name) {
+            this.setState({
+                ...this.state,
+                name: this.props.name
+            });
+            queryString += "name=" + this.props.name;
+        }
+        else if (this.state.name !== '' && this.state.name){
+            queryString += "name=" + this.state.name;
+        }
+
+        if(this.props.type !== '' && this.props.type) {
+            queryString += (queryString.length > 0) ? '&' : '';
+
+            this.setState({
+                ...this.state,
+                type: this.props.type
+            });
+            queryString += "productType=" + this.props.type;
+        }
+        else if (this.state.type !== '' &&  this.state.type){
+            queryString += "productType=" + this.state.type;
+        }
+
+        if(this.props.sortOrder && queryString.length > 0){
+            queryString += (queryString.length > 0) ? '&' : '';
+            queryString += '&sort=' +this.props.sortOrder;
+
+        }
+        // TODO: Add page
+        let pageString = '&page=' + this.state.page;
+        queryString += queryString.length > 0 ? pageString : '';
+
+        return queryString;
+    }
+
+    reloadProduct(callback){
+        let stringArgs = this.generateStringArgs();
+        console.log(stringArgs);
+        if (stringArgs.indexOf('name') >= 0 || stringArgs.indexOf('productType') >= 0) {
+            // console.log(stringArgs);
+
+
+            this.state.fetcher.fetchFromString(stringArgs, (data) => {
+                callback(data);
+            });
+            stringArgs.replace(/page=\d/, 'page=' + this.state.page + 1);
+        }
+    }
+
+    onNextProduct(){
+        // TODO: Set data to nextData, call reloadProduct with next page, set nextData to new data
+        // Must be called when page changes
+        // TODO: Disable next button if nextData.length === 0
+    }
+    onPrevProduct(){
+        // TODO: Set nextData to data, call reloadProduct with prev page, set data to new data
+        // Must be called when page changes
+        // TODO: Disable 'prev' button if page == 1
+    }
+    onNewQuery(){
+        // TODO: Set page to 1, run reloadData with (d) => setState(..., data: d)  and with (nd) => setState(..., nextData: nd)
+        // Must be called when name or type changes.
+    }
+
+        //TODO: Constructor w/ state for params like ID etc & callback.bind.this()
     // Dropdown & Inputbar can change params in state. Use callback, see P2
     // Set props in CardList to state.params elns
 
