@@ -11,7 +11,6 @@ const url = configData.databseUrl;
 
 
 // Use connect method to connect to the Server
-
   function unsafeWriteAllToDB(){
       MongoClient.connect(url, function(err, client) {
 
