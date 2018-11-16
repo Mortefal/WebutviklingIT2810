@@ -168,6 +168,9 @@ class App extends Component {
                     </label>
                 </form>
                 <CardList name={this.state.name} type={this.state.type} sortOrder={this.state.sortOrder}/>
+                <div>
+                    <button>Prev</button><button>Next</button>
+                </div>
             </div>
         );
     }
@@ -234,7 +237,7 @@ class App extends Component {
     }
 }
 const mapStateToProps = state => {
-    const { getAllFilters, products } = state
+    const { getAllFilters, products } = state;
     const {
         filterArray,
         productData,
