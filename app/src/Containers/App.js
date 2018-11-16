@@ -18,16 +18,15 @@ class App extends Component {
         this.state= {
             selectedOption : 'DescName',
             sortOrder: '',
-            data: [{'title': 'N/A', 'pris': 'N/A', 'varenummer':'N/A', 'taste': 'N/A', 'aroma': 'N/A, ',
-                'country': 'N/A', 'abv':'N/A'}],
+            data: [],
             fetcher: new FetchFromJson('http://it2810-15.idi.ntnu.no:3000/beverages/search'),
             nextData: null,
             name: null,
             type: null,
             page: 1,
             hasNextPage: false,
-            nextButtonDisabled: false,
-            prevButtonDisabled: false
+            nextButtonDisabled: true,
+            prevButtonDisabled: true
         };
         this.handleChange = this.handleChange.bind(this);
         this.setInputUrlParams = this.setInputUrlParams.bind(this);
@@ -85,7 +84,7 @@ class App extends Component {
 
     async reloadProduct(page){
         let stringArgs = this.generateStringArgs(page);
-        console.log(stringArgs);
+        // onsole.log(stringArgs);
         let fetcher = this.state.fetcher;
         let url = this.url;
         return new Promise(async function(resolve){
@@ -100,15 +99,20 @@ class App extends Component {
 
     async onNextProduct(){
         // TODO: Set data to nextData, call reloadProduct with next page, set nextData to new data
-        let nextData = await this.reloadProduct(this.state.page +1);
-        console.log(nextData);
+        //console.log(this.state);
+        let nextData = await this.reloadProduct(this.state.page +2);
+        // console.log("Next Page");
+        // console.log(this.state);
+        //console.log(nextData);
         this.setState({
             ...this.state,
             data : this.state.nextData,
             nextData : nextData,
             page: this.state.page +1,
             nextButtonDisabled: nextData.length === 0,
-        }, () => console.log(this.state))
+            prevButtonDisabled: this.state.page >= 2
+
+        })
         // Must be called when page changes
         // TODO: Disable next button if nextData.length === 0
     }
@@ -117,15 +121,19 @@ class App extends Component {
         // TODO: Set nextData to data, call reloadProduct with prev page, set data to new data
         if(this.state.page > 1) {
             let prevData = await this.reloadProduct(this.state.page - 1);
+            //console.log("Prev Page");
+            //console.log(this.state);
             this.setState({
                 ...this.state,
                 nextData: this.state.data,
                 data: prevData,
                 page: this.state.page -1,
-                prevButtonDisabled: this.page -1 <= 1
+                prevButtonDisabled: this.state.page -1 <= 1,
+                nextButtonDisabled: this.state.data.length === 0
             });
         }
         else{
+            // console.log("Error in prevpage");
             this.onNewQuery();
         }
     }
@@ -143,7 +151,7 @@ class App extends Component {
             data: data,
             nextData: nextData,
 
-        }, () => console.log(this.state));
+        });
     }
 
         //TODO: Constructor w/ state for params like ID etc & callback.bind.this()
@@ -170,13 +178,13 @@ class App extends Component {
     };
 
     handleChange(e, order) {
-        console.log("order: ");
-        console.log(order);
+        // console.log("order: ");
+        // console.log(order);
         this.setState({
             ...this.state,
             selectedOption: e.target.value,
             sortOrder: order
-        }, () => {this.onNewQuery();})
+        })
     };
 
 
@@ -209,7 +217,8 @@ class App extends Component {
                 </form>
                 <CardList data={this.state.data}/>
                 <div>
-                    <button onClick ={(e) => this.onPrevProduct(e)}>Prev</button><button onClick={(e) => this.onNextProduct(e)}>Next</button>
+                    <button disabled={this.state.prevButtonDisabled} onClick ={(e) => this.onPrevProduct(e)}>Prev</button>
+                    <button disabled={this.state.nextButtonDisabled} onClick={(e) => this.onNextProduct(e)}>Next</button>
                 </div>
             </div>
         );
@@ -222,7 +231,7 @@ class App extends Component {
     }
 
     setInputUrlParams(params){
-        console.log(params);
+        // console.log(params);
         this.setState({
             ...this.state,
             name: params
