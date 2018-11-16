@@ -132,7 +132,7 @@ class CardList extends React.Component {
     componentDidUpdate(prevProps){
         if(this.props !== prevProps){
             let stringArgs = this.generateStringArgs();
-            console.log(stringArgs);
+            // console.log(stringArgs);
             if (stringArgs.indexOf('name') >= 0 || stringArgs.indexOf('productType') >= 0){
                 // console.log(stringArgs);
                 if(stringArgs !== undefined){
