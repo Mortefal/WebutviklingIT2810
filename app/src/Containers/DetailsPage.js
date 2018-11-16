@@ -43,6 +43,13 @@ const styles = theme => ({
     },
 });
 
+/*
+*   DETAILS PAGE:
+*   Details page uses the material-ui modal and some other components for easy styling.
+*   The component has open and close functions for the modal.
+*   Other than this everything is sent to the component from simplePage.
+*/
+
 class DetailsPage extends React.Component{
     constructor(props) {
         super(props);

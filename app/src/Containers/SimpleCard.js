@@ -10,6 +10,7 @@ import BorderHeart from '../Components/FavoriteHeart';
 import DetailsPage from './DetailsPage.js'
 
 
+/* Styling for the component */
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -36,6 +37,12 @@ const styles = theme => ({
         WebkitBoxOrient: 'vertical',
     },
 });
+
+/*
+*   SIMPLE-CARD:
+*   This is a component to represent each single card with information about each product that the database returns.
+*/
+
 class SimpleCard extends React.Component{
     constructor(props) {
         super(props);
@@ -44,7 +51,6 @@ class SimpleCard extends React.Component{
             aroma: this.props.description,
             taste: this.props.taste,
             pris: this.props.pris,
-            varenummer: this.props.varenummer,
             country: this.props.country,
             abv: this.props.abv,
             isFav: false,
@@ -53,16 +59,13 @@ class SimpleCard extends React.Component{
         this.handleAddClick = this.handleAddClick.bind(this);
     };
 
-
+    /* Setting the favorite state of the card.*/
     handleAddClick(){
         this.setState({isFav: !this.state.isFav});
-        /*Add to favorites in db*/
-        /*this.setState({results: this.state.results.push(...[this.state.title, this.state.description, this.state.pris, this.state.varenummer])});
-        console.log(this.state.results)*/
     };
 
     render(){
-        const { classes, title, pris, varenummer, taste, aroma, country, abv } = this.props;
+        const { classes, title, pris, taste, aroma, country, abv } = this.props;
         const isFav = this.state.isFav;
         return(
             <Paper className={classes.root}>
@@ -81,10 +84,7 @@ class SimpleCard extends React.Component{
                                 <Typography gutterBottom className={classes.descriptionContent}>{taste}</Typography>
 
                             </Grid>
-                            <Grid item container alignItems={"flex-start"} direction={"column"}>
-                                <Typography color="textSecondary">Varenummer: {varenummer}</Typography>
 
-                            </Grid>
                             <Grid item container alignItems={"flex-start"}>
                                 <Grid item xs={10}>
                                     <DetailsPage title={title} aroma={aroma} taste={taste} isFav={this.state.isFav} pris={pris} country={country} abv={abv}/>

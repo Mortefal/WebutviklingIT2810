@@ -1,16 +1,13 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import { connect } from "react-redux";
-//import ListSubHeader from '@material-ui/core/ListSubheader';
-//import GridListTile from '@material-ui/core/GridListTile';
-
+//import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import SimpleCard from "../Containers/SimpleCard";
 //import Typography from "@material-ui/core/Typography/Typography";
-import configureStore from "../Store/configureStore";
+//import configureStore from "../Store/configureStore";
 import FetchFromJson from "../utils/fetchFromJson";
-let store = configureStore();
+//let store = configureStore();
 
 
 const styles = theme => ({
@@ -23,70 +20,12 @@ const styles = theme => ({
     gridList: {
     }
 });
+
+/*
+*    CARD-LIST:
+*    Cardlist is a component for mapping the data from App onto SimpleCards returning these to be displayed on the application.
+*/
 class CardList extends React.Component {
-    constructor(args){
-        super(args);
-        this.state = ({data: [{'title': 'N/A', 'pris': 'N/A', 'varenummer':'N/A', 'taste': 'N/A', 'aroma': 'N/A, ',
-            'country': 'N/A', 'abv':'N/A'}],
-            fetcher: new FetchFromJson('http://it2810-15.idi.ntnu.no:3000/beverages/search'),
-            name: null,
-            type: null
-        });
-    }
-
-    generateStringArgs(){
-        let queryString = '';
-
-        if(this.props.name !== '' && this.props.name) {
-            this.setState({
-                ...this.state,
-                name: this.props.name
-            });
-            queryString += "name=" + this.props.name;
-        }
-        else if (this.state.name !== '' && this.state.name){
-            queryString += "name=" + this.state.name;
-        }
-
-        if(this.props.type !== '' && this.props.type) {
-            queryString += (queryString.length > 0) ? '&' : '';
-
-            this.setState({
-                ...this.state,
-                type: this.props.type
-            });
-            queryString += "productType=" + this.props.type;
-        }
-        else if (this.state.type !== '' &&  this.state.type){
-            queryString += "productType=" + this.state.type;
-        }
-
-        if(this.props.sortOrder && queryString.length > 0){
-            queryString += (queryString.length > 0) ? '&' : '';
-            queryString += '&sort=' +this.props.sortOrder;
-
-        }
-
-        return queryString
-    }
-
-
-
-    componentDidUpdate(prevProps){
-        if(this.props !== prevProps){
-            let stringArgs = this.generateStringArgs();
-            // console.log(stringArgs);
-            if (stringArgs.indexOf('name') >= 0 || stringArgs.indexOf('productType') >= 0){
-                // console.log(stringArgs);
-                if(stringArgs !== undefined){
-                 this.state.fetcher.fetchFromString(stringArgs, (d) => {
-                      this.setState({
-                          ...this.state,
-                          data: d
-                      })
-             });}}
-    }}
-
 
     render(){
         const {classes} = this.props;

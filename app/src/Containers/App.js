@@ -158,7 +158,6 @@ class App extends Component {
                 <p> Previous searches:
                     <ul>
                         {this.state.history.map((item) => {
-                            console.log(item);
                             return (<li>
                                     {item[0]}
                                 </li>);
@@ -227,7 +226,6 @@ class App extends Component {
     }
 
     setFilterUrlParams(params){
-        console.log(params);
         this.setState({
             ...this.state,
             type: params
@@ -241,7 +239,6 @@ class App extends Component {
     recieveData(stringArgs){
         let fetcher = new FetchFromJson('http://it2810-15.idi.ntnu.no:3000/beverages/search');
         fetcher.fetchFromString("productType=Rødvin", ((data) => {
-            console.log(data[0]);
             this.setState({
                 ...this.state,
                 data: data

@@ -11,6 +11,11 @@ const styles = {
     },
 };
 
+/*
+*   APP-BAR:
+*   Just a simple header for the application
+*/
+
 function SimpleAppBar(props) {
     const { classes } = props;
 

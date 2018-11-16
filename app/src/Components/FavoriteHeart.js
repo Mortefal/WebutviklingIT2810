@@ -12,12 +12,17 @@ const styles = theme => ({
     }
 });
 
+/*
+*   FAVORITE HEART:
+*   Simple component that uses an Iconbutton and FavoriteIcon to display an icon for choosing favorite products.
+*/
+
 class FavoriteHeart extends React.Component {
     render() {
         const {classes, isFav} = this.props;
         return (
-            <IconButton className={classes.root}>
-                {isFav ? <FavoriteIcon style={{color: 'red'}}/>: <FavoriteBorder/>}
+            <IconButton className={classes.root} id="SVG">
+                {isFav ? <FavoriteIcon style={{color: 'red'}} id="Redheart"/>: <FavoriteBorder id="Emptyheart"/>}
             </IconButton>
         )
     }

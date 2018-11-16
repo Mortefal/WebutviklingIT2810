@@ -17,6 +17,12 @@ const styles = theme => ({
     }
 });
 
+/*
+*   FILTER-CHIPS:
+*   This component uses material-ui 'Chips' to display choices for filtration. We have added some examples for filters that can be used for this example.
+*   'alternative' is all the filters available for choosing and 'selected' is the one selected chip you have chosen to use as filtration.
+*/
+
 class FilterChips extends React.Component {
     state = {
         filterQuery: [
