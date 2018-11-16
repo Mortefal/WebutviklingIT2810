@@ -252,7 +252,7 @@ class App extends Component {
     }
 }
 
-const mapStateToProps = state => {
+/*const mapStateToProps = state => {
     const { getAllFilters, products } = state;
     const {
         filterArray,
@@ -268,7 +268,7 @@ const mapStateToProps = state => {
         productData,
         query: state.getQuery().query
 }
-};
+};*/
 const mapDispatchToProps = dispatch => {
     return{
 
@@ -276,4 +276,4 @@ const mapDispatchToProps = dispatch => {
 };
 
 
-export default connect(mapStateToProps)(App);
+export default connect()(App);
