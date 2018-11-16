@@ -1,12 +1,13 @@
 # Prosjekt 4
 
 ## Krav til innhold og funksjonalitet
-[Løsningen skal være en prototyp på en søkbar katalog med frontend hvor brukeren skal kunne formulere et søk og få presentert et søkeresultat, og en backend database med et REST API (eller graphQL).]
 
-* En dialog/form for input av søk
+### En dialog/form for input av søk
+
+Input fra brukeren valgte vi å ta inn gjennom en input i et form. Her kan brukeren skrive inn navn på en drikke, og etter at brukeren har trykket på enter eller trykket på knappen ‘Søk’ vil de første (opp til 20) resultatene vises. Søkefunksjonen virker slik at den finner alle drikkene med navn i likhet med det du søkte på. Dette betyr at om du søker på f.eks. ‘øl’ vil du få opp varer som ‘Arvesølvet Juleakevitt 2018’ fordi resultatet inneholder ‘øl’. Dette gjør søkingen litt mer fleksibel, men den er fortsatt ikke glad i skrivefeil. Skriver brukeren et ord helt feil vil ikke noe resultat vises. 
 
 ### Pagination
-* Listebasert presentasjon av søk hvor det er lagt opp til håndtering av store resultatsett med enten blaing i sider, eller dynamisk laster av flere resultater ved scrolling
+I UI gjorde vi pagination til en veldig enkel interaksjon. Dette gjorde vi ved å ha 2 knapper nederst på siden. En knapp for forrige side og en knapp for neste side. Brukeren kan bla til neste side/forrige side helt til det ikke lengre er noen flere sider å bla igjennom. 
 
 **Server**
 
@@ -21,8 +22,12 @@ På hver av produktkortene, vil det være en "Vis mer" knapp, som trigger en Mod
 
 ### Filtrering og sorterting
 * Mulighet for sortering og filtrering av resultatsettet (merk at sortering og filtrering skal utføres på hele resultatsettet og ikke bare det som tilfeldigvis er laster inn på klienten)
+Brukeren kan filtrere søkene sine ved å velge en av filtrene. Når et filter velges vises de 20 første drikkene innenfor denne kategorien. Om brukeren ønsker å sortere et søk på en kategori velges først en kategori og deretter søker man, eller søker og velger en kategori.
+Et kjent problem er at når brukeren har søkt vil søket bli med videre til brukeren søker på noe nytt. Dette betyr at brukeren ikke lengre kan trykke på en kategori og få de 20 første resultatene for hele kategorien etter at det første søket er gjort. 
 
-Filtrering og sortering er også oppnådd serverside, ved at aktuelle funksjoner som vil hente ut filtrerbare verdier har en pre-prosesseringsfunksjon som henter ut parametere som skal med i søket, og hvilke som tilpasser den.
+Vi ønsket at brukeren skulle kunne filtrere drikkene basert på pris. Derfor har vi 3 sorteringsalternativer. Brukeren kan sortere i synkende pris (starter med den dyreste), sortere i økende pris (starter med den billigste), eller synkende basert på navn (slik søket kommer originalt fra databasen). Ved å klikke på en av radio knappene vil hele datasettet sorteres tilsvarende.
+
+Filtrering og sortering er også oppnådd på serversiden ved at aktuelle funksjoner som vil hente ut filtrerbare verdier har en pre-prosesseringsfunksjon som henter ut parametere som skal med i søket, og hvilke som tilpasser den.
 Når '?' brukes i URL-en vil express automatisk prosessere dette til et simpelt javascript-objekt slik:
 ```
 // URL: http://.../beverages/search?name=talisker&price=400&page=2
@@ -33,32 +38,28 @@ Når '?' brukes i URL-en vil express automatisk prosessere dette til et simpelt 
     page="2"
 }
 ```
-Ditte java-objektet blir så kjørt via preprosesseringen slik vi får to objekter - options og query. Query er da hva det søkes på, som navn og pris, mens options er instillinger slik som sidestall og størrelse.
+Dette java-objektet blir så kjørt via preprosesseringen slik vi får to objekter - options og query. Query er da hva det søkes på, som navn og pris, mens options er innstillinger slik som sidestall og størrelse.
 Utifra dette kalles ```Model.find(query, options)```.
 
 En liten sak vi er klar over, men som vi ikke prioriterte da det var utenfor skopet til oppgaven, er at søkene er per nå ganske naive - de antar gydlig input, og legges det til ugydlige parametere finner vi ingenting.
 Løsningen ville vært videre pre-prosessering og sanitering av input, men dette falt som sagt utenfor.
-### Favorisering
+
+### Søkehistorie/Favorisering
  Noe bruker/bruksgenererte data som skal lagres (persistent på databaseserveren) og  presenteres (enten bruker som legger til informasjon, reviews, ratings etc, historikk om søkene eller annet, handleliste).
- På hvert produkt fra databasen, vil det være mulig å klikke på et hjerte for å vise at man liker produktet. Dette styres med state ifra redux, men det lagres ikke på databasen. Det som lagres i databasen er tidligere søk.
- Ettersom dette prosjektet kun er en prototype, har vi lagt opp til at det skal være mulig å sortere på favoritter.
-### Graf el. liknende, får se
-* Valgfritt:  En funksjonalitet for å vise dataene med kart, ordsky, graf, whatever (avansert visning)
-Ikke innført
+På hvert produkt fra databasen, vil det være mulig å klikke på et hjerte for å vise at man liker produktet. Dette styres med state ifra redux, men det lagres ikke på databasen. Det som lagres i databasen er tidligere søk.
+Når en bruker søker på noe legges dette til i databasen med en counter på hvor mange ganger dette navnet har blitt søkt på. Denne dataen vises på siden under input feltet. Her ser du topp søk med antall ganger de har blitt søkt. 
+Om prosjektet skulle videreutvikles hadde vi jobbet med å lage en side for å se alle favoritter og muligens lagt opp til sortering på favoritter.
+
 ## Krav til teknologi
 
 ### React
 Instansiert med create-react-app
 
 ### Redux eller Mobx
-Hva gjorde vi her, hvorfor?
-Vi valgte å bruke Redux, men har hatt problemer med å få til å bruke det sammen med API-kall, så prosjektet har kun en enkel store, med få variabler, mens resten er gjort med vanlig state i react.
-Vi undervurderte hvor vanskelig det ville være å sette opp Redux, og innså for sent at dette var mer komplisert enn vi hadde trodd. Arbeidet med å gjøre om hele prosjektet til å være i Redux viste seg å være for omfattende til at vi kunne klare å få levert et så godt produkt som muig innen leveringsfristen. 
-Vi valgte derfor å fokusere på ferdigstillelse. 
-```
-git fucked -f --hard
-```
+Vi valgte å bruke Redux, men hadde store problemer med å få til å bruke det sammen med API-kall, og Cardlist.js renderingen, som gjorde det vanskelig for oss å få distinkte states på hvert kort. Pga dette er det ikke lagt inn noe Redux i prosjektet, da vi ikke fikk den funksjonaliteten vi ville med bruk av Redux. 
 
+Vi undervurderte hvor vanskelig det ville være å sette opp Redux, og innså for sent at dette var mer komplisert enn vi hadde trodd. Arbeidet med å gjøre om hele prosjektet til å være i Redux viste seg å være for omfattende til at vi kunne klare å få levert et så godt produkt som mulig innen leveringsfristen. 
+Vi valgte derfor å fokusere på ferdigstillelse. Hadde vi startet prosjektet på nytt hadde dette vært en større prioritet fra starten. 
 
 ### Database
 Databasen vi kjører er MongoDB, og denne drives i rest-apiet av mongoose. MongoDB er en relasjonsfri (NoSQL) database, som var velegnet for datasettet vårt: omlag 19 500 ulike
@@ -73,6 +74,7 @@ komplett med 404 og 500 -håndtering og mer. Med dette opprettet, var det en sma
 
 ### Valg av komponenter og api
 #### Material UI
+Vi valgte å benytte oss av Material UI, som benytter seg av Google’s material design for å lage React komponenter som vi har brukt for implementere SimpleCard.js, Detailspage.js, favoriteHeart.js og TabBar.js. Det har gitt siden et fint og enkelt grensesnitt, samtidig som det oppfylte behovene vi hadde for utforming i prosjektet.
 
 
 
