@@ -13,7 +13,7 @@ const initialState = ({
 
 function getProducts(state = {
     products: [],
-    query: ''
+    query: '',
 }, action) {
     //console.log("Get Products");
     //console.log(action);
@@ -94,29 +94,56 @@ function getFilters(state = initialState, action){
 }
 
 function displayInfo(state = {
-    openModal: false
+    openModal: false,
+    favorite: false,
 }, action){
     switch (action.type) {
         case types.SHOW_MODAL:
             return  {
                 ...state,
-                openModal: !state.openModal
+                openModal: true
         };
         case types.HIDE_MODAL:
             return {
                 ...state,
-                openModal: !state.openModal,
-            }
+                openModal: false,
+            };
+        case types.SET_FAVORITE:
+            return{
+                ...state,
+                favorite: !state.favorite
+            };
         default:
             return state;
     }
 }
+/*
+function setFavorite(state = {favorite: false}, action) {
+    switch (action.type) {
+        case types.ADD_FAVORITE:
+            return {
+                ...state,
+                favorite: true
+            };
+        case types.REMOVE_FAVORITE:
+            return {
+                ...state,
+                favorite: false
+            };
+        default:
+            return{
+                state
+            }
+    }
 
+}
+*/
 const rootReducer = combineReducers({
     getProducts,
     getFilters,
     displayInfo,
     getQuery,
+
 });
 
 export default rootReducer;

@@ -13,21 +13,10 @@ export const GET_SELECTED_FILTER = 'GET_SELECTED_FILTER';
 export const INVALIDATE_PRODUCT = 'INVALIDATE_PRODUCT';
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const HIDE_MODAL = 'HIDE_MODAL';
+export const SET_FAVORITE = 'SET_FAVORITE';
+export const REMOVE_FAVORITE = 'REMOVE_FAVORITE';
 
 //const store = configureStore();
-export function showInfo(bools){
-    return{
-        type: 'SHOW_MODAL',
-        bools
-    }
-}
-export function hideInfo(bools){
-    return{
-        type: 'HIDE_MODAL',
-        bools
-    }
-}
-
 function requestProducts(beverages) {
     console.log("2.3")
     return{
@@ -48,7 +37,30 @@ export function getQuery(query) {
     //}
 
 }
-
+export function showInfo(bools){
+    return{
+        type: 'SHOW_MODAL',
+        bools
+    }
+}
+export function setFavorite(bools) {
+    return{
+        type: 'SET_FAVORITE',
+        bools
+    }
+}
+export function removeFavorite(bools) {
+    return{
+        type: 'REMOVE_FAVORITE',
+        bools
+    }
+}
+export function hideInfo(bools){
+    return{
+        type: 'HIDE_MODAL',
+        bools
+    }
+}
 function fetchProducts(beverages){
     console.log("2")
     requestProducts(beverages);
