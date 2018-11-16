@@ -1,36 +1,43 @@
 import {combineReducers} from "redux";
 import * as types from "../Actions/actions";
-import configureStore from "../Store/configureStore";
 
+function searchServer(state = '', action) {
+    switch (action.type) {
+        case types.SEARCH_SERVER:
+            return action.searchParam;
+        default:
+            return state;
+    }
+}
 
-const initialState = ({
-    filterArray: [],
-    productData: [],
-    isFavorite: false,
-    query: ''
-    })
-;
-
-function getProducts(state = {
-    products: [],
-    query: '',
-}, action) {
-    //console.log("Get Products");
-    //console.log(action);
+function getProducts(state = {isFetching: false, didInvalidate: false, products: []}, action) {
+    console.log("Get Products");
+    console.log(action.searchParam);
     switch (action.type) {
         case types.REQUEST_PRODUCTS:
             //change this
             return Object.assign({}, state, {
                 isFetching: true,
-                didInvalidate: false,
-                query: ""
+                didInvalidate: false
             });
         case types.RECEIVE_PRODUCTS:
             //change this
             console.log("Recieved products");
             return Object.assign({}, state, {
                 isFetching: false,
+                didInvalidate: false,
                 products: action.products,
+            })
+        default:
+            return state;
+    }
+}
+function productsFromServer(state = {}, action) {
+    switch (action.type) {
+        case types.RECEIVE_PRODUCTS:
+        case types.REQUEST_PRODUCTS:
+            return Object.assign({}, state, {
+                [action.products]: getProducts(state[action.products], action)
             });
         default:
             return state;
@@ -61,34 +68,66 @@ export function consolelog(){
     console.log(configureStore().getState())
 }*/
 
-function getFilters(state = initialState, action){
+function getFilters(state = {
+    filterQuery:[
+        {key: 0, label: "Hvitvin"},{key: 1, label:"Musserende vin"},{key: 2, label:"Rødvin"},{key: 3, label:"Rosévin"},
+        {key: 4, label:"Fruktvin"},{key: 5, label:"Portvin"},{key: 6, label:"Perlende vin, hvit"},{key: 7, label:"Perlende vin, rød"},
+        {key: 8, label:"Perlende vin, rosé"},{key: 9, label:"Sterkvin, annen"},
+        {key: 10, label:"Sherry"},{key: 11, label:"Vermut"},{key: 12, label:"Madeira"},
+        /* {key: 0, label: "Aromatisert vin"},
+        {key: 0, label: "Champagne, brut"},
+        {key: 0, label: "Musserende vin, rosé"},
+        {key: 0, label: "Champagne, rosé"},
+        {key: 0, label: "Champagne extra brut"},
+        {key: 0, label: "Champagne, annen"},
+        {key: 0, label: "Champagne, sec"},
+        {key: 0, label: "Whisky"},
+        {key: 0, label: "Akevitt"},
+        {key: 0, label: "Gin"},
+        {key: 0, label: "Druebrennevin"},*/
+        {key: 13, label:"Rom"},{key: 14, label:"Bitter"},{key: 15, label:"Fruktbrennevin"},{key: 16, label:"Likør"},{key: 17, label:"Vodka"},
+        /*{key: 0, label: "Brennevin, annet"},
+        {key: 0, label: "Brennevin, nøytralt<37.5%"},
+        {key: 0, label: "Genever"},*/
+        {key: 18, label:"Sake"},{key: 19, label:"Sider"},{key: 20, label:"Lys ale"},{key: 21, label:"Klosterstil"},
+        /*{key: 0, label: "India pale ale"},
+        {key: 0, label: "Brown ale"},
+        {key: 0, label: "Pale ale"},
+        {key: 0, label: "Spesial"},*/
+        {key: 22, label:"Hveteøl"},{key: 23, label:"Surøl"},
+        /*{key: 0, label: "Porter & Stout"},
+        {key: 0, label: "Saison farmhouse ale"},
+        {key: 0, label: "Mørk lager"},
+        {key: 0, label: "Barley wine"},
+        {key: 0, label: "Red/amber"},*/
+        {key: 24, label:"Scotch ale"},{key: 25, label:"Alkoholfri vin"},
+        /*{key: 0, label: "Alkoholfri most"},
+        {key: 0, label: "Alkoholfri musserende drikk"},
+        {key: 0, label: "Alkoholfritt øl"},
+        {key: 0, label: "Alkoholfritt, øvrig"},
+        {key: 0, label: "Alkoholfri leskedrikk"},*/
+        ],
+    filterParam: [],
+    filterArray: [],
+}, action){
     switch (action.type) {
-        case types.REQUEST_FILTERS:
-            //change this
-            return state;
-        case types.RECEIVE_FILTERS:
-            return Object.assign({}, state, {
-                ... state,
-                filterArray: action.filter,
-            });
         case types.REMOVE_FILTER:
-            return Object.assign({}, state, {
+            return{
                 ... state,
-                filter: "",
-            });
+                filterParam: [],
+            };
         case types.ADD_FILTER:
-            return Object.assign({}, state, {
-                ... state,
-                filter: action.filter,
-            });
+            return{
+                ...state,
+                filterParam: state
+            }
         case types.GET_ALL_FILTERS:
-            //change this
-            return state;
-        case types.GET_SELECTED_FILTER:
-            //change this
-            return state;
+            return{
+                ...state,
+                filterArray: state.filterArray
+            }
         default:
-            return initialState;
+            return state;
     }
 
 }
@@ -117,29 +156,9 @@ function displayInfo(state = {
             return state;
     }
 }
-/*
-function setFavorite(state = {favorite: false}, action) {
-    switch (action.type) {
-        case types.ADD_FAVORITE:
-            return {
-                ...state,
-                favorite: true
-            };
-        case types.REMOVE_FAVORITE:
-            return {
-                ...state,
-                favorite: false
-            };
-        default:
-            return{
-                state
-            }
-    }
-
-}
-*/
 const rootReducer = combineReducers({
-    getProducts,
+    productsFromServer,
+    searchServer,
     getFilters,
     displayInfo,
     getQuery,

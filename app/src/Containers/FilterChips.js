@@ -25,7 +25,7 @@ const styles = theme => ({
 class FilterChips extends React.Component {
     constructor(props){
         super(props);
-        this.state={
+        /*this.state={
             filterQuery:[
             {key: 0, label: "Hvitvin"},
             {key: 1, label: "Musserende vin"},
@@ -40,7 +40,7 @@ class FilterChips extends React.Component {
             {key: 10, label: "Sherry"},
             {key: 11, label: "Vermut"},
             {key: 12, label: "Madeira"},
-            /* {key: 0, label: "Aromatisert vin"},
+            /!* {key: 0, label: "Aromatisert vin"},
             {key: 0, label: "Champagne, brut"},
             {key: 0, label: "Musserende vin, rosé"},
             {key: 0, label: "Champagne, rosé"},
@@ -50,116 +50,76 @@ class FilterChips extends React.Component {
             {key: 0, label: "Whisky"},
             {key: 0, label: "Akevitt"},
             {key: 0, label: "Gin"},
-            {key: 0, label: "Druebrennevin"},*/
+            {key: 0, label: "Druebrennevin"},*!/
             {key: 13, label: "Rom"},
             {key: 14, label: "Bitter"},
             {key: 15, label: "Fruktbrennevin"},
             {key: 16, label: "Likør"},
             {key: 17, label: "Vodka"},
-            /*{key: 0, label: "Brennevin, annet"},
+            /!*{key: 0, label: "Brennevin, annet"},
             {key: 0, label: "Brennevin, nøytralt<37.5%"},
-            {key: 0, label: "Genever"},*/
+            {key: 0, label: "Genever"},*!/
             {key: 18, label: "Sake"},
             {key: 19, label: "Sider"},
             {key: 20, label: "Lys ale"},
             {key: 21, label: "Klosterstil"},
-            /*{key: 0, label: "India pale ale"},
+            /!*{key: 0, label: "India pale ale"},
             {key: 0, label: "Brown ale"},
             {key: 0, label: "Pale ale"},
-            {key: 0, label: "Spesial"},*/
+            {key: 0, label: "Spesial"},*!/
             {key: 22, label: "Hveteøl"},
             {key: 23, label: "Surøl"},
-            /*{key: 0, label: "Porter & Stout"},
+            /!*{key: 0, label: "Porter & Stout"},
             {key: 0, label: "Saison farmhouse ale"},
             {key: 0, label: "Mørk lager"},
             {key: 0, label: "Barley wine"},
-            {key: 0, label: "Red/amber"},*/
+            {key: 0, label: "Red/amber"},*!/
             {key: 24, label: "Scotch ale"},
             {key: 25, label: "Alkoholfri vin"},
-            /*{key: 0, label: "Alkoholfri most"},
+            /!*{key: 0, label: "Alkoholfri most"},
             {key: 0, label: "Alkoholfri musserende drikk"},
             {key: 0, label: "Alkoholfritt øl"},
             {key: 0, label: "Alkoholfritt, øvrig"},
-            {key: 0, label: "Alkoholfri leskedrikk"},*/
+            {key: 0, label: "Alkoholfri leskedrikk"},*!/
 
-        ],
-        filterArray: []};
-        this.handleDelete = this.handleDelete.bind(this);
+        ]};*/
+        this.handleAdd = this.handleAdd.bind(this);
+        this.handleRemove = this.handleRemove.bind(this);
     }
 
-    /*
-    handleClick = data => () => {
-        if (!this.state.filtrationArray.includes(data)) {
-            this.setState({filtrationArray: [...this.state.filtrationArray, data]});
-        }
-    };*/
-
-    handleClick= e => () => {
+    handleAdd(e) {
         this.props.addFilter(e);
-        if (!this.state.filterArray.includes(e)) {
-            if(this.state.filterArray){
-                const Data = this.state.filterArray;
-                const chipToDelete = Data.indexOf(0);
-                this.props.removeFilter(chipToDelete);
-            }
-            this.setState({filterArray: [e]});
-            //må fjerne den som ble lagt til før dette her.
-        }
-    };
-
-    componentDidMount(){
-        //const store = configureStore()
-        //const {filterQuery, filtrationArray} = this.props
-        //this.props.filterArray.append(/*filtere fra over*/)
-    }
-
-    /*handleDelete = data => () => {
-        if(this.state.filtrationArray.includes(data)){
-            const chipData = this.state.filtrationArray;
-            const chipToDelete = chipData.indexOf(data);
-            chipData.splice(chipToDelete, 1);
-            this.setState({filtrationArray: [...chipData]});
-        }
-    };*/
-
-    handleDelete = (e) => () =>{
+        };
+    handleRemove(e){
         this.props.removeFilter(e);
-        if(this.state.filterArray.includes(e)){
-            const chipData = this.state.filterArray;
-            const chipToDelete = chipData.indexOf(e);
-            chipData.splice(chipToDelete, 1);
-            this.setState({filterArray: [...chipData]});
-        }
-    };
-
+    }
     render() {
-        //const filterQuery = ;
         const {classes} = this.props;
-
-
-        let alternative = this.state.filterQuery.map(data => {
+        let alternative = this.props.filterQuery.map((data) => {
             return (
                 <Chip
                     key={data.key}
                     label={data.label}
-                    onClick={this.handleClick(data)}
+                    onClick={(e) => {this.handleAdd(e)}}
                     className={classes.chip}
                     clickable={true}
                 />
             )
         });
-
-        let selected = this.state.filterArray.map(data => {
-            return (
+        let filters = this.props.filterArray.map(data => {
+            return(
+                <Chip key={data.key} label={data.label} onDelete={(e) => {this.handleRemove(e)}} className={classes.chip} clickable={false}/>
+            )
+        });
+            /*return (
                 <Chip
                     key={data.key}
                     label={data.label}
+                    onClick={(e) => {this.handleRemove(e)}}
                     className={classes.chip}
-                    clickable={false}
-                    color={"secondary"}
-                    onDelete={this.handleDelete(data)}
-                />)
-        });
+                    clickable={true}
+                />
+            )*/
 
         return (
             <Paper className={classes.root}>
@@ -167,7 +127,7 @@ class FilterChips extends React.Component {
                     {alternative}
                 </Grid>
                 <Grid item container>
-                    {selected}
+                    {filters}
                 </Grid>
             </Paper>
         )
@@ -176,8 +136,8 @@ class FilterChips extends React.Component {
 
 const mapStateToProps = (state) =>{
     return{
-        filterArray: state.getFilters.filterArray,
-        filterQuery: state.getFilters.filterQuery,
+        filterArray: state.getFilters.filterParam,
+        filterQuery: state.getFilters.filterQuery
     };
 };
 

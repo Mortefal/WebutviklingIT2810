@@ -6,12 +6,9 @@ import CardList from '../Components/CardList.js';
 import FetchFromJson from '../utils/fetchFromJson.js';
 import PropTypes from 'prop-types';
 import {connect}from 'react-redux';
-import rootReducer from '../Reducers/reducers';
-import {fetchAllFilters} from "../Actions/actions";
-import {applyMiddleware as dispatch} from "redux";
 import SimpleCard from "./SimpleCard";
 import configureStore from "../Store/configureStore";
-
+import {fetchProductsIfNeeded, searchServer,} from '../Actions/actions';
 let store = configureStore();
 
 
@@ -161,9 +158,9 @@ class App extends Component {
 
     componentDidMount() {
         //store.dispatch(fetchAllFiltersIfNeeded(productData))
-        const {productData, filterArray, isFavorite, query} = this.props;
+        //const {productData, filterArray, isFavorite, query} = this.props;
         //dispatch(fetchAllFiltersIfNeeded(productData))
-        store.dispatch(fetchAllFilters())
+        //store.dispatch(fetchAllFilters())
     }
 
     /*
@@ -190,12 +187,6 @@ class App extends Component {
 
 
     render() {
-        let cardList;
-        let data = store.getState();
-        console.log(data.getQuery);
-        // console.log(data.getQuery)
-        // console.log(store.getState());
-
         return (
             <div>
                 <TabBar/>
@@ -268,11 +259,6 @@ class App extends Component {
       }*/
     }
 
-    componentWillUpdate(){
-       //  this.recieveData()
-
-    }
-
 
     recieveData(stringArgs){
         //stringArgs ~= "_id=igouhreso87ey4"
@@ -290,6 +276,7 @@ class App extends Component {
         //JSON data[0] = {_id=gliren74, ...}
     }
 }
+
 const mapStateToProps = state => {
     const { getAllFilters, products } = state;
     const {
@@ -307,12 +294,12 @@ const mapStateToProps = state => {
         query: state.getQuery().query
 }
 };
+/*
 const mapDispatchToProps = dispatch => {
     return{
 
     }
-};
+};*/
 
 
-
-export default App;
+export default(App);

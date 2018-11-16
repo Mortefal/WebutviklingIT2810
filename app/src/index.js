@@ -16,7 +16,13 @@ if (process.env.NODE_ENV !== 'production') {
 const initialstate = {};
 const store = new configureStore(initialstate);
 
-
+const myLogger = (store) => (next) => (action) => {
+    console.log("Logged action" + action);
+    next(action);
+}
+store.subscribe(() => {
+    console.log("Store updated! " + store.getState().displayInfo)
+})
 
 //applyMiddleware(...middleware),
 /*const store = createStore(
