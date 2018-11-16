@@ -42,14 +42,14 @@ class CardList extends React.Component {
         )
     }
 }
-/*
+
 CardList.propTypes = {
     classes: PropTypes.object.isRequired,
-};*/
-
+};
+/*
 const mapStateToProps = state => ({
     cards: state.cards.data
-});
+});*/
 
-export default connect(mapStateToProps)(CardList)
+export default connect((withStyles(styles))(CardList))
 /*export default withStyles(styles)(CardList);*/
