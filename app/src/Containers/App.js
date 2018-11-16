@@ -31,6 +31,9 @@ class App extends Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.setInputUrlParams = this.setInputUrlParams.bind(this);
+        this.onNextProduct = this.onNextProduct.bind(this);
+        this.onPrevProduct = this.onPrevProduct.bind(this);
+        this.reloadProduct = this.reloadProduct.bind(this);
 
     }
     generateStringArgs(page=this.state.page){
@@ -79,76 +82,90 @@ class App extends Component {
         return queryString;
     }
 
-    reloadProduct(callback, page=this.state.page){
-        let stringArgs = this.generateStringArgs();
+    async reloadProduct(page=this.state.page){
+        let stringArgs = this.generateStringArgs(page);
         console.log(stringArgs);
-        if (stringArgs.indexOf('name') >= 0 || stringArgs.indexOf('productType') >= 0) {
-            // console.log(stringArgs);
-            this.state.fetcher.fetchFromString(stringArgs, (data) => {
-                callback(data);
-            });
-            stringArgs.replace(/page=\d/, 'page=' + this.state.page + 1);
-        }
+        let fetcher = this.state.fetcher;
+        let url = this.url;
+        return new Promise(async function(resolve){
+            if (stringArgs.indexOf('name') >= 0 || stringArgs.indexOf('productType') >= 0) {
+                // console.log(stringArgs);
+                let data = await fetcher.fetchFromString(stringArgs);
+                resolve(data);
+            }
+        })
+
     }
 
-    onNextProduct(){
+    async onNextProduct(){
         // TODO: Set data to nextData, call reloadProduct with next page, set nextData to new data
-        function callack(nextData){
-            this.setState({
-                ...this.state,
-                data : this.state.nextData,
-                nextData : nextData,
-                page: this.page +1,
-                nextButtonDisabled: this.nextData.length === 0,
-            })
-        }
-        this.reloadProduct(callack, this.state.page+1)
+        let nextData = await this.reloadProduct();
+        this.setState({
+            ...this.state,
+            data : this.state.nextData,
+            nextData : nextData,
+            page: this.page +1,
+            nextButtonDisabled: this.nextData.length === 0,
+        })
         // Must be called when page changes
         // TODO: Disable next button if nextData.length === 0
     }
 
-    onPrevProduct(){
+    async onPrevProduct(){
         // TODO: Set nextData to data, call reloadProduct with prev page, set data to new data
-        function callback(prevData) {
+        if(this.state.page > 1) {
+            let prevData = await this.reloadProduct(this.state.page - 1);
             this.setState({
                 ...this.state,
                 nextData: this.state.data,
                 data: prevData,
                 page: this.page -1,
                 prevButtonDisabled: this.page -1 <= 1
-            })
-        }
-        if(this.state.page >= 1) {
-            this.reloadProduct(callback, this.state.page - 1);
+            });
         }
         else{
             this.onNewQuery();
         }
-
-        // Must be called when page changes
-        // TODO: Disable 'prev' button if page == 1
     }
 
-    onNewQuery(){
+    async onNewQuery(){
         // TODO: Set page to 1, run reloadData with (d) => setState(..., data: d)  and with (nd) => setState(..., nextData: nd)
         // Must be called when name or type changes.
-        function secoundCallback(nextData, data){
-            this.setState({
-                ...this.state,
-                page: 1,
-                prevButtonDisabled: true,
-                data: data,
-                nextData: nextData,
+        let data = await this.reloadProduct(1);
+        let nextData = await this.reloadProduct(2);
 
-            })
-        }
-        function firstCallback(data){
-            this.reloadProduct((nextData) => {secoundCallback(nextData, data)},  2);
-        }
-        this.reloadProduct(firstCallback, 1);
-        console.log("onNewQuery");
-        console.log(this.state);
+        this.setState({
+            ...this.state,
+            page: 1,
+            prevButtonDisabled: true,
+            data: data,
+            nextData: nextData,
+
+        }, () => console.log(this.state));
     }
+
+        //TODO: Constructor w/ state for params like ID etc & callback.bind.this()
+    // Dropdown & Inputbar can change params in state. Use callback, see P2
+    // Set props in CardList to state.params elns
+
+    componentDidMount() {
+        //store.dispatch(fetchAllFiltersIfNeeded(productData))
+        //const {productData, filterArray, isFavorite, query} = this.props;
+        //dispatch(fetchAllFiltersIfNeeded(productData))
+        //store.dispatch(fetchAllFilters())
+    }
+
+    /*
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.getAllFilters !== this.props.allFilters) {
+            const {dispatch, getAllFilters} = nextProps;
+            dispatch((getAllFilters))
+        }
+    };*/
+
+    handleRefreshClick = e => {
+        e.preventDefault()
+    };
 
     handleChange(e, order) {
         console.log("order: ");
@@ -269,11 +286,17 @@ const mapStateToProps = state => {
         query: state.getQuery().query
 }
 };
+/*
+const mapDispatchToProps = dispatch => {
+    return{
 // const mapDispatchToProps = dispatch => {
 //     return{
 //
 //     }
 // };
+
+    }
+};*/
 
 
 export default App;
