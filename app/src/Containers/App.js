@@ -6,44 +6,41 @@ import CardList from '../Components/CardList.js';
 import FetchFromJson from '../utils/fetchFromJson.js';
 import PropTypes from 'prop-types';
 import {connect}from 'react-redux';
-import rootReducer from '../Reducers/reducers';
-import {fetchAllFilters} from "../Actions/actions";
-import {applyMiddleware as dispatch} from "redux";
 import SimpleCard from "./SimpleCard";
 import configureStore from "../Store/configureStore";
-
+import {fetchProductsIfNeeded, searchServer,} from '../Actions/actions';
 let store = configureStore();
 
 
 class App extends Component {
     constructor(props) {
         super(props);
+        this.handleChange = this.handleChange.bind(this);
+
     }
 
-    //TODO: Constructor w/ state for params like ID etc & callback.bind.this()
-    // Dropdown & Inputbar can change params in state. Use callback, see P2
-    // Set props in CardList to state.params elns
 
-    componentDidMount() {
-        //store.dispatch(fetchAllFiltersIfNeeded(productData))
-        const {productData, filterArray, isFavorite, query} = this.props;
-        //dispatch(fetchAllFiltersIfNeeded(productData))
-        store.dispatch(fetchAllFilters())
+
+
+    componentDidMount(){
+        const {dispatch, products} = this.props;
+        dispatch(fetchProductsIfNeeded(products));
+        //Ta inn alle filtre
     }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.getAllFilters !== this.props.allFilters) {
-            const {dispatch, getAllFilters} = nextProps;
-            dispatch((getAllFilters))
+    componentDidUpdate(prevProps){
+        if (this.props.products !== prevProps.products){
+            const {dispatch, products} = this.props;
+            dispatch(fetchProductsIfNeeded(products));
         }
-    };
+    }
 
-    handleRefreshClick = e => {
-        e.preventDefault()
-    };
-
+    handleChange(newProduct){
+        this.props.dispatch(searchServer(newProduct));
+        this.props.dispatch(fetchProductsIfNeeded(newProduct));
+    }
 
     render() {
+        const {initialProductProps, products, isFetching } = this.props;
         let cardList;
         let data = store.getState()
         console.log(data.getQuery)
@@ -100,11 +97,6 @@ class App extends Component {
       }*/
     }
 
-    componentWillUpdate(){
-       //  this.recieveData()
-
-    }
-
 
     recieveData(stringArgs){
         //stringArgs ~= "_id=igouhreso87ey4"
@@ -122,29 +114,23 @@ class App extends Component {
         //JSON data[0] = {_id=gliren74, ...}
     }
 }
-const mapStateToProps = state => {
-    const { getAllFilters, products } = state
-    const {
-        filterArray,
-        productData,
-    } = products[getAllFilters] || {
-        filterArray: [],
-        productData: []
-    };
 
-    return {
-        getAllFilters,
-        filterArray,
-        productData,
-        query: state.getQuery().query
+App.propTypes = {
+    initialProductProps: PropTypes.string.isRequired,
+    products: PropTypes.array.isRequired,
+    isFetching: PropTypes.bool.isRequired,
+    dispatch: PropTypes.func.isRequired
 }
-};
-const mapDispatchToProps = dispatch => {
-    return{
-
-    }
+function mapStateToProps(state) {
+    const { initialProductProps, productsFromServer } = state;
+    const { isFetching, product: products } = productsFromServer[initialProductProps] || {isFetching: true, product: []};
+  return {
+      initialProductProps,
+      products,
+      isFetching,
+  }
 }
 
 
 
-export default App;
+export default connect(mapStateToProps)(App);

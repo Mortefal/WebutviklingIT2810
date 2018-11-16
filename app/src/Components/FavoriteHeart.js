@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import {withStyles} from "@material-ui/core";
-import connect from "react-redux/es/connect/connect";
 
 const styles = theme => ({
     root: {

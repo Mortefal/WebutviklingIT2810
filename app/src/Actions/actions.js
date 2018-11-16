@@ -1,8 +1,11 @@
 import fetch from 'cross-fetch'
 import configureStore from "../Store/configureStore";
+import {applyMiddleware as dispatch} from "redux";
+import {productsFromServer} from "../Reducers/reducers";
 
 export const REQUEST_PRODUCTS = 'REQUEST_PRODUCTS';
 export const RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS';
+export const SEARCH_SERVER = 'SEARCH_SERVER';
 export const GET_QUERY = 'GET_QUERY';
 export const REQUEST_FILTERS = 'REQUEST_FILTERS';
 export const RECEIVE_FILTERS = 'RECEIVE_FILTERS';
@@ -17,11 +20,41 @@ export const SET_FAVORITE = 'SET_FAVORITE';
 export const REMOVE_FAVORITE = 'REMOVE_FAVORITE';
 
 //const store = configureStore();
-function requestProducts(beverages) {
+
+export function searchServer(products) {
+    return{
+        type: SEARCH_SERVER,
+        products
+    }
+}
+
+
+function requestProducts(searchParam) {
     console.log("2.3")
+    console.log("Searchparam: " + searchParam);
     return{
         type: 'REQUEST_PRODUCTS',
-        beverages
+        searchParam
+    }
+}
+function fetchProducts(searchParam) {
+    console.log("2")
+    console.log("Fetchproducts params: " + searchParam);
+    return dispatch => {
+        dispatch(requestProducts(searchParam))
+        return fetch(`http://it2810-15.idi.ntnu.no:3000/beverages/search?${searchParam}`)
+            .then(response => response.json())
+            .then(json => dispatch(receiveProducts(searchParam, json)))
+    }
+}
+
+function receiveProducts(searchParam, json) {
+    console.log("receivedData: " + searchParam)
+    console.log(json);
+    return {
+        type: 'RECEIVE_PRODUCTS',
+        searchParam,
+        products: json
     }
 }
 
@@ -61,77 +94,88 @@ export function hideInfo(bools){
         bools
     }
 }
-function fetchProducts(beverages){
-    console.log("2")
-    requestProducts(beverages);
-    fetch(`http://it2810-15.idi.ntnu.no:3000/beverages/search?productType=Rødvin`)
-        .then(response => response.json())
-        .then(json => receiveProducts(beverages, json))
-}
 
-function receiveProducts(beverages, json) {
-    console.log(json);
-    return {
-        type: 'RECEIVE_PRODUCTS',
-        beverages,
-        products: json
-    }
-}
 
-function requestFilters(filters) {
+
+function requestFilters() {
     return {
         type: 'REQUEST_FILTERS',
-        filters
     }
 }
 
 function receiveFilters(filterList,json) {
     return {
         type: 'RECEIVE_FILTERS',
-        filter: json,
-        filterList: filterList
+        filterQuery: filterList,
+        filterArray: json
     }
 }
 
 export function fetchAllFilters() {
     return dispatch => {
-        dispatch(requestFilters("hei"));
-        return fetch(`http://it2810-15.idi.ntnu.no:3000/beverages/types`)
+        dispatch(requestFilters());
+        fetch(`http://it2810-15.idi.ntnu.no:3000/beverages/types`)
             .then(response => response.json())
             .then(json => {
+                console.log(json[0].subCategories);
+                console.log(json[0].subCategories[3]);
                 let filterList = [];
-                for (var i in json.length){
-                    try {
-                        filterList.push({
-                            'key': i,
-                            'label': json[i].mainCategory
-                        })
-                    } catch (e) {
-                        console.log(e);
+                for (let j in json.length){
+                    for (let i in json[j].subCategories.length){
+                        try{
+                            console.log(i);
+                            filterList.push(...{
+                                'key': i,
+                                'label': json[j].subCategories[i]
+
+                            })
+                        } catch (e) {
+                            console.log(e);
+                        }
                     }
                 }
-                dispatch(receiveFilters(filterList, json))
+        dispatch(addAllFilters(filterList))
+        console.log(filterList);
+        dispatch(receiveFilters(filterList, json))
             })
 
         }
     }
 
-    export function addFilter(key, filterName) {
-        return {
-            type: 'ADD_FILTER',
-            filter: filterName
-        }
+export function addFilter(filterName) {
+    return {
+        type: 'ADD_FILTER',
+        filterParam: filterName,
+
     }
-    export function removeFilter(filter) {
+}
+export function removeFilter() {
         return {
             type: 'REMOVE_FILTER',
-            filter: filter
+            filterParam: []
         }
     }
+export function addAllFilters(list){
+    return {
+        type: 'GET_ALL_FILTERS',
+        filterArray: list
+    }
+}
 
-    function getSelectedFilter() {
-        return {
-            type: 'GET_SELECTED_FILTER',
+function shouldFetchProducts(state, param) {
+    const products = state.productsFromServer([param]);
+    if (!products) {
+        return true
+    } else if (products.isFetching) {
+        return false
+    } else {
+        return products.didInvalidate
+    }
+}
+export function fetchProductsIfNeeded(searchParam) {
+    return (dispatch, getState) => {
+        if (shouldFetchProducts(getState(), searchParam)) {
+            return dispatch(fetchProducts(searchParam))
         }
     }
-
+}
