@@ -57,8 +57,6 @@ class InputBar extends Component {
         }*/
     handleSubmit(event) {
         //gjøre noe her med input
-        console.log("memes")
-        console.log(this.state.query);
         //event.preventDefault();
         //console.log(this.state.previousQueries);
         //this.getInfo();

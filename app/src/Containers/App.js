@@ -191,8 +191,8 @@ class App extends Component {
             <div>
                 <TabBar/>
                 <InputBar callback={(e) => this.setInputUrlParams(e)}/>
-                {/*<DropDown/>*/}
-                <FilterChips/>
+                {/*TODO: hvor kalle denne callbacken ? usikker. */}
+                <FilterChips callback ={(e) => this.setFilterUrlParams(e)}/>
                 <form>
                     <label>
                         <input type="radio" value="DescName"
@@ -245,7 +245,12 @@ class App extends Component {
       }*/
     }
 
-    setDropDownUrlParams(params){
+    setFilterUrlParams(params){
+        console.log(params);
+        this.setState({
+            ...this.state,
+            type: params
+        }, () => {this.onNewQuery()});
         //this.setState(....)
       /*try {
           let newSvgKey = this.state.data[this.state.key].svgUrl[e["title"]];

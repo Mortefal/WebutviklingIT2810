@@ -34,6 +34,7 @@ class FilterChips extends React.Component {
         if (!this.state.filtrationArray.includes(data)) {
             this.setState({filtrationArray: [data]});
         }
+        this.props.callback(data.label)
     };
 
     handleDelete = data => () => {
@@ -43,6 +44,8 @@ class FilterChips extends React.Component {
             chipData.splice(chipToDelete, 1);
             this.setState({filtrationArray: [...chipData]});
         }
+        //usikker på denne callbacken da den ikke fjerner men sender en 'tom' string
+        this.props.callback('')
     };
 
     render() {
