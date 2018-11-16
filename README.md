@@ -8,12 +8,35 @@
 ### Pagination
 * Listebasert presentasjon av søk hvor det er lagt opp til håndtering av store resultatsett med enten blaing i sider, eller dynamisk laster av flere resultater ved scrolling
 
+**Server**
+
+I serveren var pagination enkelt oppnådd ved en plugin, mongoose-pagination til aktuelle Schema (Beverages). For å unngå massive svar fra serveren, er sidestørrelsen satt til 20 som standard. Altså vil det kun hentes ut 20 drikkevarer om gangen, gitt at annet ikke er spesifisert.
+Pagination brukes ved å legge til parametere ```page=n&pagesize=m``` i url-en. n er da hvilken side, og m er sidetall. De er henholdsvis 1 og 20 per standard.
+
+Denne måten å gjøre pagination sørger for korrekt sortering, og rekkefølge på sidene.
+
 ### Details Page
 * Muligheten for å se mer detaljer om hvert av objetene
 
 ### Filtrering og sorterting
 * Mulighet for sortering og filtrering av resultatsettet (merk at sortering og filtrering skal utføres på hele resultatsettet og ikke bare det som tilfeldigvis er laster inn på klienten)
-telnet towel.blinkenlights.nlv
+
+Filtrering og sortering er også oppnådd serverside, ved at aktuelle funksjoner som vil hente ut filtrerbare verdier har en pre-prosesseringsfunksjon som henter ut parametere som skal med i søket, og hvilke som tilpasser den.
+Når '?' brukes i URL-en vil express automatisk prosessere dette til et simpelt javascript-objekt slik:
+```
+// URL: http://.../beverages/search?name=talisker&price=400&page=2
+// JS-objekt:
+{
+    name: "talisker",
+    price="400",
+    page="2"
+}
+```
+Ditte java-objektet blir så kjørt via preprosesseringen slik vi får to objekter - options og query. Query er da hva det søkes på, som navn og pris, mens options er instillinger slik som sidestall og størrelse.
+Utifra dette kalles ```Model.find(query, options)```.
+
+En liten sak vi er klar over, men som vi ikke prioriterte da det var utenfor skopet til oppgaven, er at søkene er per nå ganske naive - de antar gydlig input, og legges det til ugydlige parametere finner vi ingenting.
+Løsningen ville vært videre pre-prosessering og sanitering av input, men dette falt som sagt utenfor.
 ### Favorisering
 * Noe bruker/bruksgenererte data som skal lagres (persistent på databaseserveren) og  presenteres (enten bruker som legger til informasjon, reviews, ratings etc, historikk om søkene eller annet, handleliste).
 
@@ -30,6 +53,7 @@ Hva gjorde vi her, hvorfor?
 ```
 git fucked -f --hard
 ```
+
 
 ### Database
 Databasen vi kjører er MongoDB, og denne drives i rest-apiet av mongoose. MongoDB er en relasjonsfri (NoSQL) database, som var velegnet for datasettet vårt: omlag 19 500 ulike
