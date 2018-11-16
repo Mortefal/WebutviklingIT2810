@@ -34,57 +34,97 @@ class CardList extends React.Component {
         });
     }
     componentDidMount(){
-        this.state.fetcher.fetchFromString('productType=Rødvin', (d) => {
-            console.log(d);
-            this.setState({
-                ...this.state,
-                data: d
-            })
-        });
+        //this.state.fetcher.fetchFromString('productType=Rødvin', (d) => {
+        //    console.log(d);
+        //    this.setState({
+        //        ...this.state,
+        //        data: d
+        //    })
+        //});
     }
     generateStringArgs(){
-        if (this.props.name && this.props.type){
-            if(this.state.name !== this.props.name || this.state.type !== this.props.type){
-               //  console.log(this.state);
-               //  console.log(this.props);
-                this.setState({
-                    ...this.state,
-                    name: this.props.name,
-                    type: this.props.type
-                });
+        let queryString = '';
 
-                return 'name=' + this.props.name + '&productType=' + this.props.type;
-            }
+        if(this.props.name !== '' && this.props.name) {
+            this.setState({
+                ...this.state,
+                name: this.props.name
+            });
+            queryString += "name=" + this.props.name;
         }
-        else if (this.props.name) {
-            // console.log(this.state);
-            // console.log(this.props);
-            if (this.state.name !== this.props.name) {
-                this.setState({
-                    ...this.state,
-                    name: this.props.name
-                });
+        else if (this.state.name !== '' && this.state.name){
+            queryString += "name=" + this.state.name;
+        }
 
-                return 'name=' + this.props.name;
-            }
-        }
-        else if (this.props.type){
-            console.log(this.state);
-            console.log(this.props);
-            if(this.state.type !== this.props.type){
-                this.setState({
-                    ...this.state,
-                    name: this.props.type
-                });
+        if(this.props.type !== '' && this.props.type) {
+            queryString += (queryString.length > 0) ? '&' : '';
 
-                return 'productType=' + this.props.type;
-            }
+            this.setState({
+                ...this.state,
+                type: this.props.type
+            });
+            queryString += "productType=" + this.props.type;
         }
-        else{
-            // console.log(this.state);
-            // console.log(this.props);
-            return '';
+        else if (this.state.type !== '' &&  this.state.type){
+            queryString += "productType=" + this.state.type;
         }
+
+        if(this.props.sortOrder && queryString.length > 0){
+            queryString += (queryString.length > 0) ? '&' : '';
+            queryString += '&sort=' +this.props.sortOrder;
+
+        }
+
+        // if (this.props.name && this.props.type){
+        //     if(this.state.name !== this.props.name || this.state.type !== this.props.type){
+        //        //  console.log(this.state);
+        //        //  console.log(this.props);
+        //         this.setState({
+        //             ...this.state,
+        //             name: this.props.name,
+        //             type: this.props.type
+        //         });
+//
+        //         queryString += 'name=' + this.props.name + '&productType=' + this.props.type;
+        //     }
+        // }
+        // else if (this.props.name !== '' || this.props.name !== undefined) {
+        //     // console.log(this.state);
+        //     // console.log(this.props);
+        //     if (this.state.name !== this.props.name) {
+        //         this.setState({
+        //             ...this.state,
+        //             name: this.props.name
+        //         });
+//
+        //         queryString+= 'name=' + this.props.name;
+        //     }
+        // }
+        // else if (this.props.type){
+        //     console.log(this.state);
+        //     console.log(this.props);
+        //     if(this.state.type !== this.props.type){
+        //         this.setState({
+        //             ...this.state,
+        //             type: this.props.type
+        //         });
+//
+        //         queryString+= 'productType=' + this.props.type;
+        //     }
+        // }
+        // else{
+        //     // console.log(this.state);
+        //     // console.log(this.props);
+        //     queryString+= '';
+        // }
+
+        // if(this.props.sortOrder && queryString.length > 0){
+        //     console.log("sortorder");
+        //     console.log(this.props.sortOrder)
+        //     queryString += '&sort=' +this.props.sortOrder
+        // }
+
+        return queryString
     }
 
 
@@ -93,13 +133,15 @@ class CardList extends React.Component {
         if(this.props !== prevProps){
             let stringArgs = this.generateStringArgs();
             console.log(stringArgs);
-            if(stringArgs !== undefined){
-             this.state.fetcher.fetchFromString(stringArgs, (d) => {
-                  this.setState({
-                      ...this.state,
-                      data: d
-                  })
-             });}
+            if (stringArgs.indexOf('name') >= 0 || stringArgs.indexOf('productType') >= 0){
+                // console.log(stringArgs);
+                if(stringArgs !== undefined){
+                 this.state.fetcher.fetchFromString(stringArgs, (d) => {
+                      this.setState({
+                          ...this.state,
+                          data: d
+                      })
+             });}}
     }}
 
 

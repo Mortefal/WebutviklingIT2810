@@ -20,6 +20,7 @@ class App extends Component {
         super(props);
         this.state= {
             selectedOption : 'DescName',
+            sortOrder: '',
             name: null,
             type: null
         };
@@ -49,9 +50,13 @@ class App extends Component {
         e.preventDefault()
     };
 
-    handleChange(e) {
+    handleChange(e, order) {
+        console.log("order: ")
+        console.log(order)
         this.setState({
-            selectedOption: e.target.value
+            ...this.state,
+            selectedOption: e.target.value,
+            sortOrder: order
         });
     };
 
@@ -73,24 +78,23 @@ class App extends Component {
                     <label>
                         <input type="radio" value="DescName"
                                checked={this.state.selectedOption === 'DescName'}
-                               onChange={this.handleChange} />
+                               onChange={(e) =>this.handleChange(e,'name')} />
                         Desc navn
                     </label>
                     <label>
                         <input type="radio" value="Asc"
                                checked={this.state.selectedOption === 'Asc'}
-                               onChange={this.handleChange} />
+                               onChange={(e) =>this.handleChange(e, 'price_1')} />
                         Asc Pris
                     </label>
                     <label>
                         <input type="radio" value="Desc"
                                checked={this.state.selectedOption === 'Desc'}
-                               onChange={this.handleChange} />
+                               onChange={(e) =>this.handleChange(e,'price_-1')} />
                         Desc Pris
                     </label>
                 </form>
-                <CardList name={this.state.name} type={this.state.type}/>
-                <SimpleCard title="hei" pris={123} varenummer={1234567} taste="kake" aroma="vanilje" country="Tjekkoslovakia" abv={96.6}/>
+                <CardList name={this.state.name} type={this.state.type} sortOrder={this.state.sortOrder}/>
             </div>
         );
     }
