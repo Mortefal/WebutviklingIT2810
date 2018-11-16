@@ -21,7 +21,6 @@ const styles = theme => ({
     image: {
         width: 128,
         height: 128,
-        /* Tror det skal være mulig å hente inn bilde ved å ta response.images[2].url hvor formatet er thumbnail */
     },
     img: {
         margin: 'auto',

@@ -4,15 +4,18 @@ import InputBar from './inputBar.js';
 import FilterChips from "./FilterChips";
 import CardList from '../Components/CardList.js';
 import FetchFromJson from '../utils/fetchFromJson.js';
-import PropTypes from 'prop-types';
-import {connect}from 'react-redux';
-import SimpleCard from "./SimpleCard";
-import configureStore from "../Store/configureStore";
-import {fetchProductsIfNeeded, searchServer,} from '../Actions/actions';
-let store = configureStore();
-
 
 class App extends Component {
+
+    /*
+    * Big constructor with a massive state:
+    * We realize that this is not using redux, however after a lot of trial and more errors, we found it necessary to
+    * work around redux in order for everything to work.
+    *
+    * Using redux, all the buttons would've dispatched actions, in which the calls to the REST API would be executed.
+    * Subsequently, reducers would reduce those actions to state changes in the global state, and the various components
+    * such as CardList would update their content based upon the new content of the state.
+    * */
     constructor(props) {
         super(props);
         this.state= {
@@ -37,38 +40,19 @@ class App extends Component {
         this.reloadProduct = this.reloadProduct.bind(this);
 
     }
+
+    // Simple straight-forward function to parse this.state into a string usable in and url when sending GET-requests to
+    // the REST API.
     generateStringArgs(page=this.state.page){
         let queryString = '';
 
-        /*if(this.props.name !== '' && this.props.name) {
-            this.setState({
-                ...this.state,
-                name: this.props.name
-            });
-            queryString += "name=" + this.props.name;
-        }*/
+        // First determine if name should be included:
         if (this.state.name !== '' && this.state.name){
-            /*this.setState({
-                ...this.state,
-                name: this.state.name
-            });*/
             queryString += "name=" + this.state.name;
         }
 
-        /*if(this.props.type !== '' && this.props.type) {
-            queryString += (queryString.length > 0) ? '&' : '';
-
-            this.setState({
-                ...this.state,
-                type: this.props.type
-            });
-            queryString += "productType=" + this.props.type;
-        }*/
+        // Then type. Notice we'll add a '&' if we've added some parameter earlier.
         if (this.state.type !== '' &&  this.state.type){
-            /*this.setState({
-                ...this.state,
-                type: this.props.type
-            });*/
             queryString += (queryString.length > 0) ? '&' : '';
             queryString += "productType=" + this.state.type;
         }
@@ -77,35 +61,31 @@ class App extends Component {
             queryString += '&sort=' +this.state.sortOrder;
 
         }
-        // TODO: Add page
         let pageString = '&page=' + page;
         queryString += queryString.length > 0 ? pageString : '';
 
-        return queryString;
+        return queryString; // queryString looks something like "name=Chenet&page=2" for instance.
     }
 
+    // Function which updates the products. Called when by all the functions which change parameters.
+    // As discussed above, this is hardly according to redux - this should've been an action dispatched by other actions.
     async reloadProduct(page){
         let stringArgs = this.generateStringArgs(page);
-        // onsole.log(stringArgs);
         let fetcher = this.state.fetcher;
-        let url = this.url;
         return new Promise(async function(resolve){
             if (stringArgs.indexOf('name') >= 0 || stringArgs.indexOf('productType') >= 0) {
-                // console.log(stringArgs);
                 let data = await fetcher.fetchFromString(stringArgs);
                 resolve(data);
             }
         })
 
     }
-
+    // Should also have been an action
     async onNextProduct(){
-        // TODO: Set data to nextData, call reloadProduct with next page, set nextData to new data
-        //console.log(this.state);
+        // Take notice we're processing for the next page, but not changed page yet.
+        // Since the next page's data is already loaded, the nextData for the next page, is the data 2 pages ahead.
+        // The next-button is disabled once nothing loads on the next page.
         let nextData = await this.reloadProduct(this.state.page +2);
-        // console.log("Next Page");
-        // console.log(this.state);
-        //console.log(nextData);
         this.setState({
             ...this.state,
             data : this.state.nextData,
@@ -114,18 +94,14 @@ class App extends Component {
             nextButtonDisabled: nextData.length === 0,
             prevButtonDisabled: false
 
-        })
-        // Must be called when page changes
-        // TODO: Disable next button if nextData.length === 0
-        this.updateSearches();
+        });
+        await this.updateSearches();
     }
 
+    // As admitted: this should also have been an action.
     async onPrevProduct(){
-        // TODO: Set nextData to data, call reloadProduct with prev page, set data to new data
         if(this.state.page > 1) {
             let prevData = await this.reloadProduct(this.state.page - 1);
-            //console.log("Prev Page");
-            //console.log(this.state);
             this.setState({
                 ...this.state,
                 nextData: this.state.data,
@@ -136,15 +112,14 @@ class App extends Component {
             });
         }
         else{
-            // console.log("Error in prevpage");
-            this.onNewQuery();
+            await this.onNewQuery();
         }
-        this.updateSearches();
+        await this.updateSearches();
     }
 
+    // Should've been an action too.
+    // Called when parameters change such that the dataset is new, i.e. new type or name.
     async onNewQuery(){
-        // TODO: Set page to 1, run reloadData with (d) => setState(..., data: d)  and with (nd) => setState(..., nextData: nd)
-        // Must be called when name or type changes.
         let data = await this.reloadProduct(1);
         let nextData = await this.reloadProduct(2);
 
@@ -158,32 +133,12 @@ class App extends Component {
         });
     }
 
-        //TODO: Constructor w/ state for params like ID etc & callback.bind.this()
-    // Dropdown & Inputbar can change params in state. Use callback, see P2
-    // Set props in CardList to state.params elns
-
-    componentDidMount() {
-        //store.dispatch(fetchAllFiltersIfNeeded(productData))
-        //const {productData, filterArray, isFavorite, query} = this.props;
-        //dispatch(fetchAllFiltersIfNeeded(productData))
-        //store.dispatch(fetchAllFilters())
-    }
-
-    /*
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.getAllFilters !== this.props.allFilters) {
-            const {dispatch, getAllFilters} = nextProps;
-            dispatch((getAllFilters))
-        }
-    };*/
 
     handleRefreshClick = e => {
         e.preventDefault()
     };
 
     handleChange(e, order) {
-        // console.log("order: ");
-        // console.log(order);
         this.setState({
             ...this.state,
             selectedOption: e.target.value,
@@ -193,6 +148,8 @@ class App extends Component {
 
 
     render() {
+        // Effectively renders the whole.
+        // Due to massive issues with redux, we did also not have time to properly encapsulate all the components.
         return (
             <div>
                 <TabBar/>
@@ -200,7 +157,7 @@ class App extends Component {
                 {/*TODO: hvor kalle denne callbacken ? usikker. */}
                 <p> Previous searches:
                     <ul>
-                        {this.state.history.map((item, index) => {
+                        {this.state.history.map((item) => {
                             console.log(item);
                             return (<li>
                                     {item[0]}
@@ -240,15 +197,12 @@ class App extends Component {
         );
     }
 
-    updateSeachParams(newParams){
-        // Butt beware: only partly new params
-
-
-    }
+    // Also ideally an action.
+    // Updates the search-histpry based on the most popular searches.
     async updateSearches(){
         let history = await this.state.historyFetcher.fetchFromString('');
 
-        var items = Object.keys(history).map(function(key) {
+        let items = Object.keys(history).map(function(key) {
             return [key, history[key]];
         });
 
@@ -262,24 +216,14 @@ class App extends Component {
         });
     }
 
+
     setInputUrlParams(params){
-        // console.log(params);
         this.setState({
             ...this.state,
             name: params
         }, () => {
             this.onNewQuery();
             this.updateSearches()});
-     /* try{
-          let newPoemKey = this.state.data[this.state.key].poemUrl[e["title"]];
-          console.log(newPoemKey);
-          this.setState({
-              ...this.state,
-              poemUrl: newPoemKey
-          });
-      }catch (e) {
-          console.log(e);
-      }*/
     }
 
     setFilterUrlParams(params){
@@ -291,24 +235,10 @@ class App extends Component {
             this.onNewQuery();
             this.updateSearches()
         });
-        //this.setState(....)
-      /*try {
-          let newSvgKey = this.state.data[this.state.key].svgUrl[e["title"]];
-          this.setState({
-              ...this.state,
-              svgUrl: newSvgKey
-          });
-      }
-      catch (e) {
-          console.log(e);
-      }*/
     }
 
 
     recieveData(stringArgs){
-        //stringArgs ~= "_id=igouhreso87ey4"
-
-        //TODO: Use fetch util to get JSON data
         let fetcher = new FetchFromJson('http://it2810-15.idi.ntnu.no:3000/beverages/search');
         fetcher.fetchFromString("productType=Rødvin", ((data) => {
             console.log(data[0]);
@@ -317,8 +247,6 @@ class App extends Component {
                 data: data
             })
         }));
-        //JSON Data ~= [{_id=goin5e7h5, name=..., ....}, {...}, ...]
-        //JSON data[0] = {_id=gliren74, ...}
     }
 }
 
@@ -339,17 +267,5 @@ const mapStateToProps = state => {
         query: state.getQuery().query
 }
 };
-/*
-const mapDispatchToProps = dispatch => {
-    return{
-// const mapDispatchToProps = dispatch => {
-//     return{
-//
-//     }
-// };
-
-    }
-};*/
-
 
 export default App;

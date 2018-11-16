@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import Paper from "@material-ui/core/Paper/Paper";
 import Grid from "@material-ui/core/Grid/Grid";
-//import Typography from "@material-ui/core/Typography/Typography";
 
 const styles = theme => ({
     root:{
@@ -17,8 +16,7 @@ const styles = theme => ({
         margin: theme.spacing.unit,
     }
 });
-/*const beer = "productType=Sider&productType=Lys ale&productType=Klosterstil&productType=India pale ale&productType=Brown ale&productType=Pale ale&productType=Spesial&productType=Hveteøl&productType=Surøl"
-*/
+
 class FilterChips extends React.Component {
     state = {
         filterQuery: [
@@ -44,7 +42,6 @@ class FilterChips extends React.Component {
             chipData.splice(chipToDelete, 1);
             this.setState({filtrationArray: [...chipData]});
         }
-        //usikker på denne callbacken da den ikke fjerner men sender en 'tom' string
         this.props.callback(null)
     };
 

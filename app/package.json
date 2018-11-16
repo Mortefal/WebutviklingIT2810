@@ -43,5 +43,6 @@
     "react-test-renderer": "^16.6.1",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.5"
-  }
+  },
+  "homepage" : "http://it2810-XX.idi.ntnu.no/prosjekt4"
 }

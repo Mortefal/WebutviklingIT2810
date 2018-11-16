@@ -10,8 +10,6 @@ import setQuery from "../Actions/actions";
 import configureStore from "../Store/configureStore";
 
 let store = configureStore();
-//import CardList from './CardList';
-//import SimpleCard from "./SimpleCard";
 
 class InputBar extends Component {
     constructor(props) {
@@ -19,7 +17,6 @@ class InputBar extends Component {
         this.state = {
             queryId: 0,
             query: '',
-            //previousQueries: [],
             results: [],
         };
 
@@ -31,35 +28,7 @@ class InputBar extends Component {
         this.setState({query: event.target.value});
     }
 
-    /*getInfo(){
-        //now logikk for å hente ut ting fra databasen, FETCH API greier, vetikke finne ut av senere
-        //    .then(({ data }) => {
-        this.setState({
-            results: ['hei'] //data.data?
-        });
-        console.log("results: " + this.state.results);
-    }*/
-
-    /*
-        saveQuery() {
-            let queries = [...this.state.previousQueries];   //creating the copy
-            let id = this.state.queryId + 1;
-            //adding new data
-            if (this.state.query) {
-                queries.push({
-                    id: id,
-                    query: this.state.query
-                });
-            }
-
-            //updating the state value
-            this.setState({previousQueries: queries, queryId: id});
-        }*/
     handleSubmit(event) {
-        //gjøre noe her med input
-        //event.preventDefault();
-        //console.log(this.state.previousQueries);
-        //this.getInfo();
         this.setState({query: ''});
         this.props.callback(this.state.query);
     }
@@ -79,14 +48,10 @@ class InputBar extends Component {
                         console.log(data.getQuery);
                         this.handleSubmit();
                         query.value = '';
-                        // this.props.callback(e);
                     }} className="form">
-                {/*<form onSubmit={this.handleSubmit} className="form">*/}
-                    {/*<h3 className="headText">Search: </h3>*/}
                     <label className="label">
                         <input ref={node => query = node} value={this.state.query}
-                               className="input" onChange={this.handleChange}/>
-                        {/*<input type="text" placeholder="Søk etter varer her..." value={this.state.query} onChange={this.handleChange} className="input"/>*/}
+                               className="input" onChange={this.handleChange} placeholder="Søk etter varer her... "/>
                     </label>
                     <input type="submit" value="Søk" className="submit"/>
                 </form>
