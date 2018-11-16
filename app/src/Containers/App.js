@@ -269,11 +269,11 @@ const mapStateToProps = state => {
         query: state.getQuery().query
 }
 };
-const mapDispatchToProps = dispatch => {
-    return{
+// const mapDispatchToProps = dispatch => {
+//     return{
+//
+//     }
+// };
 
-    }
-};
 
-
-export default connect(mapStateToProps)(App);
+export default App;
