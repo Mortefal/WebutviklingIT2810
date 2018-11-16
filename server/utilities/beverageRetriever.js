@@ -6,7 +6,6 @@ const beverageSchema = require('../models/beverageModel');
 const categorySchema = require('../models/categorySchema');
 const vinmonopolet = require('vinmonopolet');
 const configData = require('../routeConfig.json');
-const cats = require('./categories');
 // Connection URL
 const url = configData.databseUrl;
 

@@ -5,15 +5,21 @@ class FetchFromJson {
         this.url = url;
     }
 
-    fetchFromString(stringParams, callback){
+    async fetchFromString(stringParams){
         // let stringParams = JSON.stringify(stringParamas);
-        fetch(this.url + '?' + stringParams)
-            .then(results => {
-                return results.json();
-            }).then(data => {
-                console.log(data);
-            callback(data);
-        }).catch(err => console.log(err))
+        let url = this.url
+        return new Promise(async function (resolve) {
+            let response = await fetch(url + '?' + stringParams);
+            resolve(response.json());
+            // fetch
+            //     .then(results => {
+            //         return results.json();
+            //     }).then(data => {
+            //     console.log(data);
+            //     callback(data);
+            // }).catch(err => console.log(err))
+        })
+
     }
 
     // fetchFromJson(jsonArgs, callback){
@@ -34,6 +40,7 @@ class FetchFromJson {
 }
 
 export default FetchFromJson;
-
-let fetcher = new FetchFromJson('http://localhost:3000/beverages/search');
+/*
+let fetcher = new FetchFromJson('http://it2810-15.idi.ntnu.no:3000/beverages/search');
 fetcher.fetchFromString("_id=5be43eceb899cc72e3b0975f", (data => console.log(data)));
+*/

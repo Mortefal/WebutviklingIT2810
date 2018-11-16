@@ -1,5 +1,5 @@
 import React from 'react';
-import DetailsPage from '../Components/DetailsPage';
+import DetailsPage from '../Containers/DetailsPage';
 import renderer from 'react-test-renderer'
 
 
