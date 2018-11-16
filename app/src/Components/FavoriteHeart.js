@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import {withStyles} from "@material-ui/core";
+import connect from "react-redux/es/connect/connect";
 
 const styles = theme => ({
     root: {
@@ -14,16 +15,18 @@ const styles = theme => ({
 
 class FavoriteHeart extends React.Component {
     render() {
-        const {isFav, classes} = this.props;
+        const {classes, isFav} = this.props;
         return (
             <IconButton className={classes.root}>
                 {isFav ? <FavoriteIcon style={{color: 'red'}}/>: <FavoriteBorder/>}
+                {console.log(isFav)}
             </IconButton>
         )
     }
 }
+
 FavoriteHeart.propTypes = {
     classes: PropTypes.object.isRequired,
 };
-export default withStyles(styles)(FavoriteHeart);
+export default (withStyles(styles)(FavoriteHeart));
 

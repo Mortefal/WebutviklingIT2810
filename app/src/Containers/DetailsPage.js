@@ -62,7 +62,7 @@ class DetailsPage extends React.Component {
         const {classes, title, isFav, aroma, country, taste, abv, openModal} = this.props;
         return (
                 <div>
-                    <Button className="modalButton" onClick={(e) => {this.props.show(e)}} >Mer Info</Button>
+                    <Button className="modalButton" onClick={(e) =>{this.props.show(e)}} >Mer Info</Button>
                     <Grid>
                         <div>
                             <Modal
@@ -110,7 +110,7 @@ class DetailsPage extends React.Component {
 }
 const mapStateToProps = state => {
     return({
-        openModal: state.displayInfo.openModal
+        openModal: state.displayInfo.openModal,
     })
 
 }
