@@ -101,11 +101,24 @@ class beverageRetriever{
         }
     }
 
-    getSearches(callback){
-        this.Search.find({}).exec((error, result) => callback(result))
-
-        // TODO: This should get all top searches by pagination
+    getSearches(callback) {
+        // this.Search.find({}).exec((error, result) => callback(result));
+        let result = {};
+        let nameStream = this.Search.find().cursor();
+        nameStream.on('data', (doc) => {
+            let name = doc.name.substring(1, doc.name.length-2);
+            if (Object.keys(result).indexOf(name) >= 0){
+                result[name] = result[name] +1;
+            }
+            else{
+                result[name] = 1;
+            }
+        });
+        nameStream.on('close', () => {
+            callback(result);
+        })
     }
+
 
     prepareQuery(argsObject){
         let query = argsObject;
