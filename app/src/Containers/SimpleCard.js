@@ -69,7 +69,7 @@ class SimpleCard extends React.Component{
     }
 
     render(){
-        const { classes, title, pris, varenummer, taste, aroma, country, abv } = this.props;
+        const { classes, key, title, pris, varenummer, taste, aroma, country, abv } = this.props;
         const isFav = this.props.isFav;
         return(
             <Paper className={classes.root}>
@@ -94,7 +94,7 @@ class SimpleCard extends React.Component{
                             </Grid>
                             <Grid item container alignItems={"flex-start"}>
                                 <Grid item xs={10}>
-                                    <DetailsPage title={title} aroma={aroma} taste={taste} isFav={isFav} pris={pris} country={country} abv={abv}/>
+                                    <DetailsPage key = {key} title={title} aroma={aroma} taste={taste} isFav={isFav} pris={pris} country={country} abv={abv}/>
                                 </Grid>
                                 <Grid item>
                                     <Typography variant="subtitle1">{pris} Kr</Typography>
