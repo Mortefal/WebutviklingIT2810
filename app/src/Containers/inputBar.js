@@ -63,6 +63,7 @@ class InputBar extends Component {
         //console.log(this.state.previousQueries);
         //this.getInfo();
         this.setState({query: ''});
+        this.props.callback(this.state.query);
     }
 
     render() {
@@ -80,7 +81,7 @@ class InputBar extends Component {
                         console.log(data.getQuery);
                         this.handleSubmit();
                         query.value = '';
-
+                        // this.props.callback(e);
                     }} className="form">
                 {/*<form onSubmit={this.handleSubmit} className="form">*/}
                     {/*<h3 className="headText">Search: </h3>*/}

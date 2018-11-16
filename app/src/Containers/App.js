@@ -19,9 +19,12 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state= {
-            selectedOption : 'DescName'
+            selectedOption : 'DescName',
+            name: null,
+            type: null
         };
         this.handleChange = this.handleChange.bind(this);
+
     }
 
     //TODO: Constructor w/ state for params like ID etc & callback.bind.this()
@@ -57,13 +60,9 @@ class App extends Component {
         let cardList;
         let data = store.getState();
         console.log(data.getQuery);
-        if (this.props.productData){
-            cardList = <CardList data={this.props.productData}/>
-        }
-        else {
-            cardList = <p>Data not yet available </p>
-        }
-        console.log(store.getState())
+        // console.log(data.getQuery)
+        // console.log(store.getState());
+
         return (
             <div>
                 <TabBar/>
@@ -90,7 +89,7 @@ class App extends Component {
                         Desc Pris
                     </label>
                 </form>
-                {cardList}
+                <CardList name={this.state.name} type={this.state.type}/>
                 <SimpleCard title="hei" pris={123} varenummer={1234567} taste="kake" aroma="vanilje" country="Tjekkoslovakia" abv={96.6}/>
             </div>
         );
@@ -103,7 +102,12 @@ class App extends Component {
     }
 
     setInputUrlParams(params){
-        //this.setState(....)
+        console.log(params);
+
+        this.setState({
+            ...this.state,
+            name: params
+        })
      /* try{
           let newPoemKey = this.state.data[this.state.key].poemUrl[e["title"]];
           console.log(newPoemKey);
@@ -173,7 +177,7 @@ const mapDispatchToProps = dispatch => {
     return{
 
     }
-}
+};
 
 
 
