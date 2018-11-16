@@ -24,9 +24,8 @@ class App extends Component {
     // Dropdown & Inputbar can change params in state. Use callback, see P2
     // Set props in CardList to state.params elns
 
-
     componentDidMount() {
-
+        //store.dispatch(fetchAllFiltersIfNeeded(productData))
         const {productData, filterArray, isFavorite, query} = this.props;
         dispatch(fetchAllFiltersIfNeeded(productData))
     }

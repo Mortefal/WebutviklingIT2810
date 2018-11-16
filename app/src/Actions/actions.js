@@ -1,5 +1,5 @@
 import fetch from 'cross-fetch'
-import store from'../Store/configureStore';
+import configureStore from "../Store/configureStore";
 
 export const REQUEST_PRODUCTS = 'REQUEST_PRODUCTS';
 export const RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS';
@@ -16,17 +16,28 @@ export const HIDE_MODAL = 'HIDE_MODAL';
 export const SET_FAVORITE = 'SET_FAVORITE';
 export const REMOVE_FAVORITE = 'REMOVE_FAVORITE';
 
+//const store = configureStore();
+
+
 function requestProducts(beverages) {
+    console.log("2.3")
     return{
         type: 'REQUEST_PRODUCTS',
         beverages
     }
 }
+
 export function getQuery(query) {
-    return {
-        type: 'GET_QUERY',
-        text: query
+    console.log("1")
+    console.log(query)
+    return (dispatch) =>{
+        dispatch(fetchProducts(query));
+        return({
+            type: 'GET_QUERY',
+            text: query
+        })
     }
+
 }
 export function showInfo(bools){
     return{
@@ -52,12 +63,6 @@ export function hideInfo(bools){
         bools
     }
 }
-export function invalidateProduct(product) {
-    return {
-        type: 'INVALIDATE_PRODUCT',
-        product
-    }
-}
 export function fetchAllFiltersIfNeeded(filters) {
     return (dispatch, getState) => {
         if (shouldFetchFilters(getState(), filters)) {
@@ -65,20 +70,21 @@ export function fetchAllFiltersIfNeeded(filters) {
         }
     }
 }
+
 function fetchProducts(beverages){
-    return dispatch => {
-        dispatch(requestProducts(beverages));
-        //TODO: Change link to relative or server-url
-        return fetch(`http://it2810-15.idi.ntnu.no:3000/beverages/search${beverages}`)
-            .then(response => response.json())
-            .then(json => dispatch(receiveProducts(beverages, json)))
-    }
+    console.log("2")
+    requestProducts(beverages);
+    fetch(`http://it2810-15.idi.ntnu.no:3000/beverages/search?productType=Rødvin`)
+        .then(response => response.json())
+        .then(json => receiveProducts(beverages, json))
+
 }
     function receiveProducts(beverages, json) {
+    console.log(json);
         return {
             type: 'RECEIVE_PRODUCTS',
             beverages,
-            products: json.data.children.map(child => child.data)
+            products: json
         }
     }
 
