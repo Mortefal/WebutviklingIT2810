@@ -23,12 +23,67 @@ const styles = theme => ({
 /*const beer = "productType=Sider&productType=Lys ale&productType=Klosterstil&productType=India pale ale&productType=Brown ale&productType=Pale ale&productType=Spesial&productType=Hveteøl&productType=Surøl"
 */
 class FilterChips extends React.Component {
-    /*filterQuery: [
-        {key: 0, label: "Øl og sider"},
-    ],
-    filtrationArray: []*/
-    constructor(props) {
+    constructor(props){
         super(props);
+        this.state={
+            filterQuery:[
+            {key: 0, label: "Hvitvin"},
+            {key: 1, label: "Musserende vin"},
+            {key: 2, label: "Rødvin"},
+            {key: 3, label: "Rosévin"},
+            {key: 4, label: "Fruktvin"},
+            {key: 5, label: "Portvin"},
+            {key: 6, label: "Perlende vin, hvit"},
+            {key: 7, label: "Perlende vin, rød"},
+            {key: 8, label: "Perlende vin, rosé"},
+            {key: 9, label: "Sterkvin, annen"},
+            {key: 10, label: "Sherry"},
+            {key: 11, label: "Vermut"},
+            {key: 12, label: "Madeira"},
+            /* {key: 0, label: "Aromatisert vin"},
+            {key: 0, label: "Champagne, brut"},
+            {key: 0, label: "Musserende vin, rosé"},
+            {key: 0, label: "Champagne, rosé"},
+            {key: 0, label: "Champagne extra brut"},
+            {key: 0, label: "Champagne, annen"},
+            {key: 0, label: "Champagne, sec"},
+            {key: 0, label: "Whisky"},
+            {key: 0, label: "Akevitt"},
+            {key: 0, label: "Gin"},
+            {key: 0, label: "Druebrennevin"},*/
+            {key: 13, label: "Rom"},
+            {key: 14, label: "Bitter"},
+            {key: 15, label: "Fruktbrennevin"},
+            {key: 16, label: "Likør"},
+            {key: 17, label: "Vodka"},
+            /*{key: 0, label: "Brennevin, annet"},
+            {key: 0, label: "Brennevin, nøytralt<37.5%"},
+            {key: 0, label: "Genever"},*/
+            {key: 18, label: "Sake"},
+            {key: 19, label: "Sider"},
+            {key: 20, label: "Lys ale"},
+            {key: 21, label: "Klosterstil"},
+            /*{key: 0, label: "India pale ale"},
+            {key: 0, label: "Brown ale"},
+            {key: 0, label: "Pale ale"},
+            {key: 0, label: "Spesial"},*/
+            {key: 22, label: "Hveteøl"},
+            {key: 23, label: "Surøl"},
+            /*{key: 0, label: "Porter & Stout"},
+            {key: 0, label: "Saison farmhouse ale"},
+            {key: 0, label: "Mørk lager"},
+            {key: 0, label: "Barley wine"},
+            {key: 0, label: "Red/amber"},*/
+            {key: 24, label: "Scotch ale"},
+            {key: 25, label: "Alkoholfri vin"},
+            /*{key: 0, label: "Alkoholfri most"},
+            {key: 0, label: "Alkoholfri musserende drikk"},
+            {key: 0, label: "Alkoholfritt øl"},
+            {key: 0, label: "Alkoholfritt, øvrig"},
+            {key: 0, label: "Alkoholfri leskedrikk"},*/
+
+        ],
+        filterArray: []};
         this.handleDelete = this.handleDelete.bind(this);
     }
 
@@ -39,17 +94,22 @@ class FilterChips extends React.Component {
         }
     };*/
 
-    handleClick(e){
-        this.props.addFilter(e)
-    }
+    handleClick= e => () => {
+        this.props.addFilter(e);
+        if (!this.state.filterArray.includes(e)) {
+            if(this.state.filterArray){
+                const Data = this.state.filterArray;
+                const chipToDelete = Data.indexOf(0);
+                this.props.removeFilter(chipToDelete);
+            }
+            this.setState({filterArray: [e]});
+            //må fjerne den som ble lagt til før dette her.
+        }
+    };
 
     componentDidMount(){
-        const store = configureStore()
+        //const store = configureStore()
         //const {filterQuery, filtrationArray} = this.props
-        const filter = store.dispatch(fetchAllFilters());
-        console.log("taper")
-        console.log(filter)
-        console.log("taper") 
         //this.props.filterArray.append(/*filtere fra over*/)
     }
 
@@ -61,14 +121,23 @@ class FilterChips extends React.Component {
             this.setState({filtrationArray: [...chipData]});
         }
     };*/
-    handleDelete(e){
-        this.props.removeFilter(e)
-    }
+
+    handleDelete = (e) => () =>{
+        this.props.removeFilter(e);
+        if(this.state.filterArray.includes(e)){
+            const chipData = this.state.filterArray;
+            const chipToDelete = chipData.indexOf(e);
+            chipData.splice(chipToDelete, 1);
+            this.setState({filterArray: [...chipData]});
+        }
+    };
 
     render() {
-        const {classes, filterQuery, filterArray} = this.props;
+        //const filterQuery = ;
+        const {classes} = this.props;
 
-        /*let alternative = this.props.filterQuery.map(data => {
+
+        let alternative = this.state.filterQuery.map(data => {
             return (
                 <Chip
                     key={data.key}
@@ -78,9 +147,9 @@ class FilterChips extends React.Component {
                     clickable={true}
                 />
             )
-        });*/
+        });
 
-        let selected = this.props.filterArray.map(data => {
+        let selected = this.state.filterArray.map(data => {
             return (
                 <Chip
                     key={data.key}
@@ -88,14 +157,14 @@ class FilterChips extends React.Component {
                     className={classes.chip}
                     clickable={false}
                     color={"secondary"}
-                    onDelete={(e) => {this.props.removeFilter(e)}}
+                    onDelete={this.handleDelete(data)}
                 />)
         });
 
         return (
             <Paper className={classes.root}>
                 <Grid item container>
-                    {/*{alternative}*/}
+                    {alternative}
                 </Grid>
                 <Grid item container>
                     {selected}
